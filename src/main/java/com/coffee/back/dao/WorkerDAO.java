@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.coffee.back.dao;
 
 import com.coffee.back.commons.enums.UserType;
@@ -13,6 +8,6 @@ import com.coffee.back.commons.enums.UserType;
  */
 public interface WorkerDAO {
     
-    UserType getRoleNameById(Integer workerId);
+    UserType getRoleNameByWorkerId(Integer workerId);
     
 }

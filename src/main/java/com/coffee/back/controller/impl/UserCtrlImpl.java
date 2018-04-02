@@ -1,6 +1,7 @@
 package com.coffee.back.controller.impl;
 
 import com.coffee.back.commons.dto.UserDTO;
+import com.coffee.back.commons.exception.UserAunthenticationException;
 import com.coffee.back.controller.UserCtrl;
 import com.coffee.back.controller.parser.UserParser;
 import com.coffee.back.controller.vo.UserVO;
@@ -14,31 +15,31 @@ import java.util.logging.Logger;
  */
 public class UserCtrlImpl implements UserCtrl {
 
-    private static final Logger logger = Logger.getLogger(UserCtrlImpl.class.getName());
-
+    private static final Logger LOGGER = Logger.getLogger(UserCtrlImpl.class.getName());
     private UserService userService;
-
-    private UserParser userParse;
 
     @Override
     public void iniciarSesion(UserVO userVO) {
-        logger.log(Level.INFO, "CTRL: Método iniciarSesion se ha iniciado");
+        LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion se ha iniciado");
 
-        this.userParse = new UserParser();
-        UserDTO userDTO = this.userParse.parseToUserDTO(userVO);
-        
+        UserDTO userDTO = UserParser.parseToUserDTO(userVO);
+
         try {
-            logger.log(Level.INFO, "CTRL: Método iniciarSesion ha Finalizado");
-            logger.log(Level.INFO, "CTRL: Método iniciarSesion designando vista");
-            switch (this.userService.iniciarSesion(userDTO).getUserType()){
+            LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion designando vista");
+            switch (this.getUserService().iniciarSesion(userDTO).getUserType()) {
                 case ADMINISTRADOR:
-                        //Mostrar vista Administrador
+                    //Mostrar vista Administrador
                     break;
                 case CAJERO:
-                        //Mostrar vista Cajero
+                    //Mostrar vista Cajero
                     break;
                 case UKNOWN:
-                        //Mostrar Mensaje error
+                    //Mostrar Mensaje error
+                    try {
+                        throw new Exception("El usuario es desconocido, datos incorrectos");
+                    } catch (Exception ex) {
+
+                    }
                     break;
             }
             /**
@@ -46,15 +47,32 @@ public class UserCtrlImpl implements UserCtrl {
              * vistas y como lo vas a representar
              *
              */
-            
-        } catch (Exception ex) {
-            
+        } catch (UserAunthenticationException ex) {
             //Mandar mensaje de error de datos
             //mostra adventencias
         }
+        LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion ha Finalizado");
+    }
 
-        
+    @Override
+    public void cerrarSesion(UserVO userVO) {
+        LOGGER.log(Level.INFO, "CTRL : Se ha iniciado el método cerrarSesion");
+        UserDTO userDTO = UserParser.parseToUserDTO(userVO);
+        this.userService.cerrarSesion(userDTO);
+    }
 
+    /**
+     * @return the userService
+     */
+    public UserService getUserService() {
+        return userService;
+    }
+
+    /**
+     * @param userService the userService to set
+     */
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
 }

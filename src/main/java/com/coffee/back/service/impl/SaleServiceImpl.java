@@ -7,7 +7,7 @@ import com.coffee.back.service.SaleService;
  *
  * @author mont
  */
-public class SaleServiceImpl implements SaleService{
+public class SaleServiceImpl implements SaleService {
 
     private SaleDAO saleDAO;
 
@@ -15,5 +15,5 @@ public class SaleServiceImpl implements SaleService{
     public void imprimirTicket() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

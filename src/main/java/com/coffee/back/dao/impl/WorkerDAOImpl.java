@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
 
     @Override
-    public UserType getRoleNameById(Integer workerId) {
+    public UserType getRoleNameByWorkerId(Integer workerId) {
 
         UserType roleName = UserType.UKNOWN;
         PreparedStatement statement = null;
