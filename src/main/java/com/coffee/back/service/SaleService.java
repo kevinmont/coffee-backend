@@ -8,4 +8,5 @@ public interface SaleService {
     
     public void imprimirTicket();
     
+    
 }

@@ -26,7 +26,8 @@ public class UserCtrlImpl implements UserCtrl {
 
         try {
             LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion designando vista");
-            switch (this.getUserService().iniciarSesion(userDTO).getUserType()) {
+            UserDTO intendUserDTO = this.getUserService().iniciarSesion(userDTO);
+            switch (intendUserDTO.getUserType()) {
                 case ADMINISTRADOR:
                     //Mostrar vista Administrador
                     break;
@@ -38,7 +39,7 @@ public class UserCtrlImpl implements UserCtrl {
                     try {
                         throw new Exception("El usuario es desconocido, datos incorrectos");
                     } catch (Exception ex) {
-
+                        
                     }
                     break;
             }

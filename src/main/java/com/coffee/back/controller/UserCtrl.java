@@ -8,8 +8,16 @@ import com.coffee.back.controller.vo.UserVO;
  */
 public interface UserCtrl {
     
+    /**
+     * Indica el inicio de sesión.
+     * @param userVO estado del objeto que intenta iniciar sesion
+     */
     void iniciarSesion(UserVO userVO);
     
+    /**
+     * Indica el cierre de sesión. 
+     * @param userVO estado del objeto actual en el sistema.
+     */
     void cerrarSesion(UserVO userVO);
-       
+      
 }
