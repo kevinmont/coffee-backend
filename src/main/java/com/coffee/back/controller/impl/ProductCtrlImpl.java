@@ -5,6 +5,7 @@ import com.coffee.back.controller.ProductCtrl;
 import com.coffee.back.controller.parser.ProductParser;
 import com.coffee.back.controller.vo.ProductVO;
 import com.coffee.back.service.ProductService;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,7 +42,7 @@ public class ProductCtrlImpl implements ProductCtrl {
     }
 
      @Override
-    public void actualizarProducto(ProductVO productVO) {
+    public void modificarProducto(ProductVO productVO) {
         logger.log(Level.INFO, "ProductCtrl: Iniciando método actualizarProducto()");
         
         ProductDTO productDTO = ProductParser.parseToProductDTO(productVO);
@@ -49,6 +50,20 @@ public class ProductCtrlImpl implements ProductCtrl {
         // Desplegar en vista estatus de la operación
        
         logger.log(Level.INFO, "ProductCtrl: Finalizando método actualizarProducto()");
+    }
+    
+    public void conseguirProductos(){
+        logger.log(Level.INFO, "ProductCtrl: Iniciando método conseguirProducto()");
+        List<ProductDTO> products = this.productService.conseguirProductos();
+        // Se debe de desplegar los productos en vista
+        logger.log(Level.INFO, "ProductCtrl: Finalizando método conseguirProducto()");
+    }
+    
+    public void buscarProducto(Integer productId){
+        logger.log(Level.INFO, "ProductCtrl: Iniciando método buscarProducto()");
+        ProductDTO producto= this.productService.buscarProducto(productId);
+        // Se debe de desplegar el producto a vista
+        logger.log(Level.INFO, "ProductCtrl: Finalizando método buscarProducto()");
     }
     
     /**

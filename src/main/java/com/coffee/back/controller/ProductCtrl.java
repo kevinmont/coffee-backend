@@ -20,5 +20,5 @@ public interface ProductCtrl {
      */
     void bajaProducto(ProductVO productVO);
     
-    void actualizarProducto(ProductVO productVO);
+    void modificarProducto(ProductVO productVO);
 }

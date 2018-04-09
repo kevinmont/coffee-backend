@@ -1,6 +1,7 @@
 package com.coffee.back.service;
 
 import com.coffee.back.commons.dto.ProductDTO;
+import java.util.List;
 
 /**
  *
@@ -31,5 +32,9 @@ public interface ProductService {
      * de la operación
      */
     String actualizarProducto(ProductDTO productDTO);
+
+    public List<ProductDTO> conseguirProductos();
+
+    public ProductDTO buscarProducto(Integer productId);
     
 }

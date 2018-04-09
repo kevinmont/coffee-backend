@@ -3,6 +3,7 @@ package com.coffee.back.service.impl;
 import com.coffee.back.commons.dto.ProductDTO;
 import com.coffee.back.dao.ProductDAO;
 import com.coffee.back.service.ProductService;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,6 +39,21 @@ public class ProductServiceImpl implements ProductService {
         return status ? "Actualizado" + productDTO.getProductName() : "No actualizado "+ productDTO.getProductName();
     }
     
+    @Override
+    public List<ProductDTO> conseguirProductos() {
+        logger.log(Level.INFO, "ProductService: Iniciando método conseguirProductos()");
+        List<ProductDTO> products = this.productDAO.readAll();
+        logger.log(Level.INFO, "ProductService: Finalizando método conseguirProductos()");
+        return products;
+    }
+    
+    @Override
+    public ProductDTO buscarProducto(Integer productId) {
+        logger.log(Level.INFO, "ProductService: Iniciando método buscarProducto()");
+        ProductDTO product = this.productDAO.findById(productId);
+        logger.log(Level.INFO, "ProductService: Finalizando método buscarProducto()");
+        return product;
+    }
     /**
      * @return the productDAO
      */
