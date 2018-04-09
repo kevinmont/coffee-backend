@@ -16,6 +16,10 @@ public interface ProductDAO {
      */
     boolean create(ProductDTO productDTO);
     
+    /**
+     * Recupera los productos dados de alta en el sistema
+     * @return {@code List<ProductDTO>} contiene todos los productos existentes en el sistema
+     */
     List<ProductDTO> readAll();
     
     boolean update(ProductDTO productDTO);
@@ -28,6 +32,11 @@ public interface ProductDAO {
      */
     boolean delete(Integer productId);
     
+    /**
+     * Busca un producto unico
+     * @param productId identificador del producto a ser buscado
+     * @return {@code ProductDTO} que se encuentra registrado en el sistema
+     */
     ProductDTO findById(Integer productId);
     
 }

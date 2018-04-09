@@ -33,8 +33,17 @@ public interface ProductService {
      */
     String actualizarProducto(ProductDTO productDTO);
 
+    /**
+     * Recupera todos los productos registrados en el sistema
+     * @return {@code List<ProductDTO>} contiene todos los productos registrador en el sistema
+     */
     public List<ProductDTO> conseguirProductos();
 
+    /**
+     * Busca un producto registrado en el sistema
+     * @param productId Identificador unico del producto a ser buscado
+     * @return {@code ProductDTO} producto registrado en el sistema
+     */
     public ProductDTO buscarProducto(Integer productId);
     
 }

@@ -9,6 +9,11 @@ import com.coffee.back.controller.vo.ProductVO;
  */
 public class ProductParser {
     
+    /**
+     * Parsea un {@code ProductDTO} a un {@code ProductVO}
+     * @param productDTO Objeto a ser parseado
+     * @return {@code ProductVO} objeto parseado
+     */
     public static ProductVO parseToProductVO(ProductDTO productDTO){
         ProductVO parseProductVO = new ProductVO();
         parseProductVO.setProductId(productDTO.getProductId());
@@ -21,6 +26,11 @@ public class ProductParser {
         return parseProductVO;
     }
     
+    /**
+     * Parsea un {@code ProductVO} a un {@code ProductDTO}
+     * @param productVO Objeto a ser parseado
+     * @return {@code ProductDTO} objeto parseado
+     */
     public static ProductDTO parseToProductDTO(ProductVO productVO){
         ProductDTO parseProductDTO = new ProductDTO();
         parseProductDTO.setProductId(productVO.getProductId());

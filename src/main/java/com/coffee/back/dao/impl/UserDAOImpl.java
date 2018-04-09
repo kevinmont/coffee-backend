@@ -33,13 +33,15 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
                 userSet = statement.executeQuery();
 
                 User userRecover = new User();
-
-                userSet.next();
-                userRecover.setWorkerId(userSet.getInt("worker_id"));
-                userRecover.setNickName(userSet.getString("nick_name"));
-                userRecover.setKey(userSet.getString("key"));
-
-                return userRecover;
+                
+                if (userSet.next()) {
+                    logger.log(Level.INFO, "DAO: Llenando objeto User");
+                    userRecover.setWorkerId(userSet.getInt("worker_id"));
+                    userRecover.setNickName(userSet.getString("nick_name"));
+                    userRecover.setKey(userSet.getString("key"));
+                    logger.log(Level.INFO, "DAO: Llenado objeto User");
+                    return userRecover;
+                }
             } catch (SQLException ex) {
             } finally {
                 if (userSet != null && statement != null && connection != null) {

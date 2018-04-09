@@ -9,6 +9,12 @@ import com.coffee.back.dao.entity.User;
  */
 public interface UserDAO {
 
+    /**
+     * 
+     * @param user identificador unico del usuario a ser buscado 
+     * @return {@Code User} que se encuentra registrado en el sistema 
+     * @throws BadRequest si el usuario no existe o campos incompletos
+     */
     User getUserByNickName(String user) throws BadRequest;
 
 }

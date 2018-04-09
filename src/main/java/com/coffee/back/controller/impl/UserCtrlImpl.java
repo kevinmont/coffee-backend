@@ -26,7 +26,7 @@ public class UserCtrlImpl implements UserCtrl {
 
         try {
             LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion designando vista");
-            UserDTO intendUserDTO = this.getUserService().iniciarSesion(userDTO);
+            UserDTO intendUserDTO = this.userService.iniciarSesion(userDTO);
             switch (intendUserDTO.getUserType()) {
                 case ADMINISTRADOR:
                     //Mostrar vista Administrador

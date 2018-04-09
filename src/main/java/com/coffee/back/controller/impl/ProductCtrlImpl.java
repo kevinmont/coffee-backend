@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class ProductCtrlImpl implements ProductCtrl {
 
     private static final Logger logger = Logger.getLogger(ProductCtrlImpl.class.getName());
-    private ProductService productService;
+    private ProductService productService; // Dependencia de los servicios
 
     @Override
     public void altaProducto(ProductVO productVO) {
@@ -52,6 +52,7 @@ public class ProductCtrlImpl implements ProductCtrl {
         logger.log(Level.INFO, "ProductCtrl: Finalizando método actualizarProducto()");
     }
     
+    @Override
     public void conseguirProductos(){
         logger.log(Level.INFO, "ProductCtrl: Iniciando método conseguirProducto()");
         List<ProductDTO> products = this.productService.conseguirProductos();
@@ -59,6 +60,7 @@ public class ProductCtrlImpl implements ProductCtrl {
         logger.log(Level.INFO, "ProductCtrl: Finalizando método conseguirProducto()");
     }
     
+    @Override
     public void buscarProducto(Integer productId){
         logger.log(Level.INFO, "ProductCtrl: Iniciando método buscarProducto()");
         ProductDTO producto= this.productService.buscarProducto(productId);

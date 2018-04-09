@@ -7,7 +7,7 @@ package com.coffee.back.commons.exception;
 public class UserAunthenticationException extends Exception{
 
     public UserAunthenticationException() {
-        
+        super();
     }
     public UserAunthenticationException(String error){
         super(error);
