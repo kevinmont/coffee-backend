@@ -8,6 +8,21 @@ import com.coffee.back.commons.dto.ProductDTO;
  */
 public interface ProductService {
     
-    public boolean altaProducto(ProductDTO productDTO);
+    /**
+     * Ingresa un nuevo producto al sistema
+     * @param productDTO indica el nuevo producto ha ser dado de alta en el sistema
+     * @return {@code String} en el formato Nombre del producto concatenado con el estatus
+     * de la operación
+     */
+    String altaProducto(ProductDTO productDTO);
+    
+    /**
+     * Elimina un producto existente en el sistema
+     * @param productoDTO indica el producto ha ser eliminado
+     * @return {@code String} en el formato Nombre del producto concatenado con el estatus
+     * de la operación
+     */
+    String bajaProducto(ProductDTO productoDTO);
+    
     
 }
