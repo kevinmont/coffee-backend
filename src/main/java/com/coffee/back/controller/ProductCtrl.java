@@ -19,4 +19,6 @@ public interface ProductCtrl {
      * @param productVO indica el producto a ser eliminado
      */
     void bajaProducto(ProductVO productVO);
+    
+    void actualizarProducto(ProductVO productVO);
 }

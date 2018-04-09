@@ -24,5 +24,12 @@ public interface ProductService {
      */
     String bajaProducto(ProductDTO productoDTO);
     
+    /**
+     * Actualiza un producto existente en el sistema
+     * @param productDTO indica el objeto con las actualizaciones
+     * @return {@code String} en el formato Nombre del producto concatenado con el estatus
+     * de la operación
+     */
+    String actualizarProducto(ProductDTO productDTO);
     
 }

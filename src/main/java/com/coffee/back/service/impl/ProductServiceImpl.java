@@ -27,7 +27,15 @@ public class ProductServiceImpl implements ProductService {
         logger.log(Level.INFO, "ProductService: Iniciando método bajaProducto()");
         boolean status = this.productDAO.delete(productoDTO.getProductId());
         logger.log(Level.INFO, "ProductService: Fializando método bajaProducto()");
-        return status ? "Eliminado "+ productoDTO.getProductName() : productoDTO.getProductName();
+        return status ? "Eliminado "+ productoDTO.getProductName() : "No eliminado "+productoDTO.getProductName();
+    }
+    
+    @Override
+    public String actualizarProducto(ProductDTO productDTO) {
+        logger.log(Level.INFO, "ProductService: Iniciando método actualizarProducto()");
+        boolean status = this.productDAO.update(productDTO);
+        logger.log(Level.INFO, "ProductService: Finalizando método actualizarProducto()");
+        return status ? "Actualizado" + productDTO.getProductName() : "No actualizado "+ productDTO.getProductName();
     }
     
     /**

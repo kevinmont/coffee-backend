@@ -34,10 +34,35 @@ public class ProductCtrlImpl implements ProductCtrl {
         
         ProductDTO newProduct = ProductParser.parseToProductDTO(productVO);
         String statusOperation = this.productService.bajaProducto(newProduct);
-        // Deslplegar en vista estatus
+        // Desplegar en vista estatus
         
         logger.log(Level.INFO, "ProductCTRL: Finalizado método bajaProducto");
         
+    }
+
+     @Override
+    public void actualizarProducto(ProductVO productVO) {
+        logger.log(Level.INFO, "ProductCtrl: Iniciando método actualizarProducto()");
+        
+        ProductDTO productDTO = ProductParser.parseToProductDTO(productVO);
+        String statusOperation = this.productService.actualizarProducto(productDTO);
+        // Desplegar en vista estatus de la operación
+       
+        logger.log(Level.INFO, "ProductCtrl: Finalizando método actualizarProducto()");
+    }
+    
+    /**
+     * @return the productService
+     */
+    public ProductService getProductService() {
+        return productService;
+    }
+
+    /**
+     * @param productService the productService to set
+     */
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 
 }
