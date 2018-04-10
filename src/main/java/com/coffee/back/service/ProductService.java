@@ -4,7 +4,7 @@ import com.coffee.back.commons.dto.ProductDTO;
 import java.util.List;
 
 /**
- *
+ * Interface {@code ProductService} encargada de ejecutar la logica de negocio.
  * @author mont
  */
 public interface ProductService {

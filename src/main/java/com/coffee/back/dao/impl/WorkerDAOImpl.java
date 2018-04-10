@@ -8,7 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- *
+ * Clase {@code WorkerDAOImpl} encargada de implementar {@code WorkerDAO } 
+ * la cual establece solicitudes con el servidor
+ * de la base de datos de tipo CRUD
+ * @see WorkerDAO
  * @author mont
  */
 public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {

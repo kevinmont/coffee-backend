@@ -3,7 +3,8 @@ package com.coffee.back.controller;
 import com.coffee.back.controller.vo.ProductVO;
 
 /**
- *
+ * La clase {@code ProductCtrl} es encargada de recibir las peticiones lanzadas por el 
+ * usuario desde la vista, se encarga de manejar y ejecutar los servicos de un Producto
  * @author mont
  */
 public interface ProductCtrl {

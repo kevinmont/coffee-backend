@@ -12,7 +12,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Clase {@code ProductDAOImp} encargada de implementar {@code ProductDAO } 
+ * la cual establece solicitudes con el servidor
+ * de la base de datos de tipo CRUD
+ * @see ProductDAO
  * @author mont
  */
 public class ProductDAOImpl extends AbstractDAO implements ProductDAO {

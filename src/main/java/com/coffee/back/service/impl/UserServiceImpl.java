@@ -2,8 +2,8 @@ package com.coffee.back.service.impl;
 
 import com.coffee.back.commons.dto.UserDTO;
 import com.coffee.back.commons.enums.UserType;
-import com.coffee.back.commons.exception.BadRequest;
-import com.coffee.back.commons.exception.UserAunthenticationException;
+import com.coffee.back.commons.exception.BadRequestException;
+import com.coffee.back.commons.exception.UserAuthenticationException;
 import com.coffee.back.dao.UserDAO;
 import com.coffee.back.dao.WorkerDAO;
 import com.coffee.back.dao.entity.User;
@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Clase {@code ProductService} encargada de ejecutar la logica de negocio.
  * @author mont
  */
 public class UserServiceImpl implements UserService {
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private WorkerDAO workerDAO;
 
     @Override
-    public UserDTO iniciarSesion(UserDTO userDTO) throws UserAunthenticationException {
+    public UserDTO iniciarSesion(UserDTO userDTO) throws UserAuthenticationException {
         logger.log(Level.INFO, "Service: Método iniciarSesion se ha iniciado");
 
         if (userDTO == null) {
@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
         User user = null;
         try {
             user = this.getUserDAO().getUserByNickName(userDTO.getUserName());
-        } catch (BadRequest ex) {
-            throw new UserAunthenticationException("Usuario incorrecto, campos incorrectos");
+        } catch (BadRequestException ex) {
+            throw new UserAuthenticationException("Usuario incorrecto, campos incorrectos");
         }
 
         if (userDTO.getPassword().equals(user.getKey())) {
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
             userWorker.setUserType(workerRole);
             return userWorker;
         }
-        throw new UserAunthenticationException("El usuario " + user.getNickName() + " es incorrecto");
+        throw new UserAuthenticationException("El usuario " + user.getNickName() + " es incorrecto");
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
                 User userLogOut = this.userDAO.getUserByNickName(userDTO.getUserName());
                 UserType usertypeLogOut = this.workerDAO.getRoleNameByWorkerId(userLogOut.getWorkerId());
                 return usertypeLogOut == UserType.ADMINISTRADOR;
-            } catch (BadRequest ex) {
+            } catch (BadRequestException ex) {
             }
         }
         return userDTO.getUserType() == UserType.ADMINISTRADOR;

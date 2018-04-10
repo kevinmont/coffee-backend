@@ -1,6 +1,6 @@
 package com.coffee.back.dao.impl;
 
-import com.coffee.back.commons.exception.BadRequest;
+import com.coffee.back.commons.exception.BadRequestException;
 import com.coffee.back.dao.AbstractDAO;
 import com.coffee.back.dao.UserDAO;
 import com.coffee.back.dao.entity.User;
@@ -11,7 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Clase {@code UserDAOImpl} encargada de implementar {@code UserDAO } 
+ * la cual establece solicitudes con el servidor
+ * de la base de datos de tipo CRUD
+ * @see UserDAO
  * @author mont
  */
 public class UserDAOImpl extends AbstractDAO implements UserDAO {
@@ -19,7 +22,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     private static final Logger logger = Logger.getLogger(UserDAOImpl.class.getName());
 
     @Override
-    public User getUserByNickName(String user) throws BadRequest {
+    public User getUserByNickName(String user) throws BadRequestException {
         logger.log(Level.INFO, "DAO: Método getUserByNickName se ha iniciado");
         PreparedStatement statement = null;
         ResultSet userSet = null;
@@ -55,7 +58,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             }
         }
         logger.log(Level.INFO, "DAO: Método getUserByNickName user esta vacio ");
-        throw new BadRequest("Parametro user es nullo");
+        throw new BadRequestException("Parametro user es nullo");
     }
 
 }

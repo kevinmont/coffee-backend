@@ -1,112 +1,112 @@
 package com.coffee.back.commons.dto;
 
 /**
- *
+ * Clase que representa los datos de producto para la transferencia
  * @author mont
  */
 public class ProductDTO {
 
-    private Integer productId;
-    private String productName;
-    private Double priceTag;
-    private Short quantity;
-    private Boolean isFood;
-    private String image;
-    private Integer categoryId;
+    private Integer productId;  //Almacenara el id de un producto
+    private String productName; //Almacenara el nombre de un producto
+    private Double priceTag;    //Almacenara el precio de un producto
+    private Short quantity;     //Almacenara la cantidad de dicho producto
+    private Boolean isFood;     //Almacenara si el productos es comida o no
+    private String image;       //Almacenara la imagen del producto
+    private Integer categoryId; //Almacenara la categoria perteneciente al producto
     
     /**
-     * @return the productId
+     * @return el id de un producto
      */
     public Integer getProductId() {
         return productId;
     }
 
     /**
-     * @param productId the productId to set
+     * @param productId el id de un producto a modificar
      */
     public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
     /**
-     * @return the productName
+     * @return el nombre del producto
      */
     public String getProductName() {
         return productName;
     }
 
     /**
-     * @param productName the productName to set
+     * @param productName El nombre del producto a modificar
      */
     public void setProductName(String productName) {
         this.productName = productName;
     }
 
     /**
-     * @return the priceTag
+     * @return El precion de un producto
      */
     public Double getPriceTag() {
         return priceTag;
     }
 
     /**
-     * @param priceTag the priceTag to set
+     * @param priceTag El precio de un producto a modificar
      */
     public void setPriceTag(Double priceTag) {
         this.priceTag = priceTag;
     }
 
     /**
-     * @return the quantity
+     * @return la cantidad existente del producto
      */
     public Short getQuantity() {
         return quantity;
     }
 
     /**
-     * @param quantity the quantity to set
+     * @param quantity La cantidad de un producto a modificar
      */
     public void setQuantity(Short quantity) {
         this.quantity = quantity;
     }
 
     /**
-     * @return the isFood
+     * @return El producto si es comida
      */
     public Boolean getIsFood() {
         return isFood;
     }
 
     /**
-     * @param isFood the isFood to set
+     * @param isFood El producto si es comida a modificar
      */
     public void setIsFood(Boolean isFood) {
         this.isFood = isFood;
     }
 
     /**
-     * @return the image
+     * @return La imagen del producto
      */
     public String getImage() {
         return image;
     }
 
     /**
-     * @param image the image to set
+     * @param image La imagen del producto a modificar
      */
     public void setImage(String image) {
         this.image = image;
     }
 
     /**
-     * @return the categoryId
+     * @return La id de categoria perteneciente del producto
      */
     public Integer getCategoryId() {
         return categoryId;
     }
 
     /**
-     * @param categoryId the categoryId to set
+     * @param categoryId La id de categoria perteneciente del producot a modificar
      */
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;

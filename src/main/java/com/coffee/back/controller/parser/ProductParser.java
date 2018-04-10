@@ -4,7 +4,7 @@ import com.coffee.back.commons.dto.ProductDTO;
 import com.coffee.back.controller.vo.ProductVO;
 
 /**
- *
+ * Clase de utilidad 
  * @author mont
  */
 public class ProductParser {

@@ -4,7 +4,8 @@ import com.coffee.back.commons.dto.ProductDTO;
 import java.util.List;
 
 /**
- *
+ * Interface {@code ProductDAO} encargada de establecer solicitudes con el servidor
+ * de la base de datos de tipo CRUD.
  * @author mont
  */
 public interface ProductDAO {

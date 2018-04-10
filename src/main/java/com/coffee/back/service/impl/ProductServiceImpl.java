@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Clase {@code ProductService} encargada de ejecutar la logica de negocio.
  * @author mont
  */
 public class ProductServiceImpl implements ProductService {

@@ -1,7 +1,7 @@
 package com.coffee.back.controller.impl;
 
 import com.coffee.back.commons.dto.UserDTO;
-import com.coffee.back.commons.exception.UserAunthenticationException;
+import com.coffee.back.commons.exception.UserAuthenticationException;
 import com.coffee.back.controller.UserCtrl;
 import com.coffee.back.controller.parser.UserParser;
 import com.coffee.back.controller.vo.UserVO;
@@ -48,7 +48,7 @@ public class UserCtrlImpl implements UserCtrl {
              * vistas y como lo vas a representar
              *
              */
-        } catch (UserAunthenticationException ex) {
+        } catch (UserAuthenticationException ex) {
             //Mandar mensaje de error de datos
             //mostra adventencias
         }

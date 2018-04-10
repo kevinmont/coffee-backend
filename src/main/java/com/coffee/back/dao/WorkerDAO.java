@@ -3,7 +3,8 @@ package com.coffee.back.dao;
 import com.coffee.back.commons.enums.UserType;
 
 /**
- *
+ * Interfaz {@code WorkerDAO} encargada de establecer solicitudes con el servidor
+ * de la base de datos de tipo CRUD
  * @author mont
  */
 public interface WorkerDAO {

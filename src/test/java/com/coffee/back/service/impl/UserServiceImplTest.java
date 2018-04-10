@@ -2,8 +2,8 @@ package com.coffee.back.service.impl;
 
 import com.coffee.back.commons.dto.UserDTO;
 import com.coffee.back.commons.enums.UserType;
-import com.coffee.back.commons.exception.BadRequest;
-import com.coffee.back.commons.exception.UserAunthenticationException;
+import com.coffee.back.commons.exception.BadRequestException;
+import com.coffee.back.commons.exception.UserAuthenticationException;
 import com.coffee.back.controller.impl.UserCtrlImpl;
 import com.coffee.back.dao.entity.User;
 import com.coffee.back.dao.impl.UserDAOImpl;
@@ -30,8 +30,8 @@ public class UserServiceImplTest {
         this.userServiceImpl.setWorkerDAO(new WorkerDAOImpl());
     }
 
-    @Test(expected = UserAunthenticationException.class)
-    public void iniciarSesionTest() throws UserAunthenticationException{
+    @Test(expected = UserAuthenticationException.class)
+    public void iniciarSesionTest() throws UserAuthenticationException{
         UserDTO userVO = new UserDTO();
         userVO.setUserName("ARE@EMP");
         userVO.setPassword("1235");
@@ -41,14 +41,14 @@ public class UserServiceImplTest {
                   
     }
 
-    @Test(expected = BadRequest.class)
-    public void probarc() throws BadRequest {
+    @Test(expected = BadRequestException.class)
+    public void probarc() throws BadRequestException {
 
         try {
             UserDAOImpl user = new UserDAOImpl();
 
             User u = user.getUserByNickName("ARE@EM");
-        } catch (BadRequest ex) {
+        } catch (BadRequestException ex) {
             throw ex;
         }
 
