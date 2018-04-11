@@ -1,7 +1,6 @@
 package com.coffee.back.service;
 
-import com.coffee.back.commons.dto.ProductDTO;
-import java.util.List;
+import com.coffee.back.commons.dto.SaleDTO;
 
 /**
  * Interface {@code SaleService} encargada de ejecutar la logica de negocio.
@@ -14,7 +13,7 @@ public interface SaleService {
     
     /**
      * Realiza una venta
-     * @param products Indica los productos a ser vendidos
+     * @param sale Indica la venta
      */
-     void realizarVenta(List<ProductDTO> products);
+     int realizarVenta(SaleDTO sale);
 }

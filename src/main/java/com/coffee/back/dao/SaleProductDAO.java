@@ -3,16 +3,16 @@ package com.coffee.back.dao;
 import com.coffee.back.commons.dto.SaleDTO;
 
 /**
- * Interface {@code SaleDAO} encargada de establecer solicitudes con el servidor
+ * Interfaz {@code SaleProductDAO} encargada de establecer solicitudes con el servidor
  * de la base de datos de tipo CRUD
  * @author mont
  */
-public interface SaleDAO {
-    
+public interface SaleProductDAO {
+ 
     /**
      * Creación de los productos en el sistema
-     * @param saleDTO Indica la venta
+     * @param products productos a ser creado en el sistema
      * @return {@code Integer} Numero de productos dados de alta
      */
-    int create(SaleDTO saleDTO);
+    int create(SaleDTO products);
 }

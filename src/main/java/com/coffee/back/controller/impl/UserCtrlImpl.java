@@ -10,7 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * La clase {@code UserCtrlImpl} es encargada de recibir las peticiones lanzadas por el 
+ * usuario desde la vista, se encarga de manejar y ejecutar los servicos de un Usuario
  * @author mont
  */
 public class UserCtrlImpl implements UserCtrl {
