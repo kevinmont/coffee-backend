@@ -64,14 +64,14 @@ public class UserCtrlImpl implements UserCtrl {
     }
 
     /**
-     * @return the userService
+     * @return {@code UserService} dependencia del servicio
      */
     public UserService getUserService() {
         return userService;
     }
 
     /**
-     * @param userService the userService to set
+     * @param userService El servicio a ser modificado
      */
     public void setUserService(UserService userService) {
         this.userService = userService;

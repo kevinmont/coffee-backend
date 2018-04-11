@@ -1,6 +1,6 @@
 package com.coffee.back.controller;
 
-import com.coffee.back.commons.dto.SaleDTO;
+import com.coffee.back.controller.vo.SaleVO;
 
 /**
  * La interfaz {@code SaleCtrl} es encargada de recibir las peticiones lanzadas por el 
@@ -12,5 +12,5 @@ public interface SaleCtrl {
      * Finaliza una venta y da de alta en el sistema
      * @param sale Indica el objeto con los campos de una venta
      */
-    void realizarVenta(SaleDTO sale);
+    void realizarVenta(SaleVO sale);
 }

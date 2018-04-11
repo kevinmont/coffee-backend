@@ -14,10 +14,10 @@ public class SaleDTO {
     private Integer saleId;     // Almacena el id de una venta
     private Date dateSale;      // Almacena la fecha de venta
     private Double amount;      // Almacena la cantidad total de la venta
-    private final List<SaleProduct> saleProduct;  // Almacena el modelo de los productos vendidos
+    private List<SaleProduct> saleProduct;  // Almacena el modelo de los productos vendidos
 
     public SaleDTO() {
-        this.saleProduct = new ArrayList<>(); // Inicialiazacion del modelo sale producto
+        
     }
     
     /**
@@ -77,10 +77,17 @@ public class SaleDTO {
     }
 
     /**
-     * @return El modelo de venta producto
+     * @return La lista de productos vendidos
      */
     public List<SaleProduct> getSaleProduct() {
         return saleProduct;
+    }
+
+    /**
+     * @param saleProduct La lista de productos vendidos a modificar
+     */
+    public void setSaleProduct(List<SaleProduct> saleProduct) {
+        this.saleProduct = saleProduct;
     }
 
     public class SaleProduct {

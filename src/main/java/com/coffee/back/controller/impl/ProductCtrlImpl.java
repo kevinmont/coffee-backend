@@ -70,14 +70,14 @@ public class ProductCtrlImpl implements ProductCtrl {
     }
     
     /**
-     * @return the productService
+     * @return {@code ProductService} dependecia del servicio
      */
     public ProductService getProductService() {
         return productService;
     }
 
     /**
-     * @param productService the productService to set
+     * @param productService El servicio a ser modificado
      */
     public void setProductService(ProductService productService) {
         this.productService = productService;
