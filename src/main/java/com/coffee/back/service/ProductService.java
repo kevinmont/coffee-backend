@@ -19,11 +19,11 @@ public interface ProductService {
     
     /**
      * Elimina un producto existente en el sistema
-     * @param productoDTO indica el producto ha ser eliminado
+     * @param producto indica el producto ha ser eliminado
      * @return {@code String} en el formato Nombre del producto concatenado con el estatus
      * de la operación
      */
-    String bajaProducto(ProductDTO productoDTO);
+    String bajaProducto(String product);
     
     /**
      * Actualiza un producto existente en el sistema
@@ -37,13 +37,13 @@ public interface ProductService {
      * Recupera todos los productos registrados en el sistema
      * @return {@code List<ProductDTO>} contiene todos los productos registrador en el sistema
      */
-    public List<ProductDTO> conseguirProductos();
+    List<ProductDTO> conseguirProductos();
 
     /**
      * Busca un producto registrado en el sistema
-     * @param productId Identificador unico del producto a ser buscado
+     * @param productName Nombre del producto a ser buscado
      * @return {@code ProductDTO} producto registrado en el sistema
      */
-    public ProductDTO buscarProducto(Integer productId);
+    ProductDTO buscarProducto(String productName);
     
 }

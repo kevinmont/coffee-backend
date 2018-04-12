@@ -1,6 +1,7 @@
 package com.coffee.back.service.impl;
 
 import com.coffee.back.commons.dto.ProductDTO;
+import com.coffee.back.dao.CategoryDAO;
 import com.coffee.back.dao.ProductDAO;
 import com.coffee.back.service.ProductService;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 public class ProductServiceImpl implements ProductService {
     private static final Logger logger = Logger.getLogger(ProductServiceImpl.class.getName());
     private ProductDAO productDAO;
+    private CategoryDAO categoryDAO;
     
     @Override
     public String altaProducto(ProductDTO productDTO) {
@@ -24,16 +26,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String bajaProducto(ProductDTO productoDTO) {    
+    public String bajaProducto(String product) {    
         logger.log(Level.INFO, "ProductService: Iniciando método bajaProducto()");
-        boolean status = this.productDAO.delete(productoDTO.getProductId());
-        logger.log(Level.INFO, "ProductService: Fializando método bajaProducto()");
-        return status ? "Eliminado "+ productoDTO.getProductName() : "No eliminado "+productoDTO.getProductName();
+        ProductDTO productDTO = productDAO.findProductByName(product);
+        boolean status= false;
+        if(productDTO != null){
+            status = this.productDAO.delete(productDTO.getProductId());
+            logger.log(Level.INFO, "ProductService: Fializando método bajaProducto()");
+        }
+        return status ? "Eliminado "+ product : "No eliminado "+ product;
     }
     
     @Override
     public String actualizarProducto(ProductDTO productDTO) {
         logger.log(Level.INFO, "ProductService: Iniciando método actualizarProducto()");
+        productDTO.setCategoryId(this.categoryDAO.getCategoryByName(productDTO.getProductName()).getCategoryId());
+        productDTO.setProductId(productDAO.findProductByName(productDTO.getProductName()).getProductId());
         boolean status = this.productDAO.update(productDTO);
         logger.log(Level.INFO, "ProductService: Finalizando método actualizarProducto()");
         return status ? "Actualizado" + productDTO.getProductName() : "No actualizado "+ productDTO.getProductName();
@@ -46,14 +54,15 @@ public class ProductServiceImpl implements ProductService {
         logger.log(Level.INFO, "ProductService: Finalizando método conseguirProductos()");
         return products;
     }
-    
+       
     @Override
-    public ProductDTO buscarProducto(Integer productId) {
+    public ProductDTO buscarProducto(String productName) {
         logger.log(Level.INFO, "ProductService: Iniciando método buscarProducto()");
-        ProductDTO product = this.productDAO.findById(productId);
+        ProductDTO product = this.productDAO.findProductByName(productName);
         logger.log(Level.INFO, "ProductService: Finalizando método buscarProducto()");
         return product;
     }
+    
     /**
      * @return the productDAO
      */
@@ -66,6 +75,20 @@ public class ProductServiceImpl implements ProductService {
      */
     public void setProductDAO(ProductDAO productDAO) {
         this.productDAO = productDAO;
+    }
+
+    /**
+     * @return the categoryDAO
+     */
+    public CategoryDAO getCategoryDAO() {
+        return categoryDAO;
+    }
+
+    /**
+     * @param categoryDAO the categoryDAO to set
+     */
+    public void setCategoryDAO(CategoryDAO categoryDAO) {
+        this.categoryDAO = categoryDAO;
     }
 
 }

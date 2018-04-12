@@ -35,9 +35,9 @@ public interface ProductDAO {
     
     /**
      * Busca un producto unico
-     * @param productId identificador del producto a ser buscado
+     * @param productName identificador del producto a ser buscado
      * @return {@code ProductDTO} que se encuentra registrado en el sistema
      */
-    ProductDTO findById(Integer productId);
-    
+    ProductDTO findProductByName(String productName);
+
 }

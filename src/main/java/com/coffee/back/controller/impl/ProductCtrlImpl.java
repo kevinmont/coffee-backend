@@ -4,6 +4,7 @@ import com.coffee.back.commons.dto.ProductDTO;
 import com.coffee.back.controller.ProductCtrl;
 import com.coffee.back.controller.parser.ProductParser;
 import com.coffee.back.controller.vo.ProductVO;
+import com.coffee.back.service.CategoryService;
 import com.coffee.back.service.ProductService;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,24 +19,25 @@ public class ProductCtrlImpl implements ProductCtrl {
 
     private static final Logger logger = Logger.getLogger(ProductCtrlImpl.class.getName());
     private ProductService productService; // Dependencia de los servicios
-
+    private CategoryService categoryService;
+    
     @Override
     public void altaProducto(ProductVO productVO) {
         logger.log(Level.INFO, "ProductCTRL: Iniciando método altaProducto");
 
         ProductDTO newProduct = ProductParser.parseToProductDTO(productVO);
+        newProduct.setCategoryId(this.categoryService.getCategory(productVO.getCategoryName()).getCategoryId());
         String statusOperation = this.productService.altaProducto(newProduct); // Contiene el estatus de la operacion
         // Desplegar en vista mensaje
-
+        
         logger.log(Level.INFO, "ProductCTRL: Finalizado método altaProducto");
     }
 
     @Override
-    public void bajaProducto(ProductVO productVO) {
+    public void bajaProducto(String productName) {
         logger.log(Level.INFO, "ProductCTRL: Iniciado método bajaProducto");
         
-        ProductDTO newProduct = ProductParser.parseToProductDTO(productVO);
-        String statusOperation = this.productService.bajaProducto(newProduct);
+        String statusOperation = this.productService.bajaProducto(productName);
         // Desplegar en vista estatus
         
         logger.log(Level.INFO, "ProductCTRL: Finalizado método bajaProducto");
@@ -62,9 +64,9 @@ public class ProductCtrlImpl implements ProductCtrl {
     }
     
     @Override
-    public void buscarProducto(Integer productId){
+    public void buscarProducto(String productName){
         logger.log(Level.INFO, "ProductCtrl: Iniciando método buscarProducto()");
-        ProductDTO producto= this.productService.buscarProducto(productId);
+        ProductDTO producto= this.productService.buscarProducto(productName);
         // Se debe de desplegar el producto a vista
         logger.log(Level.INFO, "ProductCtrl: Finalizando método buscarProducto()");
     }
@@ -81,6 +83,20 @@ public class ProductCtrlImpl implements ProductCtrl {
      */
     public void setProductService(ProductService productService) {
         this.productService = productService;
+    }
+
+    /**
+     * @return the categoryService
+     */
+    public CategoryService getCategoryService() {
+        return categoryService;
+    }
+
+    /**
+     * @param categoryService the categoryService to set
+     */
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
 }

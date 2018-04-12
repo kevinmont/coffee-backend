@@ -30,13 +30,11 @@ public class ProductServiceImplTest {
     @Test    
     public void altaProductoTest(){
         ProductVO test = new ProductVO();
-        test.setProductId(20);
         test.setProductName("prueba");
         test.setPriceTag(32.3);
-        test.setIsFood(false);
         test.setQuantity((short)4);
         test.setImage("ninguno");
-        test.setCategoryId(1);
+        test.setCategoryName("comida");
         
         this.productCtrlImpl.altaProducto(test);
     }

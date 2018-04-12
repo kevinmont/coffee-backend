@@ -10,7 +10,6 @@ public class ProductDTO {
     private String productName; //Almacenara el nombre de un producto
     private Double priceTag;    //Almacenara el precio de un producto
     private Short quantity;     //Almacenara la cantidad de dicho producto
-    private Boolean isFood;     //Almacenara si el productos es comida o no
     private String image;       //Almacenara la imagen del producto
     private Integer categoryId; //Almacenara la categoria perteneciente al producto
     
@@ -73,16 +72,6 @@ public class ProductDTO {
     /**
      * @return El producto si es comida
      */
-    public Boolean getIsFood() {
-        return isFood;
-    }
-
-    /**
-     * @param isFood El producto si es comida a modificar
-     */
-    public void setIsFood(Boolean isFood) {
-        this.isFood = isFood;
-    }
 
     /**
      * @return La imagen del producto

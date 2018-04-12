@@ -6,28 +6,12 @@ package com.coffee.back.controller.vo;
  */
 public class ProductVO {
 
-    private Integer productId;  //Almacenara el id de un producto
     private String productName; //Almacenara el nombre de un producto
     private Double priceTag;    //Almacenara el precio de un producto
     private Short quantity;     //Almacenara la cantidad de dicho producto
-    private Boolean isFood;     //Almacenara si el productos es comida o no
     private String image;       //Almacenara la imagen del producto
-    private Integer categoryId; //Almacenara la categoria perteneciente al producto
+    private String categoryName; //Almacenara la categoria perteneciente al producto
     
-    /**
-     * @return el id de un producto
-     */
-    public Integer getProductId() {
-        return productId;
-    }
-
-    /**
-     * @param productId el id de un producto a modificar
-     */
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
     /**
      * @return el nombre del producto
      */
@@ -71,20 +55,6 @@ public class ProductVO {
     }
 
     /**
-     * @return El producto si es comida
-     */
-    public Boolean getIsFood() {
-        return isFood;
-    }
-
-    /**
-     * @param isFood El producto si es comida a modificar
-     */
-    public void setIsFood(Boolean isFood) {
-        this.isFood = isFood;
-    }
-
-    /**
      * @return La imagen del producto
      */
     public String getImage() {
@@ -101,15 +71,15 @@ public class ProductVO {
     /**
      * @return La id de categoria perteneciente del producto
      */
-    public Integer getCategoryId() {
-        return categoryId;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     /**
-     * @param categoryId La id de categoria perteneciente del producot a modificar
+     * @param categoryName La id de categoria perteneciente del producot a modificar
      */
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
     
 }

@@ -27,21 +27,21 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
         LOGGER.log(Level.INFO, "ProductDAO: Inicializado Insert");
 
         PreparedStatement preparedStatement = null;
+        boolean rowsAffected = false;
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement("insert into product "
-                    + "(product_id, product_name, price_tag, quantity, is_food, image, category_id) "
-                    + "values (?, ?, ?, ? ,? ,? ,?)");
-            preparedStatement.setInt(1, productDTO.getProductId());
-            preparedStatement.setString(2, productDTO.getProductName());
-            preparedStatement.setDouble(3, productDTO.getPriceTag());
-            preparedStatement.setShort(4, productDTO.getQuantity());
-            preparedStatement.setBoolean(5, productDTO.getIsFood());
-            preparedStatement.setString(6, productDTO.getImage());
-            preparedStatement.setInt(7, productDTO.getCategoryId());
-
+                    + "(product_name, price_tag, quantity, image, category_id)"
+                    + "values (?, ? ,? ,? ,?)");
+            preparedStatement.setString(1, productDTO.getProductName());
+            preparedStatement.setDouble(2, productDTO.getPriceTag());
+            preparedStatement.setShort(3, productDTO.getQuantity());
+            preparedStatement.setString(4, productDTO.getImage());
+            preparedStatement.setInt(5, productDTO.getCategoryId());
             LOGGER.log(Level.INFO, "ProductDAO: Finalizado Insert");
-            return preparedStatement.executeUpdate() > 1;
+            rowsAffected = preparedStatement.executeUpdate() > 0;
+            preparedStatement.close();
+            connection.close();
         } catch (SQLException ex) {
         } finally {
             if (preparedStatement != null) {
@@ -54,7 +54,7 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
             closeConnection();
         }
         LOGGER.log(Level.INFO, "ProductDAO: Finalizado Insert, estado: false");
-        return false;
+        return rowsAffected;
     }
 
     @Override
@@ -75,18 +75,25 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
                 temp.setProductName(result.getString("product_name"));
                 temp.setPriceTag(result.getDouble("price_tag"));
                 temp.setQuantity(result.getShort("quantity"));
-                temp.setIsFood(result.getBoolean("is_food"));
                 temp.setImage(result.getString("image"));
                 temp.setCategoryId(result.getInt("category_id"));
 
                 productDTOs.add(temp);
             }
+            result.close();
+            preparedStatement.close();
+            connection.close();
         } catch (SQLException ex) {
 
         } finally {
-            if (preparedStatement != null && result != null) {
+            if (result != null) {
                 try {
                     result.close();
+                } catch (SQLException ex) {
+                }
+            }
+            if(preparedStatement != null){
+                try {
                     preparedStatement.close();
                 } catch (SQLException ex) {
                 }
@@ -106,20 +113,20 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement("UPDATE product SET"
-                    + " product_id = ?, product_name = ?,"
-                    + " price_tag = ?, quantity = ?, is_food = ?,"
+                    + " product_name = ?,"
+                    + " price_tag = ?, quantity = ?,"
                     + " image = ?, category_id = ?"
-                    + " WHERE product_id = " + productDTO.getProductId());
+                    + " WHERE product_id = " + productDTO.getProductId()); // problema con productId
 
-            preparedStatement.setInt(1, productDTO.getProductId());
-            preparedStatement.setString(2, productDTO.getProductName());
-            preparedStatement.setDouble(3, productDTO.getPriceTag());
-            preparedStatement.setShort(4, productDTO.getQuantity());
-            preparedStatement.setBoolean(5, productDTO.getIsFood());
-            preparedStatement.setString(6, productDTO.getImage());
-            preparedStatement.setInt(7, productDTO.getCategoryId());
+            preparedStatement.setString(1, productDTO.getProductName());
+            preparedStatement.setDouble(2, productDTO.getPriceTag());
+            preparedStatement.setShort(3, productDTO.getQuantity());
+            preparedStatement.setString(4, productDTO.getImage());
+            preparedStatement.setInt(5, productDTO.getCategoryId());
 
             rowsAffected = preparedStatement.executeUpdate() > 0;
+            preparedStatement.close();
+            connection.close();
         } catch (SQLException ex) {
 
         } finally {
@@ -147,7 +154,8 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
                     + "DELETE FROM product where product_id = ?");
             preparedStatement.setInt(1, productId);
             rowsAffected = preparedStatement.executeUpdate() > 0;
-
+            preparedStatement.close();
+            connection.close();
         } catch (SQLException ex) {
 
         } finally {
@@ -164,8 +172,8 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
     }
 
     @Override
-    public ProductDTO findById(Integer productId) {
-        LOGGER.log(Level.INFO, "ProductDAO: Iniciando método findById()");
+    public ProductDTO findProductByName(String productName) {
+        LOGGER.log(Level.INFO, "ProductDAO: Iniciando método findProductByName()");
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         ProductDTO product = null;
@@ -173,8 +181,8 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM product where"
-                    + "product_id=?");
-            preparedStatement.setInt(1, productId);
+                    + "product_name = ?");
+            preparedStatement.setString(1, productName);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 LOGGER.log(Level.INFO, "ProductDAO: Llenando Objeto ProductDTO");
@@ -183,23 +191,30 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
                 product.setProductName(resultSet.getString("product_name"));
                 product.setPriceTag(resultSet.getDouble("price_tag"));
                 product.setQuantity(resultSet.getShort(resultSet.getShort("quantity")));
-                product.setIsFood(resultSet.getBoolean("is_food"));
                 product.setImage(resultSet.getString("image"));
                 product.setCategoryId(resultSet.getInt("category_id"));
                 LOGGER.log(Level.INFO, "ProductDAO: Llenado completo ProductDTO");
             }
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
         } catch (SQLException ex) {
         }finally {
-            if (preparedStatement != null && resultSet != null) {
+            if (preparedStatement != null) {
+                try {                    
+                    preparedStatement.close();
+                } catch (SQLException ex) {
+                }
+            }
+            if(resultSet != null){
                 try {
                     resultSet.close();
-                    preparedStatement.close();
                 } catch (SQLException ex) {
                 }
             }
             closeConnection();
         }
-        LOGGER.log(Level.INFO, "ProductDAO: Finalizando método findById()");
+        LOGGER.log(Level.INFO, "ProductDAO: Finalizando método findProductByName()");
         return product;
     }
 

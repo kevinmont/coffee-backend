@@ -17,9 +17,9 @@ public interface ProductCtrl {
     
     /**
      * Eliminar un producto existe dentro sistema
-     * @param productVO indica el producto a ser eliminado
+     * @param productName indica el nombre del producto a ser eliminado
      */
-    void bajaProducto(ProductVO productVO);
+    void bajaProducto(String productName);
     
     /**
      * Actualiza un producto existente en el sistema
@@ -34,7 +34,7 @@ public interface ProductCtrl {
     
     /**
      * Recupera un producto en especifico registrado en el sistema
-     * @param productId Identificador unico para un producto a ser buscado
+     * @param productName Nombre para un producto a ser buscado
      */
-    void buscarProducto(Integer productId);
+    void buscarProducto(String productName);
 }
