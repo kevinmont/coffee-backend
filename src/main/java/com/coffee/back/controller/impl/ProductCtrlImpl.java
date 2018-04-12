@@ -29,7 +29,7 @@ public class ProductCtrlImpl implements ProductCtrl {
         logger.log(Level.INFO, "ProductCTRL: Finalizado método altaProducto");
     }
 
-    @Override
+	@Override
     public void bajaProducto(ProductVO productVO) {
         logger.log(Level.INFO, "ProductCTRL: Iniciado método bajaProducto");
         

@@ -20,10 +20,15 @@ public interface UserService {
      */
     boolean cerrarSesion(UserDTO userDTO);
 
-    void altaUsuario();
+    String altaUsuario(UserDTO userDTO);
+    
+    /**
+     * Elimina a un usuario existente en el sistema
+     * @param nickName Identifica a un usuario capaz de iniciar sesion
+     * @return {@code String} Indica el estatus de la operación
+     */
+    String bajaUsuario(String nickName);
 
-    void bajaUsuario();
-
-    void modificarUsuario();
+    String modificarUsuario(UserDTO userDTO);
 
 }

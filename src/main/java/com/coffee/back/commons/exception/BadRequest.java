@@ -4,6 +4,7 @@ package com.coffee.back.commons.exception;
  *
  * @author mont
  */
+@SuppressWarnings("serial")
 public class BadRequest extends Exception{
 
     public BadRequest() {

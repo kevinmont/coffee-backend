@@ -10,7 +10,8 @@ public class UserDTO {
 
     private String userName;
     private String password;
-    private UserType userType;
+    private Integer workerId;
+	private UserType userType;
     
     /**
      * @return the userName
@@ -39,7 +40,22 @@ public class UserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    /**
+     * Recupera el id trabajador del usuario
+     * @return {@code Integer} Id de trabajdor del usuario
+     */
+    public Integer getWorkerId() {
+		return workerId;
+	}
+    
+    /**
+     * Modifica el id trabajador del usuario
+     * @param workerId El id trabajador de un usuario
+     */
+	public void setWorkerId(Integer workerId) {
+		this.workerId = workerId;
+	}
+	
     /**
      * @return the userType
      */
