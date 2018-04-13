@@ -22,16 +22,9 @@ public class SaleCtrlImpl implements SaleCtrl{
     public void realizarVenta(SaleVO sale) {
         logger.log(Level.INFO, "SaleCTRL: Inicializando método realizarVenta()");
         SaleDTO saleDTO = SaleParser.parseToUserDTO(sale);
-        int totalOfProductsSold =this.getSaleService().realizarVenta(saleDTO);
+        int totalOfProductsSold =this.saleService.realizarVenta(saleDTO);
         // Mostrar mensaje de productos vendidos si es necesario
         logger.log(Level.INFO, "SaleCTRL: Finalizando método realizarVenta()");
-    }
-
-    /**
-     * @return {@code SaleService} dependencia de servicio
-     */
-    public SaleService getSaleService() {
-        return saleService;
     }
 
     /**

@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public String altaProducto(ProductDTO productDTO) {
         logger.log(Level.INFO, "ProductService: Iniciando método altaProducto()");
-        boolean status = this.getProductDAO().create(productDTO);
+        boolean status = this.productDAO.create(productDTO);
         logger.log(Level.INFO, "ProductService: Finalizando método altaProducto()");
         return status ? "Creado "+productDTO.getProductName() : "No Creado "+productDTO.getProductName();
     }
@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public String bajaProducto(String product) {    
         logger.log(Level.INFO, "ProductService: Iniciando método bajaProducto()");
-        ProductDTO productDTO = productDAO.findProductByName(product);
+        ProductDTO productDTO = this.productDAO.findProductByName(product);
         boolean status= false;
         if(productDTO != null){
             status = this.productDAO.delete(productDTO.getProductId());
@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
     public String actualizarProducto(ProductDTO productDTO) {
         logger.log(Level.INFO, "ProductService: Iniciando método actualizarProducto()");
         productDTO.setCategoryId(this.categoryDAO.getCategoryByName(productDTO.getProductName()).getCategoryId());
-        productDTO.setProductId(productDAO.findProductByName(productDTO.getProductName()).getProductId());
+        productDTO.setProductId(this.productDAO.findProductByName(productDTO.getProductName()).getProductId());
         boolean status = this.productDAO.update(productDTO);
         logger.log(Level.INFO, "ProductService: Finalizando método actualizarProducto()");
         return status ? "Actualizado" + productDTO.getProductName() : "No actualizado "+ productDTO.getProductName();
@@ -62,26 +62,12 @@ public class ProductServiceImpl implements ProductService {
         logger.log(Level.INFO, "ProductService: Finalizando método buscarProducto()");
         return product;
     }
-    
-    /**
-     * @return the productDAO
-     */
-    public ProductDAO getProductDAO() {
-        return productDAO;
-    }
 
     /**
      * @param productDAO the productDAO to set
      */
     public void setProductDAO(ProductDAO productDAO) {
         this.productDAO = productDAO;
-    }
-
-    /**
-     * @return the categoryDAO
-     */
-    public CategoryDAO getCategoryDAO() {
-        return categoryDAO;
     }
 
     /**

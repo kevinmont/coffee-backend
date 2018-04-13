@@ -22,13 +22,12 @@ public class UserCtrlImpl implements UserCtrl {
 	@Override
 	public void iniciarSesion(UserVO userVO) {
 		LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion se ha iniciado");
-
 		UserDTO userDTO = UserParser.parseToUserDTO(userVO);
 
 
 		try {
 			LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion designando vista");
-			UserDTO intendUserDTO = this.getUserService().iniciarSesion(userDTO);
+			UserDTO intendUserDTO = this.userService.iniciarSesion(userDTO);
 			switch (intendUserDTO.getUserType()) {
 			case ADMINISTRADOR:
 				// Mostrar vista Administrador
@@ -55,20 +54,6 @@ public class UserCtrlImpl implements UserCtrl {
 		}
 		LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion ha Finalizado");
 	}
-
-    /**
-     * @return {@code UserService} dependencia del servicio
-     */
-    public UserService getUserService() {
-        return userService;
-    }
-
-    /**
-     * @param userService El servicio a ser modificado
-     */
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
     
 	@Override
 	public void cerrarSesion(UserVO userVO) {
@@ -83,5 +68,12 @@ public class UserCtrlImpl implements UserCtrl {
 		this.userService.bajaUsuario(nickName);
 		LOGGER.log(Level.INFO, "UserCTRL: ha finalizado el método bajaUsuario");
 	}
+	
+	/**
+     * @param userService El servicio a ser modificado
+     */
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 	
 }

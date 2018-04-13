@@ -85,24 +85,10 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * @return the userDAO
-     */
-    public UserDAO getUserDAO() {
-        return userDAO;
-    }
-
-    /**
      * @param userDAO the userDAO to set
      */
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
-    }
-
-    /**
-     * @return the workerDAO
-     */
-    public WorkerDAO getWorkerDAO() {
-        return workerDAO;
     }
 
     /**

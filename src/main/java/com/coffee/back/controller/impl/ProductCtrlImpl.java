@@ -71,12 +71,6 @@ public class ProductCtrlImpl implements ProductCtrl {
         logger.log(Level.INFO, "ProductCtrl: Finalizando método buscarProducto()");
     }
     
-    /**
-     * @return {@code ProductService} dependecia del servicio
-     */
-    public ProductService getProductService() {
-        return productService;
-    }
 
     /**
      * @param productService El servicio a ser modificado
@@ -85,12 +79,6 @@ public class ProductCtrlImpl implements ProductCtrl {
         this.productService = productService;
     }
 
-    /**
-     * @return the categoryService
-     */
-    public CategoryService getCategoryService() {
-        return categoryService;
-    }
 
     /**
      * @param categoryService the categoryService to set

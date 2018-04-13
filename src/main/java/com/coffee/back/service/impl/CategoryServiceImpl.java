@@ -31,13 +31,6 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     /**
-     * @return Una categoriaDAO el acceso a dato
-     */
-    public CategoryDAO getCategoryDAO() {
-        return categoryDAO;
-    }
-
-    /**
      * @param categoryDAO Una categoriaDAO el acceso a dato a ser modificada
      */
     public void setCategoryDAO(CategoryDAO categoryDAO) {
