@@ -11,7 +11,8 @@ public class UserDTO {
     private String userName;    // Almacenara el nombre de usuario
     private String password;    // Almacenara el password de un usuario
     private UserType userType;  // Almacenara el tipo de usuario
-    
+    private Integer workerId;
+
     /**
      * @return El nombre de un usuario
      */
@@ -39,7 +40,22 @@ public class UserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    /**
+     * Recupera el id trabajador del usuario
+     * @return {@code Integer} Id de trabajdor del usuario
+     */
+    public Integer getWorkerId() {
+		return workerId;
+	}
+    
+    /**
+     * Modifica el id trabajador del usuario
+     * @param workerId El id trabajador de un usuario
+     */
+	public void setWorkerId(Integer workerId) {
+		this.workerId = workerId;
+	}
+	
     /**
      * @return El tipo de usuario
      */

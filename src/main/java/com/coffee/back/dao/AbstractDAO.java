@@ -34,7 +34,7 @@ public abstract class AbstractDAO {
      */
     @PostConstruct
     private void initConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        Class.forName(this.driverClassName).newInstance();
+        Class.forName(this.getDriverClassName()).newInstance();
     }
 
     /**

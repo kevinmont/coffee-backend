@@ -1,15 +1,15 @@
 package com.coffee.back.service.impl;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.coffee.back.commons.dto.UserDTO;
 import com.coffee.back.commons.enums.UserType;
 import com.coffee.back.commons.exception.BadRequestException;
 import com.coffee.back.commons.exception.UserAuthenticationException;
 import com.coffee.back.dao.UserDAO;
 import com.coffee.back.dao.WorkerDAO;
-import com.coffee.back.dao.entity.User;
 import com.coffee.back.service.UserService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Clase {@code ProductService} encargada de ejecutar la logica de negocio.
@@ -29,30 +29,28 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("UserDTO es nullo");
         }
 
-        User user = null;
+        UserDTO user = null;
         try {
-            user = this.getUserDAO().getUserByNickName(userDTO.getUserName());
+            user = this.userDAO.getUserByNickName(userDTO.getUserName());
         } catch (BadRequestException ex) {
             throw new UserAuthenticationException("Usuario incorrecto, campos incorrectos");
         }
 
-        if (userDTO.getPassword().equals(user.getKey())) {
+        if (userDTO.getPassword().equals(user.getPassword())) {
             logger.log(Level.INFO, "Service: Usuario auntenticado, recuperando datos");
-            UserType workerRole = this.getWorkerDAO().getRoleNameByWorkerId(user.getWorkerId());
+            UserType workerRole = this.workerDAO.getRoleNameByWorkerId(user.getWorkerId());
             logger.log(Level.INFO, "Service: Usuario auntenticado, datos recuperados");
-            UserDTO userWorker = new UserDTO();
-            userWorker.setUserName(user.getNickName());
-            userWorker.setUserType(workerRole);
-            return userWorker;
+            user.setUserType(workerRole);
+            return user;
         }
-        throw new UserAuthenticationException("El usuario " + user.getNickName() + " es incorrecto");
+        throw new UserAuthenticationException("El usuario " + user.getUserName() + " es incorrecto");
     }
 
     @Override
     public boolean cerrarSesion(UserDTO userDTO) {
         if (userDTO.getUserType().equals(UserType.UKNOWN)) {
             try {
-                User userLogOut = this.userDAO.getUserByNickName(userDTO.getUserName());
+                UserDTO userLogOut = this.userDAO.getUserByNickName(userDTO.getUserName());
                 UserType usertypeLogOut = this.workerDAO.getRoleNameByWorkerId(userLogOut.getWorkerId());
                 return usertypeLogOut == UserType.ADMINISTRADOR;
             } catch (BadRequestException ex) {
@@ -62,17 +60,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void altaUsuario() {
+    public String altaUsuario(UserDTO userDTO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void bajaUsuario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String bajaUsuario(String nickName) {
+        logger.log(Level.INFO, "UserServiceImpl: Iniciando método bajaUsuario()");
+    	boolean statusOperation = false;
+        try {
+        	 statusOperation = this.userDAO.delete(this.userDAO.getUserByNickName(nickName).getUserName());
+		} catch (BadRequestException e) {
+			return nickName +" actualmente no existe";
+		}
+        
+        logger.log(Level.INFO, "UserServiceImpl: Finalizando método bajaUsuario()");
+        return statusOperation ? "Usuario "+nickName +" ha sido eliminado exitosamente" :""
+        		+ "Usuario "+ nickName+ " actualmente no registrado";
     }
 
     @Override
-    public void modificarUsuario() {
+    public String modificarUsuario(UserDTO userDTO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

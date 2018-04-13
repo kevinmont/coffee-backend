@@ -7,7 +7,8 @@ package com.coffee.back.commons.exception;
  */
 public class UserAuthenticationException extends Exception{
 
-    public UserAuthenticationException() {
+	private static final long serialVersionUID = 1L;
+	public UserAuthenticationException() {
         super();
     }
     public UserAuthenticationException(String error){
