@@ -32,10 +32,11 @@ public class SaleServiceImpl implements SaleService {
         return totalProductsAffected;
     }
 
-	/**
-	* @param saleDAO dependencia de una venta a ser modificada
-	**/
-	public void setSaleDAO(SaleDAO saleDAO){
-		this.saleDAO = saleDAO;
-	}
+    /**
+     * @param saleDAO dependencia de una venta a ser modificada
+	*
+     */
+    public void setSaleDAO(SaleDAO saleDAO) {
+        this.saleDAO = saleDAO;
+    }
 }

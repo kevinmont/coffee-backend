@@ -44,7 +44,9 @@ public abstract class AbstractDAO {
      * @throws SQLException 
      */
     protected Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(getUrl(), getUserName(), getPassword());
+        if(connection != null)
+            return this.connection;
+        return this.connection = DriverManager.getConnection(getUrl(), getUserName(), getPassword());
     }
 
     /**

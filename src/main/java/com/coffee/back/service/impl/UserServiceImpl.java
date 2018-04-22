@@ -13,6 +13,7 @@ import com.coffee.back.service.UserService;
 
 /**
  * Clase {@code ProductService} encargada de ejecutar la logica de negocio.
+ *
  * @author mont
  */
 public class UserServiceImpl implements UserService {
@@ -67,16 +68,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public String bajaUsuario(String nickName) {
         logger.log(Level.INFO, "UserServiceImpl: Iniciando método bajaUsuario()");
-    	boolean statusOperation = false;
+        boolean statusOperation = false;
         try {
-        	 statusOperation = this.userDAO.delete(this.userDAO.getUserByNickName(nickName).getUserName());
-		} catch (BadRequestException e) {
-			return nickName +" actualmente no existe";
-		}
-        
+            statusOperation = this.userDAO.delete(this.userDAO.getUserByNickName(nickName).getUserName());
+        } catch (BadRequestException e) {
+            return nickName + " actualmente no existe";
+        }
+
         logger.log(Level.INFO, "UserServiceImpl: Finalizando método bajaUsuario()");
-        return statusOperation ? "Usuario "+nickName +" ha sido eliminado exitosamente" :""
-        		+ "Usuario "+ nickName+ " actualmente no registrado";
+        return statusOperation ? "Usuario " + nickName + " ha sido eliminado exitosamente" : ""
+                + "Usuario " + nickName + " actualmente no registrado";
     }
 
     @Override

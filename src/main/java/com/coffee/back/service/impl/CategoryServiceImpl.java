@@ -7,26 +7,28 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Clase {@code CategoryServiceImpl} encargada de implementar {@code ProductService} y de ejecutar 
- * la logica de negocio.
+ * Clase {@code CategoryServiceImpl} encargada de implementar
+ * {@code ProductService} y de ejecutar la logica de negocio.
+ *
  * @author mont
  */
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
+
     private static final Logger logger = Logger.getLogger(CategoryServiceImpl.class.getName());
     private CategoryDAO categoryDAO;
-    
+
     @Override
     public CategoryDTO getCategory(String Name) {
         logger.log(Level.INFO, "CategoryServiceImpl: Iniciando método getCategoryIdByName");
         CategoryDTO category = this.categoryDAO.getCategoryByName(Name);
-        if(category == null){
+        if (category == null) {
             try {
                 throw new Exception("No existe category con dicho nombre");
             } catch (Exception ex) {
-                
+
             }
         }
-        logger.log(Level.INFO, "CategoryServiceImpl: Iniciando método getCategoryIdByName");
+        logger.log(Level.INFO, "CategoryServiceImpl: Finalizando método getCategoryIdByName");
         return category;
     }
 
@@ -36,5 +38,5 @@ public class CategoryServiceImpl implements CategoryService{
     public void setCategoryDAO(CategoryDAO categoryDAO) {
         this.categoryDAO = categoryDAO;
     }
-    
+
 }
