@@ -1,6 +1,7 @@
 package com.coffee.back.controller.parser;
 
 import com.coffee.back.commons.dto.UserDTO;
+import com.coffee.back.commons.enums.UserType;
 import com.coffee.back.controller.vo.UserVO;
 
 /**
@@ -18,7 +19,10 @@ public class UserParser {
         UserDTO userDTO = new UserDTO();
         userDTO.setUserName(userVO.getUserName());
         userDTO.setPassword(userVO.getPassword());
-        userDTO.setUserType(userVO.getUserType());
+        if(userVO.getUserType()== null)
+            userDTO.setUserType(UserType.UKNOWN);
+        else    
+            userDTO.setUserType(userVO.getUserType());
         return userDTO;
     }
     

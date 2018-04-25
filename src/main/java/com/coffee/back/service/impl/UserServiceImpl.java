@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO iniciarSesion(UserDTO userDTO) throws UserAuthenticationException {
-        logger.log(Level.INFO, "Service: Método iniciarSesion se ha iniciado");
+        logger.log(Level.INFO, "Service: Método iniciarSesion() se ha iniciado");
 
         if (userDTO == null) {
             throw new IllegalArgumentException("UserDTO es nullo");
@@ -36,11 +36,15 @@ public class UserServiceImpl implements UserService {
         } catch (BadRequestException ex) {
             throw new UserAuthenticationException("Usuario incorrecto, campos incorrectos");
         }
-
+        
+        System.out.println();
+        System.out.println(userDTO.getPassword());
+        System.out.println(user.getPassword());
+        System.out.println();
         if (userDTO.getPassword().equals(user.getPassword())) {
-            logger.log(Level.INFO, "Service: Usuario auntenticado, recuperando datos");
+            logger.log(Level.INFO, "Service: Usuario autenticado, recuperando datos");
             UserType workerRole = this.workerDAO.getRoleNameByWorkerId(user.getWorkerId());
-            logger.log(Level.INFO, "Service: Usuario auntenticado, datos recuperados");
+            logger.log(Level.INFO, "Service: Usuario autenticado, datos recuperados");
             user.setUserType(workerRole);
             return user;
         }
@@ -100,3 +104,4 @@ public class UserServiceImpl implements UserService {
     }
 
 }
+

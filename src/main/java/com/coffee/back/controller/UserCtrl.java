@@ -12,8 +12,9 @@ public interface UserCtrl {
     /**
      * Indica el inicio de sesión.
      * @param userVO estado del objeto que intenta iniciar sesion
+     * @return UserVO el modelo recuperado de un usuario
      */
-    void iniciarSesion(UserVO userVO);
+    UserVO iniciarSesion(UserVO userVO);
     
     /**
      * Indica el cierre de sesión. 

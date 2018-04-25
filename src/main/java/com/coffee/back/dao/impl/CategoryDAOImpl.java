@@ -19,7 +19,7 @@ public class CategoryDAOImpl extends AbstractDAO implements CategoryDAO {
     
     @Override
     public CategoryDTO getCategoryByName(String categoryName) {
-        this.logger.log(Level.INFO,"CategoryDAOImpl : Iniciando getCategoryByName()");
+        logger.log(Level.INFO,"CategoryDAOImpl : Iniciando getCategoryByName()");
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         CategoryDTO category = null;
@@ -27,20 +27,20 @@ public class CategoryDAOImpl extends AbstractDAO implements CategoryDAO {
             connection = getConnection();
             preparedStatement = connection.prepareStatement("SELECT * from category where kind = ?");
             preparedStatement.setString(1, categoryName);
-            this.logger.log(Level.INFO,"CategoryDAOImpl : Ejecutando query");
+            logger.log(Level.INFO,"CategoryDAOImpl : Ejecutando query");
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 category = new CategoryDTO();
                 category.setCategoryId(resultSet.getInt("category_id"));
                 category.setCategoryName(resultSet.getString("kind"));
-                this.logger.log(Level.INFO,"valor de "+category.getCategoryId());
+                logger.log(Level.INFO,"valor de {0}",category.getCategoryId());
             }
-            this.logger.log(Level.INFO,"CategoryDAOImpl : Query finalizado");
+            logger.log(Level.INFO,"CategoryDAOImpl : Query finalizado");
             resultSet.close();
             preparedStatement.close();
             connection.close();
         }catch(SQLException ex){
-            ex.printStackTrace();
+            
         } finally {
             if(resultSet != null)
                 try {
@@ -55,7 +55,7 @@ public class CategoryDAOImpl extends AbstractDAO implements CategoryDAO {
             }
             closeConnection();
         }
-        this.logger.log(Level.INFO,"CategoryDAOImpl : Finalizando getCategoryByName()");
+        logger.log(Level.INFO,"CategoryDAOImpl : Finalizando getCategoryByName()");
         return category;
     }
     

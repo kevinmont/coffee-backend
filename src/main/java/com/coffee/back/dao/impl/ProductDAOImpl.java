@@ -38,8 +38,8 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
             preparedStatement.setShort(3, productDTO.getQuantity());
             preparedStatement.setString(4, productDTO.getImage());
             preparedStatement.setInt(5, productDTO.getCategoryId());
-            LOGGER.log(Level.INFO, "ProductDAO: Finalizado Insert");
             rowsAffected = preparedStatement.executeUpdate() > 0;
+            LOGGER.log(Level.INFO, "ProductDAO: Finalizado Insert");
             preparedStatement.close();
             connection.close();
         } catch (SQLException ex) {

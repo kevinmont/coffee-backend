@@ -1,6 +1,7 @@
 package com.coffee.back.dao;
 
 import com.coffee.back.commons.dto.UserDTO;
+import com.coffee.back.commons.dto.WorkerDTO;
 import com.coffee.back.commons.exception.BadRequestException;;
 
 /**
@@ -18,6 +19,8 @@ public interface UserDAO {
 	 * @throws BadRequestException si el usuario no existe o campos incompletos
 	 */
 	UserDTO getUserByNickName(String user) throws BadRequestException;
+        
+        boolean create(UserDTO workerDTO);
 
 	boolean delete(String nickName);
 }

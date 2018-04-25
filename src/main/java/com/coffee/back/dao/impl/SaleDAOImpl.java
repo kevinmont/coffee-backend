@@ -1,4 +1,4 @@
-package com.coffee.back.dao.impl;
+    package com.coffee.back.dao.impl;
 
 import com.coffee.back.commons.dto.SaleDTO;
 import com.coffee.back.dao.AbstractDAO;
@@ -41,7 +41,6 @@ public class SaleDAOImpl extends AbstractDAO implements SaleDAO {
             preparedStatement.executeUpdate();
             connection.commit();
             logger.log(Level.INFO, "SaleDAOImpl: Actualización finalizado");
-            connection.setAutoCommit(false);
             logger.log(Level.INFO, "SaleDAOImpl: Inicio Actualización venta de productos");
             SaleProductDAOImpl saleProductDAOImpl = new SaleProductDAOImpl();
             saleProductDAOImpl.create(saleDTO);

@@ -1,5 +1,6 @@
 package com.coffee.back.dao;
 
+import com.coffee.back.commons.dto.WorkerDTO;
 import com.coffee.back.commons.enums.UserType;
 
 /**
@@ -15,5 +16,7 @@ public interface WorkerDAO {
      * @return {@code UserType} que indentifica el rol del usuario 
      */
     UserType getRoleNameByWorkerId(Integer workerId);
+    
+    boolean create(WorkerDTO workerDTO);
     
 }
