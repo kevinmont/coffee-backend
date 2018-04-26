@@ -5,6 +5,7 @@ import com.coffee.back.controller.SaleCtrl;
 import com.coffee.back.controller.parser.SaleParser;
 import com.coffee.back.controller.vo.SaleVO;
 import com.coffee.back.service.SaleService;
+import com.google.inject.Inject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +28,7 @@ public class SaleCtrlImpl implements SaleCtrl{
         logger.log(Level.INFO, "SaleCTRL: Finalizando método realizarVenta()");
     }
 
+    @Inject
     /**
      * @param saleService dependencia del servicio a modificar
      */

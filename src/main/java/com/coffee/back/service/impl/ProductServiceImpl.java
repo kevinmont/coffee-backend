@@ -4,6 +4,7 @@ import com.coffee.back.commons.dto.ProductDTO;
 import com.coffee.back.dao.CategoryDAO;
 import com.coffee.back.dao.ProductDAO;
 import com.coffee.back.service.ProductService;
+import com.google.inject.Inject;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,14 +65,16 @@ public class ProductServiceImpl implements ProductService {
         logger.log(Level.INFO, "ProductService: Finalizando método buscarProducto()");
         return product;
     }
-
+    
+    @Inject
     /**
      * @param productDAO the productDAO to set
      */
     public void setProductDAO(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
-
+    
+    @Inject
     /**
      * @param categoryDAO the categoryDAO to set
      */

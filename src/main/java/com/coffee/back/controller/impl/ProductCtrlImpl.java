@@ -6,6 +6,7 @@ import com.coffee.back.controller.parser.ProductParser;
 import com.coffee.back.controller.vo.ProductVO;
 import com.coffee.back.service.CategoryService;
 import com.coffee.back.service.ProductService;
+import com.google.inject.Inject;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,7 +72,7 @@ public class ProductCtrlImpl implements ProductCtrl {
         logger.log(Level.INFO, "ProductCtrl: Finalizando método buscarProducto()");
     }
     
-
+    @Inject
     /**
      * @param productService El servicio a ser modificado
      */
@@ -79,7 +80,7 @@ public class ProductCtrlImpl implements ProductCtrl {
         this.productService = productService;
     }
 
-
+    @Inject
     /**
      * @param categoryService the categoryService to set
      */

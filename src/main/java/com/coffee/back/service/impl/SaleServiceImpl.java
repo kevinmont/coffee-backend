@@ -3,6 +3,7 @@ package com.coffee.back.service.impl;
 import com.coffee.back.commons.dto.SaleDTO;
 import com.coffee.back.dao.SaleDAO;
 import com.coffee.back.service.SaleService;
+import com.google.inject.Inject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,6 +33,7 @@ public class SaleServiceImpl implements SaleService {
         return totalProductsAffected;
     }
 
+    @Inject
     /**
      * @param saleDAO dependencia de una venta a ser modificada
 	*

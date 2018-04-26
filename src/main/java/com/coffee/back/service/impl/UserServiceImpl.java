@@ -10,6 +10,7 @@ import com.coffee.back.commons.exception.UserAuthenticationException;
 import com.coffee.back.dao.UserDAO;
 import com.coffee.back.dao.WorkerDAO;
 import com.coffee.back.service.UserService;
+import com.google.inject.Inject;
 
 /**
  * Clase {@code ProductService} encargada de ejecutar la logica de negocio.
@@ -36,11 +37,7 @@ public class UserServiceImpl implements UserService {
         } catch (BadRequestException ex) {
             throw new UserAuthenticationException("Usuario incorrecto, campos incorrectos");
         }
-        
-        System.out.println();
-        System.out.println(userDTO.getPassword());
-        System.out.println(user.getPassword());
-        System.out.println();
+
         if (userDTO.getPassword().equals(user.getPassword())) {
             logger.log(Level.INFO, "Service: Usuario autenticado, recuperando datos");
             UserType workerRole = this.workerDAO.getRoleNameByWorkerId(user.getWorkerId());
@@ -92,6 +89,7 @@ public class UserServiceImpl implements UserService {
     /**
      * @param userDAO the userDAO to set
      */
+    @Inject
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
@@ -99,9 +97,9 @@ public class UserServiceImpl implements UserService {
     /**
      * @param workerDAO the workerDAO to set
      */
+    @Inject
     public void setWorkerDAO(WorkerDAO workerDAO) {
         this.workerDAO = workerDAO;
     }
 
 }
-

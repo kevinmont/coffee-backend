@@ -7,6 +7,7 @@ import com.coffee.back.controller.UserCtrl;
 import com.coffee.back.controller.parser.UserParser;
 import com.coffee.back.controller.vo.UserVO;
 import com.coffee.back.service.UserService;
+import com.google.inject.Inject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +34,7 @@ public class UserCtrlImpl implements UserCtrl {
             userVORecover = UserParser.parseToUserVO(userDTORecover);
             return userVORecover;
         } catch (UserAuthenticationException ex) {
-            ex.printStackTrace();
+            
         }
         LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion ha Finalizado");
         if(userVORecover == null){
@@ -57,6 +58,7 @@ public class UserCtrlImpl implements UserCtrl {
         LOGGER.log(Level.INFO, "UserCTRL: ha finalizado el método bajaUsuario");
     }
 
+    @Inject
     /**
      * @param userService El servicio a ser modificado
      */

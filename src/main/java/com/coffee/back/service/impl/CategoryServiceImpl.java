@@ -3,6 +3,7 @@ package com.coffee.back.service.impl;
 import com.coffee.back.commons.dto.CategoryDTO;
 import com.coffee.back.dao.CategoryDAO;
 import com.coffee.back.service.CategoryService;
+import com.google.inject.Inject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +34,8 @@ public class CategoryServiceImpl implements CategoryService {
         logger.log(Level.INFO, "CategoryServiceImpl: Finalizando método getCategoryIdByName");
         return category;
     }
-
+    
+    @Inject
     /**
      * @param categoryDAO Una categoriaDAO el acceso a dato a ser modificada
      */
