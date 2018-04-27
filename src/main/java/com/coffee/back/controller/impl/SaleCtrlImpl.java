@@ -20,12 +20,12 @@ public class SaleCtrlImpl implements SaleCtrl{
     private SaleService saleService;
     
     @Override
-    public void realizarVenta(SaleVO sale) {
+    public int realizarVenta(SaleVO sale) {
         logger.log(Level.INFO, "SaleCTRL: Inicializando método realizarVenta()");
         SaleDTO saleDTO = SaleParser.parseToUserDTO(sale);
         int totalOfProductsSold =this.saleService.realizarVenta(saleDTO);
-        // Mostrar mensaje de productos vendidos si es necesario
         logger.log(Level.INFO, "SaleCTRL: Finalizando método realizarVenta()");
+        return totalOfProductsSold;
     }
 
     @Inject

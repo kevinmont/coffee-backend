@@ -17,6 +17,12 @@ public interface WorkerDAO {
      */
     UserType getRoleNameByWorkerId(Integer workerId);
     
+    /**
+     * Crea un nuevo usuario que pertenecera al sistema
+     * @param workerDTO
+     * @return {@code true} Si el usuario se ha creado exitosamente
+     * de lo contrario {@code false}
+     */
     boolean create(WorkerDTO workerDTO);
     
 }

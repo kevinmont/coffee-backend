@@ -1,9 +1,7 @@
 package com.coffee.back.service.impl;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.coffee.back.commons.dto.UserDTO;
+import com.coffee.back.commons.dto.WorkerDTO;
 import com.coffee.back.commons.enums.UserType;
 import com.coffee.back.commons.exception.BadRequestException;
 import com.coffee.back.commons.exception.UserAuthenticationException;
@@ -11,6 +9,8 @@ import com.coffee.back.dao.UserDAO;
 import com.coffee.back.dao.WorkerDAO;
 import com.coffee.back.service.UserService;
 import com.google.inject.Inject;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Clase {@code ProductService} encargada de ejecutar la logica de negocio.
@@ -50,26 +50,37 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean cerrarSesion(UserDTO userDTO) {
+        logger.log(Level.INFO, "Service#cerrarSesion se ha iniciado");
         if (userDTO.getUserType().equals(UserType.UKNOWN)) {
             try {
+                logger.log(Level.INFO, "Service#cerrarSesion Autentificando el usuario");
                 UserDTO userLogOut = this.userDAO.getUserByNickName(userDTO.getUserName());
                 UserType usertypeLogOut = this.workerDAO.getRoleNameByWorkerId(userLogOut.getWorkerId());
+                logger.log(Level.INFO, "Service#cerrarSesion Autentificacion procesada");
                 return usertypeLogOut == UserType.ADMINISTRADOR;
             } catch (BadRequestException ex) {
             }
         }
+        logger.log(Level.INFO, "Service#cerrarSesion ha finalizado");
         return userDTO.getUserType() == UserType.ADMINISTRADOR;
     }
 
     @Override
-    public String altaUsuario(UserDTO userDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String altaUsuario(WorkerDTO workerDTO) {
+        logger.log(Level.INFO, "Service#altaUsuario: se ha iniciado");
+        if(workerDTO.getWorkerName().isEmpty() || workerDTO.getRoleId() != null){
+            return "Campos incorrectos";
+        }
+        boolean status = this.workerDAO.create(workerDTO);
+        logger.log(Level.INFO, "Service#altaUsuario: ha finalizado");
+        return status?  "El usuario "+workerDTO.getWorkerName()+ " ha sido creado exitosamente" 
+                : "Error al intentar crear el usuario "+ workerDTO.getWorkerName();
     }
 
     @Override
     public String bajaUsuario(String nickName) {
         logger.log(Level.INFO, "UserServiceImpl: Iniciando método bajaUsuario()");
-        boolean statusOperation = false;
+        boolean statusOperation;
         try {
             statusOperation = this.userDAO.delete(this.userDAO.getUserByNickName(nickName).getUserName());
         } catch (BadRequestException e) {
@@ -82,7 +93,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String modificarUsuario(UserDTO userDTO) {
+    public String modificarUsuario(WorkerDTO workerDTO) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

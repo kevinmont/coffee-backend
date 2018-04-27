@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 /**
  * Clase {@code ProductService} encargada de ejecutar la logica de negocio.
- *
  * @author mont
  */
 public class SaleServiceImpl implements SaleService {
@@ -36,7 +35,6 @@ public class SaleServiceImpl implements SaleService {
     @Inject
     /**
      * @param saleDAO dependencia de una venta a ser modificada
-	*
      */
     public void setSaleDAO(SaleDAO saleDAO) {
         this.saleDAO = saleDAO;

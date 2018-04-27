@@ -1,8 +1,8 @@
 package com.coffee.back.service.impl;
 
 import com.coffee.back.commons.dto.ProductDTO;
-import com.coffee.back.dao.CategoryDAO;
 import com.coffee.back.dao.ProductDAO;
+import com.coffee.back.service.CategoryService;
 import com.coffee.back.service.ProductService;
 import com.google.inject.Inject;
 import java.util.List;
@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
 
     private static final Logger logger = Logger.getLogger(ProductServiceImpl.class.getName());
     private ProductDAO productDAO;
-    private CategoryDAO categoryDAO;
+    private CategoryService categoryService;
 
     @Override
     public String altaProducto(ProductDTO productDTO) {
@@ -37,13 +37,14 @@ public class ProductServiceImpl implements ProductService {
             status = this.productDAO.delete(productDTO.getProductId());
             logger.log(Level.INFO, "ProductService: Fializando método bajaProducto()");
         }
+        logger.log(Level.INFO, "ProductService: Finalizando método bajaProducto()");
         return status ? "Eliminado " + product : "No eliminado " + product;
     }
 
     @Override
     public String actualizarProducto(ProductDTO productDTO) {
         logger.log(Level.INFO, "ProductService: Iniciando método actualizarProducto()");
-        productDTO.setCategoryId(this.categoryDAO.getCategoryByName(productDTO.getProductName()).getCategoryId());
+        productDTO.setCategoryId(this.categoryService.getCategory(productDTO.getProductName()).getCategoryId());
         productDTO.setProductId(this.productDAO.findProductByName(productDTO.getProductName()).getProductId());
         boolean status = this.productDAO.update(productDTO);
         logger.log(Level.INFO, "ProductService: Finalizando método actualizarProducto()");
@@ -76,10 +77,10 @@ public class ProductServiceImpl implements ProductService {
     
     @Inject
     /**
-     * @param categoryDAO the categoryDAO to set
+     * @param categoryDAO the categoryService to set
      */
-    public void setCategoryDAO(CategoryDAO categoryDAO) {
-        this.categoryDAO = categoryDAO;
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
 }

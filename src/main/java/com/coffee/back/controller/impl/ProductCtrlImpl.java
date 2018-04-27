@@ -7,6 +7,7 @@ import com.coffee.back.controller.vo.ProductVO;
 import com.coffee.back.service.CategoryService;
 import com.coffee.back.service.ProductService;
 import com.google.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,53 +24,48 @@ public class ProductCtrlImpl implements ProductCtrl {
     private CategoryService categoryService;
     
     @Override
-    public void altaProducto(ProductVO productVO) {
+    public String altaProducto(ProductVO productVO) {
         logger.log(Level.INFO, "ProductCTRL: Iniciando método altaProducto");
-
         ProductDTO newProduct = ProductParser.parseToProductDTO(productVO);
         newProduct.setCategoryId(this.categoryService.getCategory(productVO.getCategoryName()).getCategoryId());
         String statusOperation = this.productService.altaProducto(newProduct); // Contiene el estatus de la operacion
-        // Desplegar en vista mensaje
-        
         logger.log(Level.INFO, "ProductCTRL: Finalizado método altaProducto");
+        return statusOperation;
     }
 
     @Override
-    public void bajaProducto(String productName) {
+    public String bajaProducto(String productName) {
         logger.log(Level.INFO, "ProductCTRL: Iniciado método bajaProducto");
-        
         String statusOperation = this.productService.bajaProducto(productName);
-        // Desplegar en vista estatus
-        
         logger.log(Level.INFO, "ProductCTRL: Finalizado método bajaProducto");
-        
+        return statusOperation;
     }
 
      @Override
-    public void modificarProducto(ProductVO productVO) {
+    public String modificarProducto(ProductVO productVO) {
         logger.log(Level.INFO, "ProductCtrl: Iniciando método actualizarProducto()");
-        
         ProductDTO productDTO = ProductParser.parseToProductDTO(productVO);
         String statusOperation = this.productService.actualizarProducto(productDTO);
-        // Desplegar en vista estatus de la operación
-       
         logger.log(Level.INFO, "ProductCtrl: Finalizando método actualizarProducto()");
+        return statusOperation; 
     }
     
     @Override
-    public void conseguirProductos(){
+    public List<ProductVO> conseguirProductos(){
         logger.log(Level.INFO, "ProductCtrl: Iniciando método conseguirProducto()");
-        List<ProductDTO> products = this.productService.conseguirProductos();
-        // Se debe de desplegar los productos en vista
+        List<ProductDTO> allProducuts = this.productService.conseguirProductos();
+        List<ProductVO> productVOs =ProductParser.parseToProductDTO(allProducuts);
         logger.log(Level.INFO, "ProductCtrl: Finalizando método conseguirProducto()");
+        return productVOs;
     }
     
     @Override
-    public void buscarProducto(String productName){
+    public ProductVO buscarProducto(String productName){
         logger.log(Level.INFO, "ProductCtrl: Iniciando método buscarProducto()");
-        ProductDTO producto= this.productService.buscarProducto(productName);
-        // Se debe de desplegar el producto a vista
+        ProductDTO producDTO= this.productService.buscarProducto(productName);
+        ProductVO productRetrieved = ProductParser.parseToProductVO(producDTO);
         logger.log(Level.INFO, "ProductCtrl: Finalizando método buscarProducto()");
+        return productRetrieved;
     }
     
     @Inject

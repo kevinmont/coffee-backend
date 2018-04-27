@@ -8,12 +8,15 @@ import com.coffee.back.commons.dto.SaleDTO;
  */
 public interface SaleService {
     
-    //not implemented yet
+    /**
+     * Se encargará de imprimir un ticket generado por una venta.
+     */
     void imprimirTicket();
     
     /**
      * Realiza una venta
      * @param sale Indica la venta
+     * @return Indica el numero de articulos vendidos
      */
      int realizarVenta(SaleDTO sale);
 }

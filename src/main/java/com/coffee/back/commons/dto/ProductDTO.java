@@ -12,6 +12,7 @@ public class ProductDTO {
     private Short quantity;     //Almacenara la cantidad de dicho producto
     private String image;       //Almacenara la imagen del producto
     private Integer categoryId; //Almacenara la categoria perteneciente al producto
+    private String categoryName;
     
     /**
      * @return el id de un producto
@@ -99,6 +100,20 @@ public class ProductDTO {
      */
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+    }
+
+    /**
+     * @return El nombre de la categoria a la que pertenece el producto
+     */
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    /**
+     * @param categoryName Configura el nombre de la categoria a la que pertenece el producto
+     */
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
             
 }

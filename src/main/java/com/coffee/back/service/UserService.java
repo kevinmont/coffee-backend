@@ -1,6 +1,7 @@
 package com.coffee.back.service;
 
 import com.coffee.back.commons.dto.UserDTO;
+import com.coffee.back.commons.dto.WorkerDTO;
 import com.coffee.back.commons.exception.UserAuthenticationException;
 
 /**
@@ -26,8 +27,13 @@ public interface UserService {
      * lo contrario
      */
     boolean cerrarSesion(UserDTO userDTO);
-
-    String altaUsuario(UserDTO userDTO);
+    
+    /**
+     * Agrega un nuevo usuario en el sistema
+     * @param workerDTO indica el nuevo usuario a dar de alta en el sistema
+     * @return {@code String} indica el estado de la operación
+     */
+    String altaUsuario(WorkerDTO workerDTO);
     
     /**
      * Elimina a un usuario existente en el sistema
@@ -35,7 +41,12 @@ public interface UserService {
      * @return {@code String} Indica el estatus de la operación
      */
     String bajaUsuario(String nickName);
-
-    String modificarUsuario(UserDTO userDTO);
+    
+    /**
+     * Modifica un usuario existente en el sistema
+     * @param workerDTO Indica el usuario existente en el sistema  
+     * @return  {@code String } Indica el estado de la operación
+     */
+    String modificarUsuario(WorkerDTO workerDTO);
 
 }

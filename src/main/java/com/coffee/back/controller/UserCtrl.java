@@ -1,6 +1,7 @@
 package com.coffee.back.controller;
 
 import com.coffee.back.controller.vo.UserVO;
+import com.coffee.back.controller.vo.WorkerVO;
 
 /**
  * La interfaz {@code UserCtrl} es encargada de recibir las peticiones lanzadas por el 
@@ -19,12 +20,28 @@ public interface UserCtrl {
     /**
      * Indica el cierre de sesión. 
      * @param userVO estado del objeto actual en el sistema.
+     * @return retorna {@code true} si el usuario es administrador de lo contrario {@code false}
      */
-    void cerrarSesion(UserVO userVO);
+    boolean cerrarSesion(UserVO userVO);
      
     /**
      * Eliminar a un usuario almacenado en el sistema
      * @param nickName Identifica a un usuario capaz de iniciar sesion
+     * @return Retorna una cadena indicando el estado de la operacion
      */
-    void bajaUsuario(String nickName);
+    String bajaUsuario(String nickName);
+    
+    /**
+     * Agrega un nuevo usuario al sistema
+     * @param workerVO Indica el nuevo usuario a crear
+     * @return {@code String} Indicando el estado de la operacion
+     */
+    String altaUsuario(WorkerVO workerVO);
+    
+    /**
+     * Modifica a un usuario existente en el sistema
+     * @param workerVO  Indica el usuario perteneciente al sistema que será modificado
+     * @return {@code String} Indicando el estado de la operacion
+     */
+    String modificarUsuario(WorkerVO workerVO);
 }

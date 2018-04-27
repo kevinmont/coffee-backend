@@ -19,7 +19,7 @@ public interface ProductService {
     
     /**
      * Elimina un producto existente en el sistema
-     * @param producto indica el producto ha ser eliminado
+     * @param product indica el producto ha ser eliminado
      * @return {@code String} en el formato Nombre del producto concatenado con el estatus
      * de la operación
      */

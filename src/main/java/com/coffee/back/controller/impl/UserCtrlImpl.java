@@ -1,11 +1,14 @@
 package com.coffee.back.controller.impl;
 
 import com.coffee.back.commons.dto.UserDTO;
+import com.coffee.back.commons.dto.WorkerDTO;
 import com.coffee.back.commons.enums.UserType;
 import com.coffee.back.commons.exception.UserAuthenticationException;
 import com.coffee.back.controller.UserCtrl;
 import com.coffee.back.controller.parser.UserParser;
+import com.coffee.back.controller.parser.WorkerParser;
 import com.coffee.back.controller.vo.UserVO;
+import com.coffee.back.controller.vo.WorkerVO;
 import com.coffee.back.service.UserService;
 import com.google.inject.Inject;
 import java.util.logging.Level;
@@ -45,17 +48,33 @@ public class UserCtrlImpl implements UserCtrl {
     }
 
     @Override
-    public void cerrarSesion(UserVO userVO) {
+    public boolean cerrarSesion(UserVO userVO) {
         LOGGER.log(Level.INFO, "CTRL : Se ha iniciado el método cerrarSesion");
         UserDTO userDTO = UserParser.parseToUserDTO(userVO);
-        this.userService.cerrarSesion(userDTO);
+        boolean status = this.userService.cerrarSesion(userDTO);
+        return status;
     }
 
     @Override
-    public void bajaUsuario(String nickName) {
+    public String bajaUsuario(String nickName) {
         LOGGER.log(Level.INFO, "UserCTRL: se ha iniciado el método bajaUsuario");
-        this.userService.bajaUsuario(nickName);
+        String status = this.userService.bajaUsuario(nickName);
         LOGGER.log(Level.INFO, "UserCTRL: ha finalizado el método bajaUsuario");
+        return status;
+    }
+    
+    @Override
+    public String altaUsuario(WorkerVO workerVO){
+        LOGGER.log(Level.INFO,"UserCTRL#altaUsuario: Iniciando servicio");
+        WorkerDTO workerDTO = WorkerParser.parseToWorkerDTO(workerVO);
+        String status = this.userService.altaUsuario(workerDTO);
+        LOGGER.log(Level.INFO,"UserCTRL#altaUsuario: Finalizando servicio");
+        return status;
+    }
+    
+    @Override
+    public String modificarUsuario(WorkerVO workerVO) {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     @Inject

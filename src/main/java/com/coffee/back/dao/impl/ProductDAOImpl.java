@@ -65,7 +65,8 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
         List<ProductDTO> productDTOs = null;
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("select * from product");
+            preparedStatement = connection.prepareStatement("select * from product"
+                    + " join category using(category_id)");
             result = preparedStatement.executeQuery();
 
             productDTOs = new ArrayList<>();
@@ -77,7 +78,7 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
                 temp.setQuantity(result.getShort("quantity"));
                 temp.setImage(result.getString("image"));
                 temp.setCategoryId(result.getInt("category_id"));
-
+                temp.setCategoryName(result.getString("kind"));
                 productDTOs.add(temp);
             }
             result.close();
@@ -180,7 +181,8 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
         
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("SELECT * FROM product where"
+            preparedStatement = connection.prepareStatement("SELECT * FROM product"
+                    + " join category using(category_id) where"
                     + "product_name = ?");
             preparedStatement.setString(1, productName);
             resultSet = preparedStatement.executeQuery();
@@ -193,6 +195,7 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
                 product.setQuantity(resultSet.getShort(resultSet.getShort("quantity")));
                 product.setImage(resultSet.getString("image"));
                 product.setCategoryId(resultSet.getInt("category_id"));
+                product.setCategoryName(resultSet.getString("kind"));
                 LOGGER.log(Level.INFO, "ProductDAO: Llenado completo ProductDTO");
             }
             resultSet.close();

@@ -11,6 +11,7 @@ public interface SaleCtrl {
     /**
      * Finaliza una venta y da de alta en el sistema
      * @param sale Indica el objeto con los campos de una venta
+     * @return {@code Integer} indicando el numero de productos vendidos
      */
-    void realizarVenta(SaleVO sale);
+    int realizarVenta(SaleVO sale);
 }

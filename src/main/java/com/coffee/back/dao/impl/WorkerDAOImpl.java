@@ -69,7 +69,7 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
         boolean rowsAffected = false;
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("INSERT worker "
+            preparedStatement = connection.prepareStatement("INSERT into worker "
                     + "(worker_name, last_name, address, phone_number, email, photo, company_id, role_id)"
                     + "values (?, ?, ?, ?, ?, ?, ?, ? )");
             
