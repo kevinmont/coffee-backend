@@ -130,5 +130,37 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         logger.log(Level.INFO, "UserDAO: Finalizando método delete()");
         return statusOperation;
     }
+    
+    @Override
+    public boolean update(UserDTO userDTO){
+       logger.log(Level.INFO, "UserDAO: Inicializado update");
 
+        PreparedStatement preparedStatement = null;
+        boolean rowsAffected = false;
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement("UPDATE users SET "
+                    + "nick_name= ?, pass= ? WHERE worker_id= ?");
+            preparedStatement.setString(1, userDTO.getUserName());
+            preparedStatement.setString(2, userDTO.getPassword());
+            preparedStatement.setInt(3, userDTO.getWorkerId());
+            logger.log(Level.INFO, "UserDAO: Ejecutando update");
+            rowsAffected = preparedStatement.executeUpdate() > 0;
+            logger.log(Level.INFO, "UserDAO: Ejecutado update estatus {0}", rowsAffected);
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException ex) {
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException ex) {
+                    //Omitido excepción
+                }
+            }
+            closeConnection();
+        }
+        logger.log(Level.INFO, "UserDAO: Finalizado update, usuario: {0}", userDTO.getUserName());
+        return rowsAffected;
+    }
 }

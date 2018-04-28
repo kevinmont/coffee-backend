@@ -5,7 +5,8 @@ package com.coffee.back.commons.dto;
  * @author mont
  */
 public class WorkerDTO {
-
+    
+    private Integer id;
     private String workerName;
     private String lastName;
     private String address;
@@ -15,6 +16,20 @@ public class WorkerDTO {
     private Integer companyId;
     private Integer roleId;
     private UserDTO userDTO;
+
+    /**
+     * @return El id de un trabajador
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id El id de un trabajador a ser configurado
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
     
     /**
      * @return the workerName

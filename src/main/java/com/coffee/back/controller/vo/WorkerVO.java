@@ -5,7 +5,8 @@ package com.coffee.back.controller.vo;
  * @author mont
  */
 public class WorkerVO {
-
+    
+    private Integer id;
     private String name;
     private String lastName;
     private String address;
@@ -13,6 +14,20 @@ public class WorkerVO {
     private String email;
     private String photo;
     private UserVO userVO;
+
+    /**
+     * @return El id de un trabajador
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id El Id de un usuario a configurar
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
     
     /**
      * @return the name
@@ -71,17 +86,17 @@ public class WorkerVO {
     }
 
     /**
-     * @return the userVO
+     * @return the email
      */
-    public UserVO getUserVO() {
-        return userVO;
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * @param userVO the userVO to set
+     * @param email the email to set
      */
-    public void setUserVO(UserVO userVO) {
-        this.userVO = userVO;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
@@ -99,17 +114,17 @@ public class WorkerVO {
     }
 
     /**
-     * @return the email
+     * @return the userVO
      */
-    public String getEmail() {
-        return email;
+    public UserVO getUserVO() {
+        return userVO;
     }
 
     /**
-     * @param email the email to set
+     * @param userVO the userVO to set
      */
-    public void setNickName(String email) {
-        this.email = email;
+    public void setUserVO(UserVO userVO) {
+        this.userVO = userVO;
     }
-
+    
 }

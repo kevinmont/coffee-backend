@@ -94,7 +94,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String modificarUsuario(WorkerDTO workerDTO) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        logger.log(Level.INFO, "UserServiceImpl#modificarUsuario Iniciando");        
+        boolean statusWorker = this.workerDAO.update(workerDTO);
+        boolean userStatus = this.userDAO.update(workerDTO.getUserDTO());
+        boolean status= statusWorker && userStatus;
+        logger.log(Level.INFO, "UserServiceImpl#modificarUsuario Iniciando");
+        return status ? "Usuario "+workerDTO.getWorkerName()+" ha sido modificado exitosamente" 
+                : "No se ha podido modificar el usuario "+workerDTO.getWorkerName();        
     }
 
     /**

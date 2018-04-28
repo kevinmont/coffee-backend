@@ -24,5 +24,13 @@ public interface WorkerDAO {
      * de lo contrario {@code false}
      */
     boolean create(WorkerDTO workerDTO);
+
+    /**
+     * Actualiza un usuario existente.
+     * @param workerDTO Identifica a un usuario perteneciente al sistema.
+     * @return {@code true} si el {@code workerDTO} se ha actualizado exitosament
+     * de lo contrario un {@code false}
+     */
+    boolean update(WorkerDTO workerDTO);
     
 }

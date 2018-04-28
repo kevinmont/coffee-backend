@@ -11,6 +11,7 @@ public class WorkerParser {
     
     public static WorkerDTO parseToWorkerDTO(WorkerVO workerVO){
         WorkerDTO workerDTO = new WorkerDTO();
+        workerDTO.setId(workerVO.getId());
         workerDTO.setWorkerName(workerVO.getName());
         workerDTO.setLastName(workerVO.getLastName());
         workerDTO.setAddress(workerVO.getAddress());
@@ -18,6 +19,7 @@ public class WorkerParser {
         workerDTO.setPhoneNumber(workerVO.getPhoneNumber());
         workerDTO.setPhoto(workerVO.getPhoto());
         workerDTO.setUserDTO(UserParser.parseToUserDTO(workerVO.getUserVO()));
+        workerDTO.getUserDTO().setWorkerId(workerVO.getId());
         return workerDTO;
     }
 }

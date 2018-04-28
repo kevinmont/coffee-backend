@@ -74,7 +74,11 @@ public class UserCtrlImpl implements UserCtrl {
     
     @Override
     public String modificarUsuario(WorkerVO workerVO) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        LOGGER.log(Level.INFO, "UserCtrl#modificarUsuario Iniciado");
+        WorkerDTO workerDTO = WorkerParser.parseToWorkerDTO(workerVO);
+        String status = this.userService.modificarUsuario(workerDTO);
+        LOGGER.log(Level.INFO, "UserCtrl#modificarUsuario Iniciado");
+        return status;
     }
 
     @Inject

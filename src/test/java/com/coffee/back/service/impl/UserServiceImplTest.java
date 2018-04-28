@@ -1,15 +1,19 @@
 package com.coffee.back.service.impl;
 
-import com.coffee.back.commons.dto.UserDTO;
-import org.junit.Before;
-import org.junit.Test;
-
+import com.coffee.back.ConfigureUserDI;
 import com.coffee.back.commons.enums.UserType;
 import com.coffee.back.commons.exception.BadRequestException;
 import com.coffee.back.commons.exception.UserAuthenticationException;
+import com.coffee.back.controller.UserCtrl;
 import com.coffee.back.controller.impl.UserCtrlImpl;
+import com.coffee.back.controller.vo.UserVO;
+import com.coffee.back.controller.vo.WorkerVO;
 import com.coffee.back.dao.impl.UserDAOImpl;
-import com.coffee.back.dao.impl.WorkerDAOImpl;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -17,35 +21,56 @@ import com.coffee.back.dao.impl.WorkerDAOImpl;
  */
 public class UserServiceImplTest {
 
-	private final UserServiceImpl userServiceImpl = new UserServiceImpl();
-	private final UserCtrlImpl userController = new UserCtrlImpl();
+    private UserCtrl userController;
 
-	@Before
-	public void configuration() {
-		this.userController.setUserService(this.userServiceImpl);
-		this.userServiceImpl.setUserDAO(new UserDAOImpl());
-		this.userServiceImpl.setWorkerDAO(new WorkerDAOImpl());
-	}
+    @Before
+    public void configuration() {
+        Injector injector = Guice.createInjector(new ConfigureUserDI());
+        this.userController= injector.getInstance(UserCtrlImpl.class);
+    }
 
-	@Test(expected = UserAuthenticationException.class)
-	public void iniciarSesionTest() throws UserAuthenticationException {
-		UserDTO userVO = new UserDTO();
-		userVO.setUserName("ARE@EMP");
-		userVO.setPassword("1235");
-		userVO.setUserType(UserType.UKNOWN);
+    @Test
+    public void iniciarSesionTest() throws UserAuthenticationException {
+        UserVO userVO = new UserVO();
+        userVO.setUserName("ARE@EMP");
+        userVO.setPassword("1234");
+        userVO.setUserType(UserType.UKNOWN);
 
-		this.userServiceImpl.iniciarSesion(userVO);
+        UserVO user= this.userController.iniciarSesion(userVO);
+        assertNotNull(user);
+        assertEquals(UserType.CAJERO, user.getUserType());
+        assertSame(UserType.CAJERO, user.getUserType());
+    }
 
-	}
+    @Test(expected = BadRequestException.class)
+    public void probarc() throws BadRequestException {
+        try {
+            UserDAOImpl user = new UserDAOImpl();
+            user.getUserByNickName("ARE@EM");
+        } catch (BadRequestException ex) {
+            throw ex;
+        }
 
-	@Test(expected = BadRequestException.class)
-	public void probarc() throws BadRequestException {
-		try {
-			UserDAOImpl user = new UserDAOImpl();
-			user.getUserByNickName("ARE@EM");
-		} catch (BadRequestException ex) {
-			throw ex;
-		}
+    }
+    
+    @Test
+    public void modificarUsuario(){
+        WorkerVO worker = new WorkerVO();
+        worker.setId(1);
+        worker.setName("PENELOPE");
+        worker.setLastName("LOPEZ");
+        worker.setAddress("ORIZABA COL ZAPATA #223");
+        worker.setPhoneNumber("2721342343");
+        worker.setEmail("NULL");
+        worker.setPhoto("NULL");
+        UserVO user = new UserVO();
+        user.setUserName("PENELOPE");
+        user.setUserType(UserType.CAJERO);
+        user.setPassword("1234");
+        worker.setUserVO(user);
+        String status = this.userController.modificarUsuario(worker);
+        System.out.println(status);
+        assertNotNull(status);
+    }
 
-	}
 }
