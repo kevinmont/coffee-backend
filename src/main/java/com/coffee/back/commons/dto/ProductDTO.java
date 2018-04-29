@@ -12,7 +12,7 @@ public class ProductDTO {
     private Short quantity;     //Almacenara la cantidad de dicho producto
     private String image;       //Almacenara la imagen del producto
     private Integer categoryId; //Almacenara la categoria perteneciente al producto
-    private String categoryName;
+    private String categoryName;//Alamacena el nombre de la categoria a la que pertenece
     
     /**
      * @return el id de un producto

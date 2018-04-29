@@ -60,11 +60,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO buscarProducto(String productName) {
+    public List<ProductDTO> buscarProducto(String productName) {
         logger.log(Level.INFO, "ProductService: Iniciando método buscarProducto()");
-        ProductDTO product = this.productDAO.findProductByName(productName);
+        List<ProductDTO> products = this.productDAO.findProductsByName(productName);
         logger.log(Level.INFO, "ProductService: Finalizando método buscarProducto()");
-        return product;
+        return products;
     }
     
     @Inject

@@ -16,13 +16,17 @@ public class ProductParser {
      * @param productDTO Objeto a ser parseado
      * @return {@code ProductVO} objeto parseado
      */
-    public static ProductVO parseToProductVO(ProductDTO productDTO){
-        ProductVO parseProductVO = new ProductVO();
-        parseProductVO.setProductName(productDTO.getProductName());
-        parseProductVO.setPriceTag(productDTO.getPriceTag());
-        parseProductVO.setQuantity(productDTO.getQuantity());
-        parseProductVO.setImage(productDTO.getImage());
-        parseProductVO.setCategoryName(productDTO.getCategoryName());
+    public static List<ProductVO> parseToProductVO(List<ProductDTO> productDTO){
+        List<ProductVO> parseProductVO = new ArrayList<>();
+        productDTO.forEach((t)->{
+            ProductVO product = new ProductVO();
+            product.setProductName(t.getProductName());
+            product.setCategoryName(t.getCategoryName());
+            product.setImage(t.getImage());
+            product.setPriceTag(t.getPriceTag());
+            product.setQuantity(t.getQuantity());
+            parseProductVO.add(product);
+        });
         return parseProductVO;
     }
     

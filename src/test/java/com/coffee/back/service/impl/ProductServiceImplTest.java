@@ -1,13 +1,16 @@
 package com.coffee.back.service.impl;
 
+import com.coffee.back.ConfigureProductDI;
 import com.coffee.back.controller.impl.ProductCtrlImpl;
 import com.coffee.back.controller.vo.ProductVO;
-import com.coffee.back.dao.impl.CategoryDAOImpl;
-import com.coffee.back.dao.impl.ProductDAOImpl;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.internal.runners.JUnit4ClassRunner;
 import org.junit.runner.RunWith;
+import static org.junit.Assert.*;
 
 /**
  *
@@ -16,28 +19,13 @@ import org.junit.runner.RunWith;
 @RunWith(JUnit4ClassRunner.class)
 public class ProductServiceImplTest {
     
-    private ProductServiceImpl productServiceImpl;
-    private ProductDAOImpl productDAOImpl;
     private ProductCtrlImpl productCtrlImpl;
-    private CategoryServiceImpl categoryServiceImpl;
-    private CategoryDAOImpl categoryDAOImpl;
+    
     
     @Before
     public void confi(){
-        this.productCtrlImpl = new ProductCtrlImpl();
-        
-        this.productServiceImpl = new  ProductServiceImpl();
-        this.categoryServiceImpl = new  CategoryServiceImpl();
-        
-        this.productDAOImpl = new ProductDAOImpl();
-        this.categoryDAOImpl = new CategoryDAOImpl();
-        
-        this.productCtrlImpl.setProductService(productServiceImpl);
-        this.productCtrlImpl.setCategoryService(categoryServiceImpl);
-        
-        this.productServiceImpl.setProductDAO(productDAOImpl);
-        this.categoryServiceImpl.setCategoryDAO(categoryDAOImpl);
-        
+           Injector injector = Guice.createInjector(new ConfigureProductDI());
+           productCtrlImpl = injector.getInstance(ProductCtrlImpl.class);
     }
     
     @Test    
@@ -48,7 +36,17 @@ public class ProductServiceImplTest {
         newProduct.setPriceTag(32.3);
         newProduct.setImage("ninguno");
         newProduct.setCategoryName("COMIDA");
-        
         this.productCtrlImpl.altaProducto(newProduct);
+    }
+    
+    @Test
+    public void retrieveProduct(){
+        String productName = "PEÑAFIEL";
+        List<ProductVO> products=this.productCtrlImpl.buscarProducto(productName);
+        products.forEach((t)->{
+            System.out.println("hOLA "+t.getProductName());
+        });
+        assertNotNull(products);
+        
     }
 }

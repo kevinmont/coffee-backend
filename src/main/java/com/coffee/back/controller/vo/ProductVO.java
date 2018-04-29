@@ -6,11 +6,26 @@ package com.coffee.back.controller.vo;
  */
 public class ProductVO {
 
+    private Integer id;         //Almacenara el id de un producto
     private String productName; //Almacenara el nombre de un producto
     private Double priceTag;    //Almacenara el precio de un producto
     private Short quantity;     //Almacenara la cantidad de dicho producto
     private String image;       //Almacenara la imagen del producto
     private String categoryName; //Almacenara la categoria perteneciente al producto
+
+    /**
+     * @return El id de un producto
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id El id de un producto a ser configurado
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
     
     /**
      * @return el nombre del producto

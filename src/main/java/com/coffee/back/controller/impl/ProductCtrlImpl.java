@@ -7,14 +7,15 @@ import com.coffee.back.controller.vo.ProductVO;
 import com.coffee.back.service.CategoryService;
 import com.coffee.back.service.ProductService;
 import com.google.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * La clase {@code ProductCtrlImpl} es encargada de recibir las peticiones lanzadas por el 
- * usuario desde la vista, se encarga de manejar y ejecutar los servicos de un Producto
+ * La clase {@code ProductCtrlImpl} es encargada de recibir las peticiones
+ * lanzadas por el usuario desde la vista, se encarga de manejar y ejecutar los
+ * servicos de un Producto
+ *
  * @author mont
  */
 public class ProductCtrlImpl implements ProductCtrl {
@@ -22,7 +23,7 @@ public class ProductCtrlImpl implements ProductCtrl {
     private static final Logger logger = Logger.getLogger(ProductCtrlImpl.class.getName());
     private ProductService productService; // Dependencia de los servicios
     private CategoryService categoryService;
-    
+
     @Override
     public String altaProducto(ProductVO productVO) {
         logger.log(Level.INFO, "ProductCTRL: Iniciando método altaProducto");
@@ -41,33 +42,33 @@ public class ProductCtrlImpl implements ProductCtrl {
         return statusOperation;
     }
 
-     @Override
+    @Override
     public String modificarProducto(ProductVO productVO) {
         logger.log(Level.INFO, "ProductCtrl: Iniciando método actualizarProducto()");
         ProductDTO productDTO = ProductParser.parseToProductDTO(productVO);
         String statusOperation = this.productService.actualizarProducto(productDTO);
         logger.log(Level.INFO, "ProductCtrl: Finalizando método actualizarProducto()");
-        return statusOperation; 
+        return statusOperation;
     }
-    
+
     @Override
-    public List<ProductVO> conseguirProductos(){
+    public List<ProductVO> conseguirProductos() {
         logger.log(Level.INFO, "ProductCtrl: Iniciando método conseguirProducto()");
         List<ProductDTO> allProducuts = this.productService.conseguirProductos();
-        List<ProductVO> productVOs =ProductParser.parseToProductDTO(allProducuts);
+        List<ProductVO> productVOs = ProductParser.parseToProductDTO(allProducuts);
         logger.log(Level.INFO, "ProductCtrl: Finalizando método conseguirProducto()");
         return productVOs;
     }
-    
+
     @Override
-    public ProductVO buscarProducto(String productName){
+    public List<ProductVO> buscarProducto(String productName) {
         logger.log(Level.INFO, "ProductCtrl: Iniciando método buscarProducto()");
-        ProductDTO producDTO= this.productService.buscarProducto(productName);
-        ProductVO productRetrieved = ProductParser.parseToProductVO(producDTO);
+        List<ProductDTO> producsDTO = this.productService.buscarProducto(productName);
+        List<ProductVO> productsVO = ProductParser.parseToProductVO(producsDTO);
         logger.log(Level.INFO, "ProductCtrl: Finalizando método buscarProducto()");
-        return productRetrieved;
+        return productsVO;
     }
-    
+
     @Inject
     /**
      * @param productService El servicio a ser modificado

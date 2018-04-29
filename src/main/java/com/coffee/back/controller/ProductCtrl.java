@@ -40,7 +40,8 @@ public interface ProductCtrl {
     /**
      * Recupera un producto en especifico registrado en el sistema
      * @param productName Nombre para un producto a ser buscado
-     * @return {@code ProductVO} Contiene el producto con el {@code productName} recuperado
+     * @return {@code List<ProductVO>} Contiene los productos que coinciden con el parametro {@code productName}
+     * recuperado
      */
-    ProductVO buscarProducto(String productName);
+    List<ProductVO> buscarProducto(String productName);
 }

@@ -42,8 +42,8 @@ public interface ProductService {
     /**
      * Busca un producto registrado en el sistema
      * @param productName Nombre del producto a ser buscado
-     * @return {@code ProductDTO} producto registrado en el sistema
+     * @return {@code List<ProductDTO>} productos registrados en el sistema
      */
-    ProductDTO buscarProducto(String productName);
+    List<ProductDTO> buscarProducto(String productName);
     
 }

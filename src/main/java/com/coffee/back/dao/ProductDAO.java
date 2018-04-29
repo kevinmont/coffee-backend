@@ -38,6 +38,13 @@ public interface ProductDAO {
      * @param productName identificador del producto a ser buscado
      * @return {@code ProductDTO} que se encuentra registrado en el sistema
      */
+    List<ProductDTO> findProductsByName(String productName);
+    
+    /**
+     * 
+     * @param productName
+     * @return 
+     */
     ProductDTO findProductByName(String productName);
 
 }
