@@ -2,6 +2,7 @@ package com.coffee.back.controller.vo;
 
 /**
  * Clase que representa el modelo de un producto
+ *
  * @author mont
  */
 public class ProductVO {
@@ -14,20 +15,26 @@ public class ProductVO {
     private String categoryName; //Almacenara la categoria perteneciente al producto
 
     /**
-     * @return El id de un producto
+     * Recupera el id
+     *
+     * @return {@code Integer} El id de un producto
      */
     public Integer getId() {
         return id;
     }
 
     /**
+     * Configura el id
+     *
      * @param id El id de un producto a ser configurado
      */
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
     /**
+     * Recupera el nombre
+     *
      * @return el nombre del producto
      */
     public String getProductName() {
@@ -35,6 +42,8 @@ public class ProductVO {
     }
 
     /**
+     * Configura el nombre
+     *
      * @param productName El nombre del producto a modificar
      */
     public void setProductName(String productName) {
@@ -42,6 +51,8 @@ public class ProductVO {
     }
 
     /**
+     * Recupera el precio
+     *
      * @return El precion de un producto
      */
     public Double getPriceTag() {
@@ -49,6 +60,8 @@ public class ProductVO {
     }
 
     /**
+     * Configura el precio
+     *
      * @param priceTag El precio de un producto a modificar
      */
     public void setPriceTag(Double priceTag) {
@@ -56,6 +69,8 @@ public class ProductVO {
     }
 
     /**
+     * Recupera la cantidad existente
+     *
      * @return la cantidad existente del producto
      */
     public Short getQuantity() {
@@ -63,6 +78,8 @@ public class ProductVO {
     }
 
     /**
+     * Configura la cantidad existente
+     *
      * @param quantity La cantidad de un producto a modificar
      */
     public void setQuantity(Short quantity) {
@@ -70,6 +87,8 @@ public class ProductVO {
     }
 
     /**
+     * Recupera el la ruta absoluta a la imagen
+     *
      * @return La imagen del producto
      */
     public String getImage() {
@@ -77,6 +96,8 @@ public class ProductVO {
     }
 
     /**
+     * Configura la ruta absoluta a la imagen
+     *
      * @param image La imagen del producto a modificar
      */
     public void setImage(String image) {
@@ -84,6 +105,8 @@ public class ProductVO {
     }
 
     /**
+     * Recupera el nombre de la categoria
+     *
      * @return La id de categoria perteneciente del producto
      */
     public String getCategoryName() {
@@ -91,10 +114,13 @@ public class ProductVO {
     }
 
     /**
-     * @param categoryName La id de categoria perteneciente del producot a modificar
+     * Configura el nombre de la categoria
+     *
+     * @param categoryName La id de categoria perteneciente del producot a
+     * modificar
      */
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
-    
+
 }

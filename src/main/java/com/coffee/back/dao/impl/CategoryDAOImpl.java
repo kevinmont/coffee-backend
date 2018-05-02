@@ -10,44 +10,48 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Clase {@code CategoryDAOImpl} encargada de implementar {@code CategoryDAO }
+ * la cual establece solicitudes con el servidor de la base de datos de tipo
+ * CRUD
  *
  * @author mont
  */
 public class CategoryDAOImpl extends AbstractDAO implements CategoryDAO {
 
     private static final Logger logger = Logger.getLogger(CategoryDAOImpl.class.getName());
-    
+
     @Override
     public CategoryDTO getCategoryByName(String categoryName) {
-        logger.log(Level.INFO,"CategoryDAOImpl : Iniciando getCategoryByName()");
+        logger.log(Level.INFO, "CategoryDAOImpl : Iniciando getCategoryByName()");
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         CategoryDTO category = null;
-        try{
+        try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement("SELECT * from category where kind = ?");
             preparedStatement.setString(1, categoryName);
-            logger.log(Level.INFO,"CategoryDAOImpl : Ejecutando query");
+            logger.log(Level.INFO, "CategoryDAOImpl : Ejecutando query");
             resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 category = new CategoryDTO();
                 category.setCategoryId(resultSet.getInt("category_id"));
                 category.setCategoryName(resultSet.getString("kind"));
-                logger.log(Level.INFO,"valor de {0}",category.getCategoryId());
+                logger.log(Level.INFO, "valor de {0}", category.getCategoryId());
             }
-            logger.log(Level.INFO,"CategoryDAOImpl : Query finalizado");
+            logger.log(Level.INFO, "CategoryDAOImpl : Query finalizado");
             resultSet.close();
             preparedStatement.close();
             connection.close();
-        }catch(SQLException ex){
-            
+        } catch (SQLException ex) {
+
         } finally {
-            if(resultSet != null)
+            if (resultSet != null) {
                 try {
                     resultSet.close();
-            } catch (SQLException ex) {
+                } catch (SQLException ex) {
+                }
             }
-            if(preparedStatement != null){
+            if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
                 } catch (SQLException ex) {
@@ -55,8 +59,8 @@ public class CategoryDAOImpl extends AbstractDAO implements CategoryDAO {
             }
             closeConnection();
         }
-        logger.log(Level.INFO,"CategoryDAOImpl : Finalizando getCategoryByName()");
+        logger.log(Level.INFO, "CategoryDAOImpl : Finalizando getCategoryByName()");
         return category;
     }
-    
+
 }

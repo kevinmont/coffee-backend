@@ -3,11 +3,13 @@ package com.coffee.back.commons.dto;
 import com.coffee.back.commons.enums.UserType;
 
 /**
- * Clase que representa los datos de un usuario para la transferencia
+ * Clase que representa los datos de user utilizada para el transporte hasta la
+ * capa de datos.
+ *
  * @author mont
  */
 public class UserDTO {
-    
+
     private String userName;    // Almacenara el nombre de usuario
     private String password;    // Almacenara el password de un usuario
     private UserType userType;  // Almacenara el tipo de usuario
@@ -40,22 +42,25 @@ public class UserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
     /**
      * Recupera el id trabajador del usuario
+     *
      * @return {@code Integer} Id de trabajdor del usuario
      */
     public Integer getWorkerId() {
-		return workerId;
-	}
-    
+        return workerId;
+    }
+
     /**
      * Modifica el id trabajador del usuario
+     *
      * @param workerId El id trabajador de un usuario
      */
-	public void setWorkerId(Integer workerId) {
-		this.workerId = workerId;
-	}
-	
+    public void setWorkerId(Integer workerId) {
+        this.workerId = workerId;
+    }
+
     /**
      * @return El tipo de usuario
      */
@@ -69,5 +74,5 @@ public class UserDTO {
     public void setUserType(UserType userType) {
         this.userType = userType;
     }
-    
+
 }

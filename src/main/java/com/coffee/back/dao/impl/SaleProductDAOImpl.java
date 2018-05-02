@@ -9,15 +9,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Clase {@code SaleProductDAOImpl} encargada de implementar {@code SaleProductDAO}
- * la cual establece solicitudes con el servidor de la base de datos de tipo CRUD
+ * Clase {@code SaleProductDAOImpl} encargada de implementar
+ * {@code SaleProductDAO} la cual establece solicitudes con el servidor de la
+ * base de datos de tipo CRUD
+ *
  * @see SaleProductDAO
  * @author mont
  */
 public class SaleProductDAOImpl extends AbstractDAO implements SaleProductDAO {
 
     private static final Logger logger = Logger.getLogger(SaleProductDAOImpl.class.getName());
-    
+
     @Override
     public int create(SaleDTO products) {
         logger.log(Level.INFO, "SaleProductDAO: Inicializando método create()");
@@ -50,10 +52,11 @@ public class SaleProductDAOImpl extends AbstractDAO implements SaleProductDAO {
             logger.log(Level.INFO, "SaleProductDAO: Actualizando filas afectadas de productos");
             rowsAffected = products.getSaleProduct().size();
         } catch (SQLException ex) {
-            if(connection != null)
+            if (connection != null) {
                 try {
                     connection.rollback();
-            } catch (SQLException ex1) {
+                } catch (SQLException ex1) {
+                }
             }
         } finally {
             if (preparedStatement != null) {

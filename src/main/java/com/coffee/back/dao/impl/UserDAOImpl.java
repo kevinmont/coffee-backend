@@ -61,7 +61,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
                 closeConnection();
             }
             if (userRecover != null) {
-                logger.log(Level.INFO, "UserDAO: Método getUserByNickName, user : {0} recuperado",userRecover.getUserName());
+                logger.log(Level.INFO, "UserDAO: Método getUserByNickName, user : {0} recuperado", userRecover.getUserName());
                 return userRecover;
             }
             throw new BadRequestException("No existe algun usuario " + user);
@@ -117,7 +117,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
             logger.log(Level.INFO, "UserDAO: Usuario {0} Eliminado", nickName);
             preparedStatement.close();
         } catch (SQLException e) {
-            
+
         } finally {
             if (preparedStatement != null) {
                 try {
@@ -130,10 +130,10 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         logger.log(Level.INFO, "UserDAO: Finalizando método delete()");
         return statusOperation;
     }
-    
+
     @Override
-    public boolean update(UserDTO userDTO){
-       logger.log(Level.INFO, "UserDAO: Inicializado update");
+    public boolean update(UserDTO userDTO) {
+        logger.log(Level.INFO, "UserDAO: Inicializado update");
 
         PreparedStatement preparedStatement = null;
         boolean rowsAffected = false;

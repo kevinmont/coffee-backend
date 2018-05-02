@@ -12,6 +12,6 @@ public class BadRequestException extends Exception{
     }
     
     public BadRequestException(String error){
-        super(error);
+        super(error); // Se construye el constructor de Exception(String error)
     }
 }

@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
         logger.log(Level.INFO, "ProductService: Finalizando método buscarProducto()");
         return products;
     }
-    
+
     @Inject
     /**
      * @param productDAO the productDAO to set
@@ -74,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
     public void setProductDAO(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
-    
+
     @Inject
     /**
      * @param categoryDAO the categoryService to set

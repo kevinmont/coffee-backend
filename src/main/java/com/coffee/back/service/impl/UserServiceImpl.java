@@ -68,13 +68,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public String altaUsuario(WorkerDTO workerDTO) {
         logger.log(Level.INFO, "Service#altaUsuario: se ha iniciado");
-        if(workerDTO.getWorkerName().isEmpty() || workerDTO.getRoleId() != null){
+        if (workerDTO.getWorkerName().isEmpty() || workerDTO.getRoleId() != null) {
             return "Campos incorrectos";
         }
         boolean status = this.workerDAO.create(workerDTO);
         logger.log(Level.INFO, "Service#altaUsuario: ha finalizado");
-        return status?  "El usuario "+workerDTO.getWorkerName()+ " ha sido creado exitosamente" 
-                : "Error al intentar crear el usuario "+ workerDTO.getWorkerName();
+        return status ? "El usuario " + workerDTO.getWorkerName() + " ha sido creado exitosamente"
+                : "Error al intentar crear el usuario " + workerDTO.getWorkerName();
     }
 
     @Override
@@ -94,13 +94,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String modificarUsuario(WorkerDTO workerDTO) {
-        logger.log(Level.INFO, "UserServiceImpl#modificarUsuario Iniciando");        
+        logger.log(Level.INFO, "UserServiceImpl#modificarUsuario Iniciando");
         boolean statusWorker = this.workerDAO.update(workerDTO);
         boolean userStatus = this.userDAO.update(workerDTO.getUserDTO());
-        boolean status= statusWorker && userStatus;
+        boolean status = statusWorker && userStatus;
         logger.log(Level.INFO, "UserServiceImpl#modificarUsuario Iniciando");
-        return status ? "Usuario "+workerDTO.getWorkerName()+" ha sido modificado exitosamente" 
-                : "No se ha podido modificar el usuario "+workerDTO.getWorkerName();        
+        return status ? "Usuario " + workerDTO.getWorkerName() + " ha sido modificado exitosamente"
+                : "No se ha podido modificar el usuario " + workerDTO.getWorkerName();
     }
 
     /**

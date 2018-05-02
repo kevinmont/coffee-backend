@@ -15,9 +15,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * La clase {@code UserCtrlImpl} es encargada de recibir las peticiones lanzadas
- * por el usuario desde la vista, se encarga de manejar y ejecutar los servicos
- * de un Usuario
+ * La clase {@code UsserCtrlImpl} es encargada de recibir las peticiones
+ * lanzadas por el usuario desde la vista, se encarga de manejar y ejecutar los
+ * servicos de un Usuario
  *
  * @author mont
  */
@@ -29,20 +29,24 @@ public class UserCtrlImpl implements UserCtrl {
     @Override
     public UserVO iniciarSesion(UserVO userVO) {
         LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion se ha iniciado");
+        // Se convierte el modelo a tipo dto para ser enviado a la capa de DA
         UserDTO userDTO = UserParser.parseToUserDTO(userVO);
-        UserVO userVORecover = null;
+        UserVO userVORecover = null;    // Almacenara el usuario recuperado
+
         try {
             LOGGER.log(Level.INFO, "CTRL: Iniciando sesion");
-            UserDTO userDTORecover=this.userService.iniciarSesion(userDTO);
+            // Se recupera el tipo de usuario
+            UserDTO userDTORecover = this.userService.iniciarSesion(userDTO);
+            // Se convierte el al modelo usuario
             userVORecover = UserParser.parseToUserVO(userDTORecover);
             return userVORecover;
         } catch (UserAuthenticationException ex) {
-            
         }
+        
         LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion ha Finalizado");
-        if(userVORecover == null){
+        if (userVORecover == null) {
             userVORecover = new UserVO();
-            userVORecover.setUserType(UserType.UKNOWN);
+            userVORecover.setUserType(UserType.UKNOWN); // El usuario es desconocido
         }
         return userVORecover;
     }
@@ -50,6 +54,7 @@ public class UserCtrlImpl implements UserCtrl {
     @Override
     public boolean cerrarSesion(UserVO userVO) {
         LOGGER.log(Level.INFO, "CTRL : Se ha iniciado el método cerrarSesion");
+        // Se convierte el modelo usuario al tipo manejado por la capa de DA
         UserDTO userDTO = UserParser.parseToUserDTO(userVO);
         boolean status = this.userService.cerrarSesion(userDTO);
         return status;
@@ -58,24 +63,29 @@ public class UserCtrlImpl implements UserCtrl {
     @Override
     public String bajaUsuario(String nickName) {
         LOGGER.log(Level.INFO, "UserCTRL: se ha iniciado el método bajaUsuario");
+        // Se recupera el estado de la operacion
         String status = this.userService.bajaUsuario(nickName);
         LOGGER.log(Level.INFO, "UserCTRL: ha finalizado el método bajaUsuario");
         return status;
     }
-    
+
     @Override
-    public String altaUsuario(WorkerVO workerVO){
-        LOGGER.log(Level.INFO,"UserCTRL#altaUsuario: Iniciando servicio");
+    public String altaUsuario(WorkerVO workerVO) {
+        LOGGER.log(Level.INFO, "UserCTRL#altaUsuario: Iniciando servicio");
+        // Se convierte el modelo trabajador al tipo manejado por la capa de DA
         WorkerDTO workerDTO = WorkerParser.parseToWorkerDTO(workerVO);
+        // Se recupera el estado de la operacion
         String status = this.userService.altaUsuario(workerDTO);
-        LOGGER.log(Level.INFO,"UserCTRL#altaUsuario: Finalizando servicio");
+        LOGGER.log(Level.INFO, "UserCTRL#altaUsuario: Finalizando servicio");
         return status;
     }
-    
+
     @Override
     public String modificarUsuario(WorkerVO workerVO) {
         LOGGER.log(Level.INFO, "UserCtrl#modificarUsuario Iniciado");
+        // Se convierte el modelo trabajador al tipo manejado por la capa de DA
         WorkerDTO workerDTO = WorkerParser.parseToWorkerDTO(workerVO);
+        // Se recupera el estado de la operacion
         String status = this.userService.modificarUsuario(workerDTO);
         LOGGER.log(Level.INFO, "UserCtrl#modificarUsuario Iniciado");
         return status;

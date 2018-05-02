@@ -1,11 +1,13 @@
 package com.coffee.back.commons.dto;
 
 /**
+ * Clase que representa los datos de worker utilizada para el transporte hasta
+ * la capa de datos.
  *
  * @author mont
  */
 public class WorkerDTO {
-    
+
     private Integer id;
     private String workerName;
     private String lastName;
@@ -30,7 +32,7 @@ public class WorkerDTO {
     public void setId(Integer id) {
         this.id = id;
     }
-    
+
     /**
      * @return the workerName
      */

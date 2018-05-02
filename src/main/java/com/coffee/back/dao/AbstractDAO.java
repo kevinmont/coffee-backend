@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 /**
  * Clase abstracta de utilidad encargado de realizar conexion a la base de datos
  * y la configuración.
+ *
  * @author mont
  */
 public abstract class AbstractDAO {
@@ -26,11 +27,12 @@ public abstract class AbstractDAO {
     }
 
     /**
-     * Método inicializado despues de que exista una subclase, encargada de Inicializar una instancia
-     * de nuestro manejador de JDBC.
+     * Método inicializado despues de que exista una subclase, encargada de
+     * Inicializar una instancia de nuestro manejador de JDBC.
+     *
      * @throws ClassNotFoundException
      * @throws InstantiationException
-     * @throws IllegalAccessException 
+     * @throws IllegalAccessException
      */
     @PostConstruct
     private void initConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -38,20 +40,22 @@ public abstract class AbstractDAO {
     }
 
     /**
-     * Recupera la conexion a la base de datos si es que existe alguna, de lo contrario
-     * lanza un excepción.
+     * Recupera la conexion a la base de datos si es que existe alguna, de lo
+     * contrario lanza un excepción.
+     *
      * @return {@code Connection} Conexión al servidor de la base de datos
-     * @throws SQLException 
+     * @throws SQLException
      */
     protected Connection getConnection() throws SQLException {
-        if(connection != null)
+        if (connection != null) {
             return this.connection;
+        }
         return this.connection = DriverManager.getConnection(getUrl(), getUserName(), getPassword());
     }
 
     /**
-     * Liberá el recurso establecido a la base de datos y recursos de JDBC en vez de esperar
-     * automaticamente.
+     * Liberá el recurso establecido a la base de datos y recursos de JDBC en
+     * vez de esperar automaticamente.
      */
     protected void closeConnection() {
         try {
@@ -63,6 +67,8 @@ public abstract class AbstractDAO {
     }
 
     /**
+     * Recupera el driver.
+     *
      * @return El nombre del driver ClassName
      */
     private String getDriverClassName() {
@@ -70,6 +76,8 @@ public abstract class AbstractDAO {
     }
 
     /**
+     * Configura el driver.
+     *
      * @param driverClassName El nombre driver ClassName a ser modificado
      */
     public void setDriverClassName(String driverClassName) {
@@ -77,6 +85,8 @@ public abstract class AbstractDAO {
     }
 
     /**
+     * Recupera el nombre de usuario de la base de datos.
+     *
      * @return El nombre de usuario
      */
     private String getUserName() {
@@ -84,6 +94,8 @@ public abstract class AbstractDAO {
     }
 
     /**
+     * Configura el nombre de usuario de la base de datos.
+     *
      * @param userName El nombre de usuario a ser modificado
      */
     public void setUserName(String userName) {
@@ -91,6 +103,8 @@ public abstract class AbstractDAO {
     }
 
     /**
+     * Recupera el password del usuario de la base de datos.
+     *
      * @return El password del usuario manejador del DB
      */
     private String getPassword() {
@@ -98,6 +112,8 @@ public abstract class AbstractDAO {
     }
 
     /**
+     * Configura el password del usuario de la base de datos.
+     *
      * @param password El password del usuario manejador del DB a ser modificado
      */
     public void setPassword(String password) {
@@ -105,6 +121,8 @@ public abstract class AbstractDAO {
     }
 
     /**
+     * Recupera la url del servidor de la base de datos.
+     *
      * @return La url del servidor DBMS
      */
     private String getUrl() {
@@ -112,6 +130,8 @@ public abstract class AbstractDAO {
     }
 
     /**
+     * Configura la url del servidor de la base de datos.
+     *
      * @param url La url del servidor DBMS a ser modificado
      */
     public void setUrl(String url) {

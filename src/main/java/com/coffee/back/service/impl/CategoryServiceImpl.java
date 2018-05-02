@@ -10,10 +10,10 @@ import java.util.logging.Logger;
 /**
  * Clase {@code CategoryServiceImpl} encargada de implementar
  * {@code ProductService} y de ejecutar la logica de negocio.
+ *
  * @author mont
- * @since 09/04/2018 
- * Objetivo, o problema que resuelve el programa
- * Fecha de creación y fecha de modificación
+ * @since 09/04/2018 Objetivo, o problema que resuelve el programa Fecha de
+ * creación y fecha de modificación
  */
 public class CategoryServiceImpl implements CategoryService {
 
@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
         logger.log(Level.INFO, "CategoryServiceImpl: Finalizando método getCategoryIdByName");
         return category;
     }
-    
+
     @Inject
     /**
      * @param categoryDAO Una categoriaDAO el acceso a dato a ser modificada

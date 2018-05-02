@@ -11,16 +11,19 @@ import com.coffee.back.service.impl.ProductServiceImpl;
 import com.google.inject.AbstractModule;
 
 /**
- *
+ * Clase encargada de configurar las dependencias para el controlador de servicios
+ * de tipo Producto.
  * @author mont
  */
 public class ConfigureProductDI extends AbstractModule{
 
     public ConfigureProductDI() {
     }
-
+    
     @Override
     protected void configure() {
+        // Se registran las dependencias para el tipo de controlador
+        // Producto
         bind(ProductService.class).to(ProductServiceImpl.class);
         bind(CategoryService.class).to(CategoryServiceImpl.class);
         bind(ProductDAO.class).to(ProductDAOImpl.class);

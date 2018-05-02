@@ -1,7 +1,9 @@
 package com.coffee.back.commons.dto;
 
 /**
- * Clase que representa los datos de producto para la transferencia
+ * Clase que representa los datos de producto utilizada para el transporte hasta
+ * la capa de datos.
+ *
  * @author mont
  */
 public class ProductDTO {
@@ -13,7 +15,7 @@ public class ProductDTO {
     private String image;       //Almacenara la imagen del producto
     private Integer categoryId; //Almacenara la categoria perteneciente al producto
     private String categoryName;//Alamacena el nombre de la categoria a la que pertenece
-    
+
     /**
      * @return el id de un producto
      */
@@ -71,10 +73,6 @@ public class ProductDTO {
     }
 
     /**
-     * @return El producto si es comida
-     */
-
-    /**
      * @return La imagen del producto
      */
     public String getImage() {
@@ -96,7 +94,8 @@ public class ProductDTO {
     }
 
     /**
-     * @param categoryId La id de categoria perteneciente del producot a modificar
+     * @param categoryId La id de categoria perteneciente del producot a
+     * modificar
      */
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
@@ -110,10 +109,11 @@ public class ProductDTO {
     }
 
     /**
-     * @param categoryName Configura el nombre de la categoria a la que pertenece el producto
+     * @param categoryName Configura el nombre de la categoria a la que
+     * pertenece el producto
      */
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
-            
+
 }

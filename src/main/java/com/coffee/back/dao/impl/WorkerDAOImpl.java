@@ -14,11 +14,12 @@ import java.util.logging.Logger;
  * Clase {@code WorkerDAOImpl} encargada de implementar {@code WorkerDAO }
  * la cual establece solicitudes con el servidor de la base de datos de tipo
  * CRUD
+ *
  * @see WorkerDAO
  * @author mont
  */
 public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
-    
+
     private static final Logger logger = Logger.getLogger(WorkerDAOImpl.class.getName());
 
     @Override
@@ -71,7 +72,7 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
             preparedStatement = connection.prepareStatement("INSERT into worker "
                     + "(worker_name, last_name, address, phone_number, email, photo, company_id, role_id)"
                     + "values (?, ?, ?, ?, ?, ?, ?, ? )");
-            
+
             preparedStatement.setString(1, workerDTO.getWorkerName());
             preparedStatement.setString(2, workerDTO.getLastName());
             preparedStatement.setString(3, workerDTO.getAddress());
@@ -102,7 +103,7 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
 
     @Override
     public boolean update(WorkerDTO workerDTO) {
-        logger.log(Level.INFO, "WorkerDAOImpl#update Iniciando {0}",workerDTO.getWorkerName());
+        logger.log(Level.INFO, "WorkerDAOImpl#update Iniciando {0}", workerDTO.getWorkerName());
         boolean rowsAffected = false;
         PreparedStatement preparedStatement = null;
 
@@ -123,12 +124,12 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
             preparedStatement.setString(6, workerDTO.getPhoto());
             preparedStatement.setInt(7, 1);
             preparedStatement.setInt(8, 2);
-            
+
             preparedStatement.setInt(9, workerDTO.getId());
-            
+
             logger.log(Level.INFO, "WorkerDAOImpl#update Iniciando update");
             rowsAffected = preparedStatement.executeUpdate() > 0;
-            logger.log(Level.INFO, "WorkerDAOImpl#update Finalizando update estatus {0}",rowsAffected);
+            logger.log(Level.INFO, "WorkerDAOImpl#update Finalizando update estatus {0}", rowsAffected);
             preparedStatement.close();
             connection.close();
         } catch (SQLException ex) {
@@ -141,7 +142,7 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
             }
             closeConnection();
         }
-        logger.log(Level.INFO, "WorkerDAOImpl#update Finalizando {0}",workerDTO.getWorkerName());
+        logger.log(Level.INFO, "WorkerDAOImpl#update Finalizando {0}", workerDTO.getWorkerName());
         return rowsAffected;
     }
 }

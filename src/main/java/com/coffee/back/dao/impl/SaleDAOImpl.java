@@ -1,4 +1,4 @@
-    package com.coffee.back.dao.impl;
+package com.coffee.back.dao.impl;
 
 import com.coffee.back.commons.dto.SaleDTO;
 import com.coffee.back.dao.AbstractDAO;
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class SaleDAOImpl extends AbstractDAO implements SaleDAO {
 
     private static final Logger logger = Logger.getLogger(SaleDAOImpl.class.getName());
-    
+
     @Override
     public int create(SaleDTO saleDTO) {
         logger.log(Level.INFO, "SaleDAOImpl: Inicializando método create()");
@@ -50,15 +50,17 @@ public class SaleDAOImpl extends AbstractDAO implements SaleDAO {
             rowsAffected = saleDTO.getSaleProduct().size();
         } catch (SQLException ex) {
             try {
-                if(connection != null)
+                if (connection != null) {
                     connection.rollback();
+                }
             } catch (SQLException ex1) {
             }
-        }finally {
-            if(preparedStatement != null)
+        } finally {
+            if (preparedStatement != null) {
                 try {
                     preparedStatement.close();
-            } catch (SQLException ex) {
+                } catch (SQLException ex) {
+                }
             }
             closeConnection();
         }

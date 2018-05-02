@@ -1,11 +1,12 @@
 package com.coffee.back.commons.dto;
 
 /**
- * Clase que representa los datos de categoria para la transferencia
+ * Clase que representa los datos de categoria utilizada para
+ * el transporte hasta la capa de datos.
  * @author mont
  */
 public class CategoryDTO {
-
+    
     private Integer categoryId;
     private String categoryName;
     

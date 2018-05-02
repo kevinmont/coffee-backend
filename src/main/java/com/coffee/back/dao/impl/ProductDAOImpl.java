@@ -185,11 +185,11 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
             preparedStatement = connection.prepareStatement("SELECT * FROM product join "
                     + " category using(category_id) where product_name "
                     + " LIKE ?");
-            preparedStatement.setString(1, "%"+productName+"%");
+            preparedStatement.setString(1, "%" + productName + "%");
             resultSet = preparedStatement.executeQuery();
             LOGGER.log(Level.INFO, "ProductDAO#findProductsByName consulta ejecutada");
             products = new ArrayList<>();
-            while (resultSet.next()) {                
+            while (resultSet.next()) {
                 ProductDTO temp = new ProductDTO();
                 temp.setProductId(resultSet.getInt("product_id"));
                 temp.setProductName(resultSet.getString("product_name"));
@@ -223,7 +223,7 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
         LOGGER.log(Level.INFO, "ProductDAO#findProductsByName finalizando");
         return products;
     }
-    
+
     @Override
     public ProductDTO findProductByName(String productName) {
         LOGGER.log(Level.INFO, "ProductDAO#findProductByName: Iniciando método ");

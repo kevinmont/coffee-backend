@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Clase que representa los datos de venta para la transferencia 
+ * Clase que representa los datos de sale utilizada para el transporte hasta la
+ * capa de datos.
+ *
  * @author mont
  */
 public class SaleDTO {
@@ -16,9 +18,9 @@ public class SaleDTO {
     private List<SaleProduct> saleProduct;  // Almacena el modelo de los productos vendidos
 
     public SaleDTO() {
-        
+
     }
-    
+
     /**
      * @return El id del trabajador
      */
@@ -89,14 +91,17 @@ public class SaleDTO {
         this.saleProduct = saleProduct;
     }
 
+    /**
+     * Clase hija perteneciente al modelo una venta.
+     */
     public class SaleProduct {
 
         private Integer productId;
         private Integer quantityProduct;
         private Double neto;
-        
+
         /**
-         * @return El id de un producto 
+         * @return El id de un producto
          */
         public Integer getProductId() {
             return productId;
@@ -117,7 +122,8 @@ public class SaleDTO {
         }
 
         /**
-         * @param quantityProduct La cantidad total vendida del producto a modificar
+         * @param quantityProduct La cantidad total vendida del producto a
+         * modificar
          */
         public void setQuantityProduct(Integer quantityProduct) {
             this.quantityProduct = quantityProduct;
@@ -136,7 +142,7 @@ public class SaleDTO {
         public void setNeto(Double neto) {
             this.neto = neto;
         }
-        
+
     }
-    
+
 }

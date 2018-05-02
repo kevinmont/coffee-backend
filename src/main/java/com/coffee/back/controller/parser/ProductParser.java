@@ -6,19 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clase de utilidad 
+ * Clase parseadora de utilidad
+ *
  * @author mont
  */
 public class ProductParser {
-    
+
     /**
      * Parsea un {@code ProductDTO} a un {@code ProductVO}
+     *
      * @param productDTO Objeto a ser parseado
      * @return {@code ProductVO} objeto parseado
      */
-    public static List<ProductVO> parseToProductVO(List<ProductDTO> productDTO){
+    public static List<ProductVO> parseToProductVO(List<ProductDTO> productDTO) {
         List<ProductVO> parseProductVO = new ArrayList<>();
-        productDTO.forEach((t)->{
+        productDTO.forEach((t) -> {
             ProductVO product = new ProductVO();
             product.setProductName(t.getProductName());
             product.setCategoryName(t.getCategoryName());
@@ -29,13 +31,14 @@ public class ProductParser {
         });
         return parseProductVO;
     }
-    
+
     /**
      * Parsea un {@code ProductVO} a un {@code ProductDTO}
+     *
      * @param productVO Objeto a ser parseado
      * @return {@code ProductDTO} objeto parseado
      */
-    public static ProductDTO parseToProductDTO(ProductVO productVO){
+    public static ProductDTO parseToProductDTO(ProductVO productVO) {
         ProductDTO parseProductDTO = new ProductDTO();
         parseProductDTO.setProductName(productVO.getProductName());
         parseProductDTO.setPriceTag(productVO.getPriceTag());
@@ -44,15 +47,16 @@ public class ProductParser {
         parseProductDTO.setCategoryName(productVO.getCategoryName());
         return parseProductDTO;
     }
-    
+
     /**
      * Parsea un {@code List<ProductDTO>} a un {@code List<ProductVO>}
+     *
      * @param products Objeto a ser parseado
      * @return {@code List<ProductVO>} objeto parseado
      */
-    public static List<ProductVO> parseToProductDTO(List<ProductDTO> products){
+    public static List<ProductVO> parseToProductDTO(List<ProductDTO> products) {
         List<ProductVO> parserProductVO = new ArrayList<>();
-        products.forEach((t)-> {
+        products.forEach((t) -> {
             ProductVO temp = new ProductVO();
             temp.setProductName(t.getProductName());
             temp.setImage(t.getImage());
@@ -61,7 +65,7 @@ public class ProductParser {
             temp.setCategoryName(t.getCategoryName());
             parserProductVO.add(temp);
         });
-        
+
         return parserProductVO;
     }
 }
