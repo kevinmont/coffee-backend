@@ -1,6 +1,7 @@
 package com.coffee.back.controller.parser;
 
 import com.coffee.back.commons.dto.WorkerDTO;
+import com.coffee.back.controller.vo.UserVO;
 import com.coffee.back.controller.vo.WorkerVO;
 
 /**
@@ -29,4 +30,27 @@ public class WorkerParser {
         workerDTO.getUserDTO().setWorkerId(workerVO.getId());
         return workerDTO;
     }
+    
+    /**
+     * Parse para una clase de tipo {@code WorkerDTO} a {@code WorkerVO}
+     * @param workerDTO
+     * @return {@code WorkerVO} modelo para la vista.
+     */
+    public static WorkerVO parseToWorkerVO(WorkerDTO workerDTO) {
+        WorkerVO workerVO = new WorkerVO();
+        workerVO.setName(workerDTO.getWorkerName());
+        workerVO.setLastName(workerDTO.getLastName());
+        workerVO.setAddress(workerDTO.getAddress());
+        workerVO.setEmail(workerDTO.getEmail());
+        workerVO.setId(workerDTO.getId());
+        workerVO.setPhoneNumber(workerDTO.getPhoneNumber());
+        workerVO.setPhoto(workerDTO.getPhoto());
+        UserVO userVO = new UserVO();
+        userVO.setUserName(workerDTO.getUserDTO().getUserName());
+        userVO.setPassword(workerDTO.getUserDTO().getPassword());
+        userVO.setUserType(workerDTO.getUserDTO().getUserType());
+        workerVO.setUserVO(userVO);
+        return workerVO;
+    }
+
 }

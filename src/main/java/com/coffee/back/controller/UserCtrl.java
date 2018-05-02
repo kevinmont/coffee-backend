@@ -1,5 +1,6 @@
 package com.coffee.back.controller;
 
+import com.coffee.back.commons.exception.NotFoundException;
 import com.coffee.back.controller.vo.UserVO;
 import com.coffee.back.controller.vo.WorkerVO;
 
@@ -53,4 +54,14 @@ public interface UserCtrl {
      * @return {@code String} Indicando el estado de la operacion
      */
     String modificarUsuario(WorkerVO workerVO);
+
+    /**
+     * Busca un usuario dentro del sistema
+     *
+     * @param name Representa el nombre del usuario a buscar
+     * @return {@code UserVO} representa al usuario encontrado.
+     * @throws com.coffee.back.commons.exception.NotFoundException Es lanzado
+     * cuando no se encuentra a un usuario con el nombre pasado como argumento.
+     */
+    WorkerVO buscarUsuario(String name) throws NotFoundException;
 }

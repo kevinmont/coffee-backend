@@ -2,8 +2,7 @@ package com.coffee.back.dao;
 
 import com.coffee.back.commons.dto.UserDTO;
 import com.coffee.back.commons.exception.BadRequestException;
-
-;
+import com.coffee.back.commons.exception.NotFoundException;
 
 /**
  * Interfaz {@code UserDAO} encargada de establecer solicitudes con el servidor
@@ -48,5 +47,15 @@ public interface UserDAO {
      * contrario {@code false}.
      */
     boolean update(UserDTO userDTO);
+
+    /**
+     * Recupera un usuario.
+     *
+     * @param id Identificador para un usuario.
+     * @return {@code UserDTO} Modelo de un usuario.
+     * @throws com.coffee.back.commons.exception.NotFoundException Se lanza
+     * cuando no es encontrado el role.
+     */
+    UserDTO getUserById(Integer id) throws NotFoundException;
 
 }

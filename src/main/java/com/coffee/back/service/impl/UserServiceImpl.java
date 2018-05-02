@@ -4,6 +4,7 @@ import com.coffee.back.commons.dto.UserDTO;
 import com.coffee.back.commons.dto.WorkerDTO;
 import com.coffee.back.commons.enums.UserType;
 import com.coffee.back.commons.exception.BadRequestException;
+import com.coffee.back.commons.exception.NotFoundException;
 import com.coffee.back.commons.exception.UserAuthenticationException;
 import com.coffee.back.dao.UserDAO;
 import com.coffee.back.dao.WorkerDAO;
@@ -101,6 +102,19 @@ public class UserServiceImpl implements UserService {
         logger.log(Level.INFO, "UserServiceImpl#modificarUsuario Iniciando");
         return status ? "Usuario " + workerDTO.getWorkerName() + " ha sido modificado exitosamente"
                 : "No se ha podido modificar el usuario " + workerDTO.getWorkerName();
+    }
+
+    @Override
+    public WorkerDTO buscarUsuario(String name) throws NotFoundException {
+        logger.log(Level.INFO, "UserServiceImpl#buscarUsuario Iniciando...");
+        WorkerDTO worker = this.workerDAO.getUserByName(name);
+        if (worker != null) {
+            UserDTO userDTO = this.userDAO.getUserById(worker.getId());
+            userDTO.setUserType(this.workerDAO.getRoleNameByWorkerId(userDTO.getWorkerId()));
+            worker.setUserDTO(userDTO);
+        }
+        logger.log(Level.INFO, "UserServiceImpl#buscarUsuario Finalizando...");
+        return worker;
     }
 
     /**

@@ -2,6 +2,7 @@ package com.coffee.back.dao.impl;
 
 import com.coffee.back.commons.dto.WorkerDTO;
 import com.coffee.back.commons.enums.UserType;
+import com.coffee.back.commons.exception.NotFoundException;
 import com.coffee.back.dao.AbstractDAO;
 import com.coffee.back.dao.WorkerDAO;
 import java.sql.PreparedStatement;
@@ -144,5 +145,55 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
         }
         logger.log(Level.INFO, "WorkerDAOImpl#update Finalizando {0}", workerDTO.getWorkerName());
         return rowsAffected;
+    }
+
+    @Override
+    public WorkerDTO getUserByName(String name) throws NotFoundException {
+        logger.log(Level.INFO, "WorkerDAO: Método getUserByName se ha iniciado");
+        PreparedStatement statement = null;
+        ResultSet userSet = null;
+        WorkerDTO worker = null;
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement("SELECT * FROM worker"
+                    + " WHERE worker_name like ? LIMIT 1");
+            statement.setString(1, "%" + name + "%");
+            userSet = statement.executeQuery();
+            if (userSet.next()) {
+                worker = new WorkerDTO();
+                worker.setId(userSet.getInt("worker_id"));
+                worker.setWorkerName(userSet.getString("worker_name"));
+                worker.setLastName(userSet.getString("last_name"));
+                worker.setAddress(userSet.getString("address"));
+                worker.setPhoneNumber(userSet.getString("phone_number"));
+                worker.setEmail(userSet.getString("email"));
+                worker.setPhoto(userSet.getString("photo"));
+                worker.setCompanyId(userSet.getInt("company_id"));
+                worker.setRoleId(userSet.getInt("role_id"));
+            }
+            userSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException ex) {
+        } finally {
+            if (userSet != null) {
+                try {
+                    userSet.close();
+                } catch (SQLException ex) {
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                }
+            }
+            closeConnection();
+        }
+        if (worker != null) {
+            logger.log(Level.INFO, "UserDAO: Método getUserByName, user : {0} recuperado", name);
+            return worker;
+        }
+        throw new NotFoundException();
     }
 }

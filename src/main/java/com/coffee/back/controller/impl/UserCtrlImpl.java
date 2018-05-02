@@ -3,6 +3,7 @@ package com.coffee.back.controller.impl;
 import com.coffee.back.commons.dto.UserDTO;
 import com.coffee.back.commons.dto.WorkerDTO;
 import com.coffee.back.commons.enums.UserType;
+import com.coffee.back.commons.exception.NotFoundException;
 import com.coffee.back.commons.exception.UserAuthenticationException;
 import com.coffee.back.controller.UserCtrl;
 import com.coffee.back.controller.parser.UserParser;
@@ -42,7 +43,7 @@ public class UserCtrlImpl implements UserCtrl {
             return userVORecover;
         } catch (UserAuthenticationException ex) {
         }
-        
+
         LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion ha Finalizado");
         if (userVORecover == null) {
             userVORecover = new UserVO();
@@ -71,12 +72,12 @@ public class UserCtrlImpl implements UserCtrl {
 
     @Override
     public String altaUsuario(WorkerVO workerVO) {
-        LOGGER.log(Level.INFO, "UserCTRL#altaUsuario: Iniciando servicio");
+        LOGGER.log(Level.INFO, "UserCTRL#altaUsuario: Iniciando");
         // Se convierte el modelo trabajador al tipo manejado por la capa de DA
         WorkerDTO workerDTO = WorkerParser.parseToWorkerDTO(workerVO);
         // Se recupera el estado de la operacion
         String status = this.userService.altaUsuario(workerDTO);
-        LOGGER.log(Level.INFO, "UserCTRL#altaUsuario: Finalizando servicio");
+        LOGGER.log(Level.INFO, "UserCTRL#altaUsuario: Finalizando");
         return status;
     }
 
@@ -87,8 +88,17 @@ public class UserCtrlImpl implements UserCtrl {
         WorkerDTO workerDTO = WorkerParser.parseToWorkerDTO(workerVO);
         // Se recupera el estado de la operacion
         String status = this.userService.modificarUsuario(workerDTO);
-        LOGGER.log(Level.INFO, "UserCtrl#modificarUsuario Iniciado");
+        LOGGER.log(Level.INFO, "UserCtrl#modificarUsuario Finalizando");
         return status;
+    }
+
+    @Override
+    public WorkerVO buscarUsuario(String name) throws NotFoundException {
+        LOGGER.log(Level.INFO, "UserCtrl#buscarUsuario Iniciando...");
+        WorkerDTO workerDTO = this.userService.buscarUsuario(name);
+        WorkerVO workerVO = WorkerParser.parseToWorkerVO(workerDTO);
+        LOGGER.log(Level.INFO, "UserCtrl#modificarUsuario Finalizando...");
+        return workerVO;
     }
 
     @Inject

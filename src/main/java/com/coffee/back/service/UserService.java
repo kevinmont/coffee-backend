@@ -2,6 +2,7 @@ package com.coffee.back.service;
 
 import com.coffee.back.commons.dto.UserDTO;
 import com.coffee.back.commons.dto.WorkerDTO;
+import com.coffee.back.commons.exception.NotFoundException;
 import com.coffee.back.commons.exception.UserAuthenticationException;
 
 /**
@@ -53,5 +54,14 @@ public interface UserService {
      * @return {@code String } Indica el estado de la operación
      */
     String modificarUsuario(WorkerDTO workerDTO);
+
+    /**
+     * Buscar un usuario en el sistema.
+     *
+     * @param name Identifica el nombre del trabajador
+     * @return {@code WorkerDTO} El modelo de un trabajador
+     * @throws NotFoundException Es lanzado cuando no se encuentra el usuario
+     */
+    WorkerDTO buscarUsuario(String name) throws NotFoundException;
 
 }

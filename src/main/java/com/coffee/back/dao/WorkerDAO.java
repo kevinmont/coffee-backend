@@ -2,6 +2,7 @@ package com.coffee.back.dao;
 
 import com.coffee.back.commons.dto.WorkerDTO;
 import com.coffee.back.commons.enums.UserType;
+import com.coffee.back.commons.exception.NotFoundException;
 
 /**
  * Interfaz {@code WorkerDAO} encargada de establecer solicitudes con el
@@ -36,5 +37,15 @@ public interface WorkerDAO {
      * exitosament de lo contrario un {@code false}
      */
     boolean update(WorkerDTO workerDTO);
+
+    /**
+     * Recupera a un usuario.
+     *
+     * @param name Identifica el nombre de un usuario.
+     * @return {@code WorkerDTO} el modelo para un usuario.
+     * @throws com.coffee.back.commons.exception.NotFoundException Se lanza
+     * cuando el usuario no fue encontrado
+     */
+    WorkerDTO getUserByName(String name) throws NotFoundException;
 
 }

@@ -2,6 +2,7 @@ package com.coffee.back.dao.impl;
 
 import com.coffee.back.commons.dto.UserDTO;
 import com.coffee.back.commons.exception.BadRequestException;
+import com.coffee.back.commons.exception.NotFoundException;
 import com.coffee.back.dao.AbstractDAO;
 import com.coffee.back.dao.UserDAO;
 import java.sql.PreparedStatement;
@@ -31,7 +32,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         if (!user.isEmpty()) {
             try {
                 connection = getConnection();
-                statement = connection.prepareStatement("" + "SELECT * from users where nick_name=?");
+                statement = connection.prepareStatement("SELECT * from users where nick_name=?");
                 statement.setString(1, user);
                 userSet = statement.executeQuery();
 
@@ -162,5 +163,49 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         }
         logger.log(Level.INFO, "UserDAO: Finalizado update, usuario: {0}", userDTO.getUserName());
         return rowsAffected;
+    }
+
+    @Override
+    public UserDTO getUserById(Integer id) throws NotFoundException {
+        logger.log(Level.INFO, "UserDAO: Método getUserById se ha iniciado");
+        PreparedStatement statement = null;
+        ResultSet userSet = null;
+        UserDTO userRecover = null;
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement("SELECT * FROM users WHERE worker_id = ? ");
+            statement.setInt(1, id);
+            userSet = statement.executeQuery();
+
+            if (userSet.next()) {
+                userRecover = new UserDTO();
+                userRecover.setWorkerId(userSet.getInt("worker_id"));
+                userRecover.setUserName(userSet.getString("nick_name"));
+                userRecover.setPassword(userSet.getString("pass"));
+            }
+            userSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException ex) {
+        } finally {
+            if (userSet != null) {
+                try {
+                    userSet.close();
+                } catch (SQLException ex) {
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                }
+            }
+            closeConnection();
+        }
+        if (userRecover != null) {
+            logger.log(Level.INFO, "UserDAO: Método getUserById, user : {0} recuperado", userRecover.getUserName());
+            return userRecover;
+        }
+        throw new NotFoundException("No existe algun usuario con el id: " + id);
     }
 }

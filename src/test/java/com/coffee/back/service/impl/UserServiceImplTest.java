@@ -3,6 +3,7 @@ package com.coffee.back.service.impl;
 import com.coffee.back.ConfigureUserDI;
 import com.coffee.back.commons.enums.UserType;
 import com.coffee.back.commons.exception.BadRequestException;
+import com.coffee.back.commons.exception.NotFoundException;
 import com.coffee.back.commons.exception.UserAuthenticationException;
 import com.coffee.back.controller.UserCtrl;
 import com.coffee.back.controller.impl.UserCtrlImpl;
@@ -11,6 +12,8 @@ import com.coffee.back.controller.vo.WorkerVO;
 import com.coffee.back.dao.impl.UserDAOImpl;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -73,4 +76,15 @@ public class UserServiceImplTest {
         assertNotNull(status);
     }
 
+    @Test
+    public void getUser(){
+        String name= "PEDRO";
+        try {
+            WorkerVO worker = this.userController.buscarUsuario(name);
+            assertNotNull(worker);
+            assertEquals("PEDRO", worker.getName());
+        } catch (NotFoundException ex) {
+        }
+        
+    }
 }
