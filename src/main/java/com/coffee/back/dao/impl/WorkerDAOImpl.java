@@ -70,16 +70,16 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
         boolean rowsAffected = false;
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("INSERT into worker "
-                    + "(worker_name, last_name, address, phone_number, email, photo, company_id, role_id)"
-                    + "values (?, ?, ?, ?, ?, ?, ?, ? )");
+            preparedStatement = connection.prepareStatement("INSERT into worker"
+                    + " (worker_name, last_name, address, phone_number, email, photo, company_id, role_id)"
+                    + " values (?, ?, ?, ?, ?, ?, ?, ? )");
 
             preparedStatement.setString(1, workerDTO.getWorkerName());
             preparedStatement.setString(2, workerDTO.getLastName());
             preparedStatement.setString(3, workerDTO.getAddress());
             preparedStatement.setString(4, workerDTO.getPhoneNumber());
             preparedStatement.setString(5, workerDTO.getEmail());
-            preparedStatement.setString(5, workerDTO.getPhoto());
+            preparedStatement.setString(6, workerDTO.getPhoto());
             preparedStatement.setInt(7, 1);
             preparedStatement.setInt(8, 2);
             logger.log(Level.INFO, "WorkerDAOImpl: Ejecutando insert");
@@ -88,6 +88,7 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
             preparedStatement.close();
             connection.close();
         } catch (SQLException ex) {
+            ex.printStackTrace();
         } finally {
             if (preparedStatement != null) {
                 try {
