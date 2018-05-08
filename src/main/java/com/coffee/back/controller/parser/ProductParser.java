@@ -22,6 +22,7 @@ public class ProductParser {
         List<ProductVO> parseProductVO = new ArrayList<>();
         productDTO.forEach((t) -> {
             ProductVO product = new ProductVO();
+            product.setId(t.getProductId());
             product.setProductName(t.getProductName());
             product.setCategoryName(t.getCategoryName());
             product.setImage(t.getImage());
