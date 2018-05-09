@@ -16,6 +16,6 @@ public interface CategoryDAO {
      * @param categoryName Nombre de la categoria
      * @return {@code CategoryDTO} Objeto que indica la categoria.
      */
-    CategoryDTO getCategoryByName(String categoryName);
+    CategoryDTO getCategoryById(String categoryName);
 
 }

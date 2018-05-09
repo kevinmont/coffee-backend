@@ -21,7 +21,7 @@ public class CategoryDAOImpl extends AbstractDAO implements CategoryDAO {
     private static final Logger logger = Logger.getLogger(CategoryDAOImpl.class.getName());
 
     @Override
-    public CategoryDTO getCategoryByName(String categoryName) {
+    public CategoryDTO getCategoryById(String categoryName) {
         logger.log(Level.INFO, "CategoryDAOImpl : Iniciando getCategoryByName()");
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

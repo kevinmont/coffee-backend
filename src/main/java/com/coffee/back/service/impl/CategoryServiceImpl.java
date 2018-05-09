@@ -21,9 +21,9 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryDAO categoryDAO;
 
     @Override
-    public CategoryDTO getCategory(String Name) {
+    public CategoryDTO getCategory(String categoryName) {
         logger.log(Level.INFO, "CategoryServiceImpl: Iniciando método getCategoryIdByName");
-        CategoryDTO category = this.categoryDAO.getCategoryByName(Name);
+        CategoryDTO category = this.categoryDAO.getCategoryById(categoryName);
         if (category == null) {
             try {
                 throw new Exception("No existe category con dicho nombre");

@@ -61,5 +61,6 @@ public interface ProductDAO {
      * @return {@code ProductDTO} producto recuperado.
      */
     ProductDTO findProductByName(String productName);
-
+    
+    ProductDTO findProductById(Integer productId);
 }

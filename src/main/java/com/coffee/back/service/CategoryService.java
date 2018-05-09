@@ -12,9 +12,9 @@ public interface CategoryService {
     /**
      * Recupera una Categoria en especifica
      *
-     * @param Name Nombre de categoria
+     * @param category Nombre de categoria
      * @return {@code CategoryDTO} Una categoria
      */
-    CategoryDTO getCategory(String Name);
+    CategoryDTO getCategory(String category);
 
 }

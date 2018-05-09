@@ -44,8 +44,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public String actualizarProducto(ProductDTO productDTO) {
         logger.log(Level.INFO, "ProductService: Iniciando método actualizarProducto()");
-        productDTO.setCategoryId(this.categoryService.getCategory(productDTO.getProductName()).getCategoryId());
-        productDTO.setProductId(this.productDAO.findProductByName(productDTO.getProductName()).getProductId());
+        productDTO.setCategoryId(this.categoryService.getCategory(productDTO.getCategoryName()).getCategoryId());
         boolean status = this.productDAO.update(productDTO);
         logger.log(Level.INFO, "ProductService: Finalizando método actualizarProducto()");
         return status ? "Actualizado" + productDTO.getProductName() : "No actualizado " + productDTO.getProductName();

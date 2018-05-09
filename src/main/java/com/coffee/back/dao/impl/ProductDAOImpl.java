@@ -272,5 +272,54 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
         LOGGER.log(Level.INFO, "ProductDAO: Finalizando método findProductByName()");
         return product;
     }
+    
+    @Override
+    public ProductDTO findProductById(Integer productId) {
+        LOGGER.log(Level.INFO, "ProductDAO#findProductById: Iniciando método ");
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        ProductDTO product = null;
+
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM product"
+                    + " join category using(category_id) where"
+                    + " product_id = ?");
+            preparedStatement.setInt(1, productId);
+            resultSet = preparedStatement.executeQuery();
+            product = new ProductDTO();
+            LOGGER.log(Level.INFO, "ProductDAO: Llenando Objeto ProductDTO");
+            if (resultSet.next()) {
+                product.setProductId(resultSet.getInt("product_id"));
+                product.setProductName(resultSet.getString("product_name"));
+                product.setPriceTag(resultSet.getDouble("price_tag"));
+                product.setQuantity(resultSet.getShort("quantity"));
+                product.setImage(resultSet.getString("image"));
+                product.setCategoryId(resultSet.getInt("category_id"));
+                product.setCategoryName(resultSet.getString("kind"));
+            }
+            LOGGER.log(Level.INFO, "ProductDAO: Llenado completo ProductDTO");
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException ex) {
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException ex) {
+                }
+            }
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException ex) {
+                }
+            }
+            closeConnection();
+        }
+        LOGGER.log(Level.INFO, "ProductDAO: Finalizando método findProductById()");
+        return product;
+    }
 
 }
