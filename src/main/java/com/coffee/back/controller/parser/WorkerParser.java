@@ -6,7 +6,7 @@ import com.coffee.back.controller.vo.WorkerVO;
 
 /**
  * Clase parseadora de utilidad.
- *
+ * 
  * @author mont
  */
 public class WorkerParser {
@@ -19,7 +19,6 @@ public class WorkerParser {
      */
     public static WorkerDTO parseToWorkerDTO(WorkerVO workerVO) {
         WorkerDTO workerDTO = new WorkerDTO();
-        workerDTO.setId(workerVO.getId());
         workerDTO.setWorkerName(workerVO.getName());
         workerDTO.setLastName(workerVO.getLastName());
         workerDTO.setAddress(workerVO.getAddress());
@@ -27,7 +26,13 @@ public class WorkerParser {
         workerDTO.setPhoneNumber(workerVO.getPhoneNumber());
         workerDTO.setPhoto(workerVO.getPhoto());
         workerDTO.setUserDTO(UserParser.parseToUserDTO(workerVO.getUserVO()));
-        workerDTO.getUserDTO().setWorkerId(workerVO.getId());
+        if(workerVO.getId() == null){
+            workerDTO.setId(0);
+            workerDTO.getUserDTO().setWorkerId(0);
+        }else{
+            workerDTO.getUserDTO().setWorkerId(workerVO.getId());
+            workerDTO.setId(workerVO.getId());    
+        }
         return workerDTO;
     }
     

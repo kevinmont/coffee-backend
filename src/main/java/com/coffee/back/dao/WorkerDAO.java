@@ -48,4 +48,22 @@ public interface WorkerDAO {
      */
     WorkerDTO getUserByName(String name) throws NotFoundException;
 
+    /**
+     * 
+     * @param workerID Identificador de un trabajador
+     * @return {@code true} Si el trabajador ha sido eliminado exitosamente
+     * de lo contrario {@code false}
+     */
+    public boolean delete(Integer workerID);
+
+    /**
+     * Recupera a un usuario por su correo
+     * 
+     * @param email Email perteneciente al usuario
+     * @return WorkerDTO Recupera un trabajador
+     * @throws com.coffee.back.commons.exception.NotFoundException Se lanza
+     * si el trabajador con el email indicado no existe
+     */
+    public WorkerDTO getUserByEmail(String email) throws NotFoundException;
+
 }

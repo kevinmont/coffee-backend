@@ -34,42 +34,42 @@ public class WorkerDTO {
     }
 
     /**
-     * @return the workerName
+     * @return El nombre de un trabajador
      */
     public String getWorkerName() {
         return workerName;
     }
 
     /**
-     * @param workerName the workerName to set
+     * @param workerName El nombre de un trabajador a ser configurado
      */
     public void setWorkerName(String workerName) {
         this.workerName = workerName;
     }
 
     /**
-     * @return the lastName
+     * @return String el apellido de un trabajador
      */
     public String getLastName() {
         return lastName;
     }
 
     /**
-     * @param lastName the lastName to set
+     * @param lastName el apellido de un trabajador
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
     /**
-     * @return the address
+     * @return La direccion de trabajador
      */
     public String getAddress() {
         return address;
     }
 
     /**
-     * @param address the address to set
+     * @param address La direccion de trabajador a ser configurado
      */
     public void setAddress(String address) {
         this.address = address;

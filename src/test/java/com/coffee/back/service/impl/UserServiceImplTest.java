@@ -87,4 +87,23 @@ public class UserServiceImplTest {
         }
         
     }
+    
+    @Test
+    public void insertUser(){
+        WorkerVO worker = new WorkerVO();
+        worker.setName("PENELOPE");
+        worker.setLastName("LOPEZ");
+        worker.setAddress("ORIZABA COL ZAPATA #223");
+        worker.setPhoneNumber("2721342343");
+        worker.setEmail("penelope10@gmail.com");
+        worker.setPhoto("NULL");
+        UserVO user = new UserVO();
+        user.setUserName("gusanito");
+        user.setUserType(UserType.CAJERO);
+        user.setPassword("1234");
+        worker.setUserVO(user);
+        String statusOperation=this.userController.altaUsuario(worker);
+        System.out.println(statusOperation);
+        assertNotNull(user);
+    }
 }

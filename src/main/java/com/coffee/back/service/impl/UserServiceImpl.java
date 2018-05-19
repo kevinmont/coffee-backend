@@ -69,13 +69,40 @@ public class UserServiceImpl implements UserService {
     @Override
     public String altaUsuario(WorkerDTO workerDTO) {
         logger.log(Level.INFO, "Service#altaUsuario: se ha iniciado");
+        String messageOperation="";
         if (workerDTO.getWorkerName().isEmpty() || workerDTO.getRoleId() != null) {
             return "Campos incorrectos";
         }
-        boolean status = this.workerDAO.create(workerDTO);
+        // Se crea al trabajador
+        boolean isCreatedWorker = this.workerDAO.create(workerDTO);
+        boolean status = false;
+        if(isCreatedWorker){
+            try {
+                logger.log(Level.INFO, "Worker has been created");
+                Integer workerID= this.workerDAO.getUserByEmail(workerDTO.getEmail()).getId();
+                logger.log(Level.WARNING, "Worker created id is {0}", workerID);
+                workerDTO.getUserDTO().setWorkerId(workerID);
+                boolean isCreatedUser= this.userDAO.create(workerDTO.getUserDTO());
+                if(isCreatedUser){
+                    logger.log(Level.WARNING, "User worker has been created", workerID);
+                    status= true;
+                }else{
+                    messageOperation = " con NickName " +workerDTO.getUserDTO().getUserName() +" ocupado";
+                    boolean workerDeleted= this.workerDAO.delete(workerID);
+                    if(workerDeleted){
+                        logger.log(Level.INFO,"Worker with id {0} has been deleted", workerID);
+                    }else{
+                        logger.log(Level.SEVERE,"Worker with id {0} has not been deleted", workerID);
+                    }
+                }
+            } catch (NotFoundException ex) {
+            }
+        }else{
+            messageOperation = " Correo "+ workerDTO.getEmail()+ " ocupado";
+        }
         logger.log(Level.INFO, "Service#altaUsuario: ha finalizado");
         return status ? "El usuario " + workerDTO.getWorkerName() + " ha sido creado exitosamente"
-                : "Error al intentar crear el usuario " + workerDTO.getWorkerName();
+                : "Error al intentar crear usuario " + workerDTO.getWorkerName() + messageOperation;
     }
 
     @Override

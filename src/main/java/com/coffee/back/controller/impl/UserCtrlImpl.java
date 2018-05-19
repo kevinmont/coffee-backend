@@ -93,7 +93,8 @@ public class UserCtrlImpl implements UserCtrl {
         return status;
     }
 
-    @Override
+    @Override // Realizar la busqueda del trabajador con datos propios del usuario
+    //pero seria un array de trabajadores
     public WorkerVO buscarUsuario(String name) throws NotFoundException {
         LOGGER.log(Level.INFO, "UserCtrl#buscarUsuario Iniciando...");
         WorkerDTO workerDTO = this.userService.buscarUsuario(name);

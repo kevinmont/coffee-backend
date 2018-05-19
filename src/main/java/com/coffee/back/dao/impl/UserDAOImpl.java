@@ -78,9 +78,9 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         boolean rowsAffected = false;
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("insert users "
-                    + "(worker_id, nick_name, pass)"
-                    + "values (?, ? ,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO users "
+                    + " (worker_id, nick_name, pass)"
+                    + " values (?, ? ,?)");
             preparedStatement.setInt(1, userDTO.getWorkerId());
             preparedStatement.setString(2, userDTO.getUserName());
             preparedStatement.setString(3, userDTO.getPassword());

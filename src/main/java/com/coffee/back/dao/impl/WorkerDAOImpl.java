@@ -70,9 +70,11 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
         boolean rowsAffected = false;
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement("INSERT into worker"
+            connection.setAutoCommit(false);
+            String workerStatement= "INSERT INTO worker"
                     + " (worker_name, last_name, address, phone_number, email, photo, company_id, role_id)"
-                    + " values (?, ?, ?, ?, ?, ?, ?, ? )");
+                    + " values (?, ?, ?, ?, ?, ?, ?, ? )";
+            preparedStatement = connection.prepareStatement(workerStatement);
 
             preparedStatement.setString(1, workerDTO.getWorkerName());
             preparedStatement.setString(2, workerDTO.getLastName());
@@ -82,13 +84,23 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
             preparedStatement.setString(6, workerDTO.getPhoto());
             preparedStatement.setInt(7, 1);
             preparedStatement.setInt(8, 2);
-            logger.log(Level.INFO, "WorkerDAOImpl: Ejecutando insert");
+            logger.log(Level.INFO, "WorkerDAOImpl: Ejecutando insert Worker");
             rowsAffected = preparedStatement.executeUpdate() > 0;
-            logger.log(Level.INFO, "WorkerDAOImpl: Finalizado insert");
+            
+           /* preparedStatement = connection.prepareStatement(userStatement);
+            preparedStatement.setInt(1, workerDTO.getUserDTO().getWorkerId());
+            preparedStatement.setString(2, workerDTO.getUserDTO().getUserName());
+            preparedStatement.setString(3, workerDTO.getUserDTO().getPassword());
+            preparedStatement.executeUpdate();*/
+            connection.commit();
+            logger.log(Level.INFO, "WorkerDAOImpl: Finalizado insert Usuario");
             preparedStatement.close();
             connection.close();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+            }
         } finally {
             if (preparedStatement != null) {
                 try {
@@ -126,7 +138,6 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
             preparedStatement.setString(6, workerDTO.getPhoto());
             preparedStatement.setInt(7, 1);
             preparedStatement.setInt(8, 2);
-
             preparedStatement.setInt(9, workerDTO.getId());
 
             logger.log(Level.INFO, "WorkerDAOImpl#update Iniciando update");
@@ -193,6 +204,84 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
         }
         if (worker != null) {
             logger.log(Level.INFO, "UserDAO: Método getUserByName, user : {0} recuperado", name);
+            return worker;
+        }
+        throw new NotFoundException();
+    }
+
+    @Override
+    public boolean delete(Integer workerID) {
+        logger.log(Level.INFO, "WorkerDAO: Inicializando método delete()");
+        PreparedStatement preparedStatement = null;
+        boolean statusOperation = false;
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement("DELETE FROM worker WHERE worker_id = ?");
+            preparedStatement.setInt(1, workerID);
+            logger.log(Level.INFO, "UserDAO: Eliminando usuario {0}", workerID);
+            statusOperation = preparedStatement.executeUpdate() > 0;
+            logger.log(Level.INFO, "UserDAO: Usuario {0} Eliminado", workerID);
+            preparedStatement.close();
+        } catch (SQLException e) {
+
+        } finally {
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException e) {
+                }
+            }
+            closeConnection();
+        }
+        logger.log(Level.INFO, "WorkerDAO: Finalizando método delete()");
+        return statusOperation;
+    }
+
+    @Override
+    public WorkerDTO getUserByEmail(String email) throws NotFoundException {
+        logger.log(Level.INFO, "WorkerDAO: Método getUserByName se ha iniciado");
+        PreparedStatement statement = null;
+        ResultSet userSet = null;
+        WorkerDTO worker = null;
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement("SELECT * FROM worker"
+                    + " WHERE email= ?");
+            statement.setString(1, email);
+            userSet = statement.executeQuery();
+            if (userSet.next()) {
+                worker = new WorkerDTO();
+                worker.setId(userSet.getInt("worker_id"));
+                worker.setWorkerName(userSet.getString("worker_name"));
+                worker.setLastName(userSet.getString("last_name"));
+                worker.setAddress(userSet.getString("address"));
+                worker.setPhoneNumber(userSet.getString("phone_number"));
+                worker.setEmail(userSet.getString("email"));
+                worker.setPhoto(userSet.getString("photo"));
+                worker.setCompanyId(userSet.getInt("company_id"));
+                worker.setRoleId(userSet.getInt("role_id"));
+            }
+            userSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException ex) {
+        } finally {
+            if (userSet != null) {
+                try {
+                    userSet.close();
+                } catch (SQLException ex) {
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                }
+            }
+            closeConnection();
+        }
+        if (worker != null) {
+            logger.log(Level.INFO, "UserDAO: Método getUserByName, user : {0} recuperado", email);
             return worker;
         }
         throw new NotFoundException();
