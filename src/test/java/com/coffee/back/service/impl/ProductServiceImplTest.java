@@ -49,4 +49,25 @@ public class ProductServiceImplTest {
         assertNotNull(products);
         
     }
+    
+    @Test
+    public void editProduct(){
+        ProductVO newProduct = new ProductVO();
+        newProduct.setId(30);
+        newProduct.setProductName("prueba");
+        newProduct.setQuantity((short)50);
+        newProduct.setPriceTag(50d);
+        newProduct.setImage("vacio");
+        newProduct.setCategoryName("COMIDA");
+        String value= this.productCtrlImpl.modificarProducto(newProduct);
+        System.out.println(value);
+        assertNotNull(value);
+    }
+    
+    @Test
+    public void deleteProduct(){
+        String status = this.productCtrlImpl.bajaProducto("prueba");
+        assertNotNull(status);
+        System.out.printf("%s", status);
+    }
 }

@@ -115,22 +115,24 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
         try {
             connection = getConnection();
             preparedStatement = connection.prepareStatement("UPDATE product SET"
-                    + " product_name = ?,"
+                    + " product_name= ?,"
                     + " price_tag = ?, quantity = ?,"
                     + " image = ?, category_id = ?"
-                    + " WHERE product_id = " + productDTO.getProductId()); // problema con productId
-
+                    + " WHERE product_id = ?");
+            LOGGER.log(Level.INFO,"Producto id a editar {0}",productDTO.getProductId());
             preparedStatement.setString(1, productDTO.getProductName());
+            LOGGER.log(Level.INFO,"Producto id a editar {0}",productDTO.getPriceTag());
             preparedStatement.setDouble(2, productDTO.getPriceTag());
             preparedStatement.setShort(3, productDTO.getQuantity());
             preparedStatement.setString(4, productDTO.getImage());
             preparedStatement.setInt(5, productDTO.getCategoryId());
-
+            preparedStatement.setInt(6, productDTO.getProductId());
+            
             rowsAffected = preparedStatement.executeUpdate() > 0;
             preparedStatement.close();
             connection.close();
         } catch (SQLException ex) {
-
+            ex.printStackTrace();
         } finally {
             if (preparedStatement != null) {
                 try {
@@ -152,14 +154,15 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
 
         try {
             connection = getConnection();
-            preparedStatement = connection.prepareStatement(""
-                    + "DELETE FROM product where product_id = ?");
+            preparedStatement = connection.prepareStatement("DELETE FROM "
+                    + "product where product_id = ?");
             preparedStatement.setInt(1, productId);
             rowsAffected = preparedStatement.executeUpdate() > 0;
+            LOGGER.log(Level.INFO,"Product where id has been deleted {0}", productId);
             preparedStatement.close();
             connection.close();
         } catch (SQLException ex) {
-
+            ex.printStackTrace();
         } finally {
             if (preparedStatement != null) {
                 try {
@@ -238,9 +241,9 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
                     + " product_name = ?");
             preparedStatement.setString(1, productName);
             resultSet = preparedStatement.executeQuery();
-            product = new ProductDTO();
             LOGGER.log(Level.INFO, "ProductDAO: Llenando Objeto ProductDTO");
             if (resultSet.next()) {
+                product = new ProductDTO();
                 product.setProductId(resultSet.getInt("product_id"));
                 product.setProductName(resultSet.getString("product_name"));
                 product.setPriceTag(resultSet.getDouble("price_tag"));
@@ -248,8 +251,8 @@ public class ProductDAOImpl extends AbstractDAO implements ProductDAO {
                 product.setImage(resultSet.getString("image"));
                 product.setCategoryId(resultSet.getInt("category_id"));
                 product.setCategoryName(resultSet.getString("kind"));
+                LOGGER.log(Level.INFO, "ProductDAO: Llenado completo ProductDTO");
             }
-            LOGGER.log(Level.INFO, "ProductDAO: Llenado completo ProductDTO");
             resultSet.close();
             preparedStatement.close();
             connection.close();

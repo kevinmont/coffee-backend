@@ -41,6 +41,7 @@ public class ProductParser {
      */
     public static ProductDTO parseToProductDTO(ProductVO productVO) {
         ProductDTO parseProductDTO = new ProductDTO();
+        parseProductDTO.setProductId(productVO.getId());
         parseProductDTO.setProductName(productVO.getProductName());
         parseProductDTO.setPriceTag(productVO.getPriceTag());
         parseProductDTO.setQuantity(productVO.getQuantity());

@@ -39,6 +39,9 @@ public abstract class AbstractDAO {
         Class.forName(this.getDriverClassName()).newInstance();
     }
 
+    private Connection interGetConnection() throws SQLException{
+        return DriverManager.getConnection(getUrl(), getUserName(), getPassword());
+    }
     /**
      * Recupera la conexion a la base de datos si es que existe alguna, de lo
      * contrario lanza un excepción.
@@ -48,9 +51,12 @@ public abstract class AbstractDAO {
      */
     protected Connection getConnection() throws SQLException {
         if (connection != null) {
-            return this.connection;
+            if(connection.isClosed()){
+                connection = interGetConnection();
+            }
+            return connection;
         }
-        return this.connection = DriverManager.getConnection(getUrl(), getUserName(), getPassword());
+        return connection = interGetConnection();
     }
 
     /**

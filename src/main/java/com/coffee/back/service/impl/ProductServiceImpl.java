@@ -34,8 +34,9 @@ public class ProductServiceImpl implements ProductService {
         ProductDTO productDTO = this.productDAO.findProductByName(product);
         boolean status = false;
         if (productDTO != null) {
+            logger.log(Level.WARNING,"Deleting product where id is {0}", productDTO.getProductId());
             status = this.productDAO.delete(productDTO.getProductId());
-            logger.log(Level.INFO, "ProductService: Fializando método bajaProducto()");
+            logger.log(Level.INFO, "ProductService: Finalizando método bajaProducto()");
         }
         logger.log(Level.INFO, "ProductService: Finalizando método bajaProducto()");
         return status ? "Eliminado " + product : "No eliminado " + product;
@@ -45,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
     public String actualizarProducto(ProductDTO productDTO) {
         logger.log(Level.INFO, "ProductService: Iniciando método actualizarProducto()");
         productDTO.setCategoryId(this.categoryService.getCategory(productDTO.getCategoryName()).getCategoryId());
+        logger.log(Level.INFO, "Categoria Recuperado es igual a{0}", productDTO.getCategoryName());
         boolean status = this.productDAO.update(productDTO);
         logger.log(Level.INFO, "ProductService: Finalizando método actualizarProducto()");
         return status ? "Actualizado" + productDTO.getProductName() : "No actualizado " + productDTO.getProductName();

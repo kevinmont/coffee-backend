@@ -58,6 +58,7 @@ public class UserCtrlImpl implements UserCtrl {
         // Se convierte el modelo usuario al tipo manejado por la capa de DA
         UserDTO userDTO = UserParser.parseToUserDTO(userVO);
         boolean status = this.userService.cerrarSesion(userDTO);
+        LOGGER.log(Level.INFO, "CTRL : Finalizando método cerrarSesion");
         return status;
     }
 

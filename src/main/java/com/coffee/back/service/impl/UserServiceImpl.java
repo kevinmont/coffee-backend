@@ -52,16 +52,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean cerrarSesion(UserDTO userDTO) {
         logger.log(Level.INFO, "Service#cerrarSesion se ha iniciado");
-        if (userDTO.getUserType().equals(UserType.UKNOWN)) {
-            try {
-                logger.log(Level.INFO, "Service#cerrarSesion Autentificando el usuario");
-                UserDTO userLogOut = this.userDAO.getUserByNickName(userDTO.getUserName());
-                UserType usertypeLogOut = this.workerDAO.getRoleNameByWorkerId(userLogOut.getWorkerId());
-                logger.log(Level.INFO, "Service#cerrarSesion Autentificacion procesada");
-                return usertypeLogOut == UserType.ADMINISTRADOR;
-            } catch (BadRequestException ex) {
-            }
+
+        try {
+            logger.log(Level.INFO, "Service#cerrarSesion Autentificando el usuario");
+            UserDTO userLogOut = this.userDAO.getUserByNickName(userDTO.getUserName());
+            UserType usertypeLogOut = this.workerDAO.getRoleNameByWorkerId(userLogOut.getWorkerId());
+            logger.log(Level.INFO, "Service#cerrarSesion Autentificacion procesada");
+            return usertypeLogOut == UserType.ADMINISTRADOR;
+        } catch (BadRequestException ex) {
         }
+
         logger.log(Level.INFO, "Service#cerrarSesion ha finalizado");
         return userDTO.getUserType() == UserType.ADMINISTRADOR;
     }
