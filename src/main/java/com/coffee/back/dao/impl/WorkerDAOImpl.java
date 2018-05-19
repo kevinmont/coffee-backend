@@ -1,5 +1,6 @@
 package com.coffee.back.dao.impl;
 
+import com.coffee.back.commons.dto.UserDTO;
 import com.coffee.back.commons.dto.WorkerDTO;
 import com.coffee.back.commons.enums.UserType;
 import com.coffee.back.commons.exception.NotFoundException;
@@ -8,6 +9,8 @@ import com.coffee.back.dao.WorkerDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -87,11 +90,6 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
             logger.log(Level.INFO, "WorkerDAOImpl: Ejecutando insert Worker");
             rowsAffected = preparedStatement.executeUpdate() > 0;
             
-           /* preparedStatement = connection.prepareStatement(userStatement);
-            preparedStatement.setInt(1, workerDTO.getUserDTO().getWorkerId());
-            preparedStatement.setString(2, workerDTO.getUserDTO().getUserName());
-            preparedStatement.setString(3, workerDTO.getUserDTO().getPassword());
-            preparedStatement.executeUpdate();*/
             connection.commit();
             logger.log(Level.INFO, "WorkerDAOImpl: Finalizado insert Usuario");
             preparedStatement.close();
@@ -285,5 +283,70 @@ public class WorkerDAOImpl extends AbstractDAO implements WorkerDAO {
             return worker;
         }
         throw new NotFoundException();
+    }
+    
+    @Override
+    public List<WorkerDTO> readAll() {
+        logger.log(Level.INFO, "WorkerDAO: Inicializando método readAll()");
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<WorkerDTO> workerDTOs = null;
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM worker"
+                    + " join users using(worker_id)");
+            resultSet = preparedStatement.executeQuery();
+
+            workerDTOs = new ArrayList<>();
+            logger.log(Level.INFO,"Iniciado llenado de List");
+            while (resultSet.next()) {
+                WorkerDTO workerTemp = new WorkerDTO();
+                Integer workerID = resultSet.getInt("worker_id");
+                
+                workerTemp.setId(workerID);
+                workerTemp.setWorkerName(resultSet.getString("worker_name"));
+                workerTemp.setLastName(resultSet.getString("last_name"));
+                workerTemp.setAddress(resultSet.getString("address"));
+                workerTemp.setPhoneNumber(resultSet.getString("phone_number"));
+                workerTemp.setEmail(resultSet.getString("email"));
+                workerTemp.setPhoto(resultSet.getString("photo"));
+                workerTemp.setCompanyId(resultSet.getInt("company_id"));
+                
+                Integer roleType= resultSet.getInt("role_id");
+                workerTemp.setRoleId(roleType);
+                
+                UserDTO userTemp= new UserDTO();
+                userTemp.setPassword(resultSet.getString("pass"));
+                userTemp.setWorkerId(workerID);
+                userTemp.setUserName(resultSet.getString("nick_name"));
+                if(roleType.equals(1))
+                    userTemp.setUserType(UserType.ADMINISTRADOR);
+                else
+                    userTemp.setUserType(UserType.CAJERO);
+                workerTemp.setUserDTO(userTemp);
+                workerDTOs.add(workerTemp);
+            }
+            logger.log(Level.INFO,"Finalizado llenado de List");
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException ex) {
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException ex) {
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException ex) {
+                }
+            }
+            closeConnection();
+        }
+        logger.log(Level.INFO, "WorkerDAO: Finalizado método readAll()");
+        return workerDTOs;
     }
 }

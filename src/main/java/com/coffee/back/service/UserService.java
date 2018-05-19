@@ -4,6 +4,7 @@ import com.coffee.back.commons.dto.UserDTO;
 import com.coffee.back.commons.dto.WorkerDTO;
 import com.coffee.back.commons.exception.NotFoundException;
 import com.coffee.back.commons.exception.UserAuthenticationException;
+import java.util.List;
 
 /**
  * Interface {@code UserService} encargada de ejecutar la logica de negocio.
@@ -63,5 +64,12 @@ public interface UserService {
      * @throws NotFoundException Es lanzado cuando no se encuentra el usuario
      */
     WorkerDTO buscarUsuario(String name) throws NotFoundException;
+
+    /**
+     * Recupera todos los usuarios registrados
+     *
+     * @return {@code List<WorkerDTO>}
+     */
+    public List<WorkerDTO> recuperarUsuarios();
 
 }

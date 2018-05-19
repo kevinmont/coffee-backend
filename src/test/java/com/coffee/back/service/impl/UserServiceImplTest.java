@@ -12,11 +12,10 @@ import com.coffee.back.controller.vo.WorkerVO;
 import com.coffee.back.dao.impl.UserDAOImpl;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -105,5 +104,14 @@ public class UserServiceImplTest {
         String statusOperation=this.userController.altaUsuario(worker);
         System.out.println(statusOperation);
         assertNotNull(user);
+    }
+    
+    @Test
+    public void readAll(){
+        List<WorkerVO> workerVOs= this.userController.buscarUsuarios();
+        workerVOs.forEach((t)->{
+            System.out.println(t.getEmail());
+        });
+        assertNotNull(workerVOs);
     }
 }

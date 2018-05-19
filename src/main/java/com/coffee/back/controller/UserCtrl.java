@@ -3,6 +3,7 @@ package com.coffee.back.controller;
 import com.coffee.back.commons.exception.NotFoundException;
 import com.coffee.back.controller.vo.UserVO;
 import com.coffee.back.controller.vo.WorkerVO;
+import java.util.List;
 
 /**
  * La interfaz {@code UserCtrl} es encargada de recibir las peticiones lanzadas
@@ -64,4 +65,11 @@ public interface UserCtrl {
      * cuando no se encuentra a un usuario con el nombre pasado como argumento.
      */
     WorkerVO buscarUsuario(String name) throws NotFoundException;
+    
+    /**
+     * Recupera todo los usuarios registrados
+     * 
+     * @return {@code List<WorkerVO>} 
+     */
+    List<WorkerVO> buscarUsuarios();
 }

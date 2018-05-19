@@ -12,6 +12,7 @@ import com.coffee.back.controller.vo.UserVO;
 import com.coffee.back.controller.vo.WorkerVO;
 import com.coffee.back.service.UserService;
 import com.google.inject.Inject;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,18 +25,18 @@ import java.util.logging.Logger;
  */
 public class UserCtrlImpl implements UserCtrl {
 
-    private static final Logger LOGGER = Logger.getLogger(UserCtrlImpl.class.getName());
+    private static final Logger logger = Logger.getLogger(UserCtrlImpl.class.getName());
     private UserService userService;
 
     @Override
     public UserVO iniciarSesion(UserVO userVO) {
-        LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion se ha iniciado");
+        logger.log(Level.INFO, "CTRL: Método iniciarSesion se ha iniciado");
         // Se convierte el modelo a tipo dto para ser enviado a la capa de DA
         UserDTO userDTO = UserParser.parseToUserDTO(userVO);
         UserVO userVORecover = null;    // Almacenara el usuario recuperado
 
         try {
-            LOGGER.log(Level.INFO, "CTRL: Iniciando sesion");
+            logger.log(Level.INFO, "CTRL: Iniciando sesion");
             // Se recupera el tipo de usuario
             UserDTO userDTORecover = this.userService.iniciarSesion(userDTO);
             // Se convierte el al modelo usuario
@@ -44,7 +45,7 @@ public class UserCtrlImpl implements UserCtrl {
         } catch (UserAuthenticationException ex) {
         }
 
-        LOGGER.log(Level.INFO, "CTRL: Método iniciarSesion ha Finalizado");
+        logger.log(Level.INFO, "CTRL: Método iniciarSesion ha Finalizado");
         if (userVORecover == null) {
             userVORecover = new UserVO();
             userVORecover.setUserType(UserType.UKNOWN); // El usuario es desconocido
@@ -54,55 +55,68 @@ public class UserCtrlImpl implements UserCtrl {
 
     @Override
     public boolean cerrarSesion(UserVO userVO) {
-        LOGGER.log(Level.INFO, "CTRL : Se ha iniciado el método cerrarSesion");
+        logger.log(Level.INFO, "CTRL : Se ha iniciado el método cerrarSesion");
         // Se convierte el modelo usuario al tipo manejado por la capa de DA
         UserDTO userDTO = UserParser.parseToUserDTO(userVO);
         boolean status = this.userService.cerrarSesion(userDTO);
-        LOGGER.log(Level.INFO, "CTRL : Finalizando método cerrarSesion");
+        logger.log(Level.INFO, "CTRL : Finalizando método cerrarSesion");
         return status;
     }
 
     @Override
     public String bajaUsuario(String nickName) {
-        LOGGER.log(Level.INFO, "UserCTRL: se ha iniciado el método bajaUsuario");
+        logger.log(Level.INFO, "UserCTRL: se ha iniciado el método bajaUsuario");
         // Se recupera el estado de la operacion
         String status = this.userService.bajaUsuario(nickName);
-        LOGGER.log(Level.INFO, "UserCTRL: ha finalizado el método bajaUsuario");
+        logger.log(Level.INFO, "UserCTRL: ha finalizado el método bajaUsuario");
         return status;
     }
 
     @Override
     public String altaUsuario(WorkerVO workerVO) {
-        LOGGER.log(Level.INFO, "UserCTRL#altaUsuario: Iniciando");
+        logger.log(Level.INFO, "UserCTRL#altaUsuario: Iniciando");
         // Se convierte el modelo trabajador al tipo manejado por la capa de DA
         WorkerDTO workerDTO = WorkerParser.parseToWorkerDTO(workerVO);
         // Se recupera el estado de la operacion
         String status = this.userService.altaUsuario(workerDTO);
-        LOGGER.log(Level.INFO, "UserCTRL#altaUsuario: Finalizando");
+        logger.log(Level.INFO, "UserCTRL#altaUsuario: Finalizando");
         return status;
     }
 
     @Override
     public String modificarUsuario(WorkerVO workerVO) {
-        LOGGER.log(Level.INFO, "UserCtrl#modificarUsuario Iniciado");
+        logger.log(Level.INFO, "UserCtrl#modificarUsuario Iniciado");
         // Se convierte el modelo trabajador al tipo manejado por la capa de DA
         WorkerDTO workerDTO = WorkerParser.parseToWorkerDTO(workerVO);
         // Se recupera el estado de la operacion
         String status = this.userService.modificarUsuario(workerDTO);
-        LOGGER.log(Level.INFO, "UserCtrl#modificarUsuario Finalizando");
+        logger.log(Level.INFO, "UserCtrl#modificarUsuario Finalizando");
         return status;
     }
 
     @Override // Realizar la busqueda del trabajador con datos propios del usuario
     //pero seria un array de trabajadores
     public WorkerVO buscarUsuario(String name) throws NotFoundException {
-        LOGGER.log(Level.INFO, "UserCtrl#buscarUsuario Iniciando...");
+        logger.log(Level.INFO, "UserCtrl#buscarUsuario Iniciando...");
+        // Se buscar al usuario
         WorkerDTO workerDTO = this.userService.buscarUsuario(name);
+        // Se convierte a tipo WorkerVO
         WorkerVO workerVO = WorkerParser.parseToWorkerVO(workerDTO);
-        LOGGER.log(Level.INFO, "UserCtrl#modificarUsuario Finalizando...");
+        logger.log(Level.INFO, "UserCtrl#modificarUsuario Finalizando...");
         return workerVO;
     }
 
+    @Override
+    public List<WorkerVO> buscarUsuarios() {
+        logger.log(Level.INFO, "UserCtrl#buscarUsuarios Iniciando...");
+        // Se recuperan todos los trabajadores con sus respectivos usuarios
+        List<WorkerDTO> workerDTOs=this.userService.recuperarUsuarios();
+        // Se convierte el tipo WorkerDTO a tipo WorkerVO
+        List<WorkerVO> workerVOs= WorkerParser.parseToWorkerVO(workerDTOs);
+        logger.log(Level.INFO, "UserCtrl#buscarUsuarios Finalizado");
+        return workerVOs;
+    }
+    
     @Inject
     /**
      * @param userService El servicio a ser modificado
