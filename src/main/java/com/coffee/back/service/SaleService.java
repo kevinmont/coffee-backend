@@ -18,7 +18,7 @@ public interface SaleService {
      * Realiza una venta
      *
      * @param sale Indica la venta
-     * @return Indica el numero de articulos vendidos
+     * @return Id de la venta realizada.
      */
     int realizarVenta(SaleDTO sale);
 }

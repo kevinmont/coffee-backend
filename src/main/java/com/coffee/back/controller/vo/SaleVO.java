@@ -1,6 +1,5 @@
 package com.coffee.back.controller.vo;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,10 +9,10 @@ import java.util.List;
  */
 public class SaleVO {
 
-    private Integer workerId;   // Almacena el id de un trabajador
+    private String cashierNickName;   // Almacena el id de un trabajador
     private Integer saleId;     // Almacena el id de una venta
-    private Date dateSale;      // Almacena la fecha de venta
-    private Double amount;      // Almacena la cantidad total de la venta
+    private String dateSale;      // Almacena la fecha de venta
+    private Double totalSale;      // Almacena la cantidad total de la venta
     private List<SaleProduct> saleProduct;  // Almacena el modelo de los productos vendidos
 
     public SaleVO() {
@@ -21,21 +20,21 @@ public class SaleVO {
     }
 
     /**
-     * Recupera el id del trabajador
+     * Recupera el nombre del cajero de la venta
      *
-     * @return El id del trabajador
+     * @return El NickName del trabajador
      */
-    public Integer getWorkerId() {
-        return workerId;
+    public String getCashierNickName() {
+        return cashierNickName;
     }
 
     /**
-     * Configura el id del trabajador
+     * Configura el NickName del cajero quien realizo la venta
      *
-     * @param workerId El id del trabajador a modificar
+     * @param cashierNickName El NickName del trabajador a modificar
      */
-    public void setWorkerId(Integer workerId) {
-        this.workerId = workerId;
+    public void setCashierNickName(String cashierNickName) {
+        this.cashierNickName = cashierNickName;
     }
 
     /**
@@ -61,7 +60,7 @@ public class SaleVO {
      *
      * @return La fecha de venta
      */
-    public Date getDateSale() {
+    public String getDateSale() {
         return dateSale;
     }
 
@@ -70,7 +69,7 @@ public class SaleVO {
      *
      * @param dateSale La fecha de venta a modificar
      */
-    public void setDateSale(Date dateSale) {
+    public void setDateSale(String dateSale) {
         this.dateSale = dateSale;
     }
 
@@ -79,17 +78,17 @@ public class SaleVO {
      *
      * @return La cantidad de la venta
      */
-    public Double getAmount() {
-        return amount;
+    public Double getTotalSale() {
+        return totalSale;
     }
 
     /**
      * Configura el total de la venta.
      *
-     * @param amount La cantidad de la venta a modificar
+     * @param totalSale La cantidad de la venta a modificar
      */
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setTotalSale(Double totalSale) {
+        this.totalSale = totalSale;
     }
 
     /**
@@ -115,27 +114,10 @@ public class SaleVO {
      */
     public class SaleProduct {
 
-        private Integer productId;
         private Integer quantityProduct;
+        private String productName;
+        private Integer productId;
         private Double neto;
-
-        /**
-         * Recupera el id
-         *
-         * @return El id de un producto
-         */
-        public Integer getProductId() {
-            return productId;
-        }
-
-        /**
-         * Configura el id
-         *
-         * @param productId El id de un producto a modificar
-         */
-        public void setProductId(Integer productId) {
-            this.productId = productId;
-        }
 
         /**
          * Recupera la cantidad de productos de este tipo
@@ -157,18 +139,55 @@ public class SaleVO {
         }
 
         /**
-         * Recupera el neto de los productos vendidos.
+         * Recupera el nombre del producto vendido.
          *
-         * @return El neto del producto
+         * @return El nombre del producto
+         */
+        public String getProductName() {
+            return productName;
+        }
+
+        /**
+         * Configura el nombre del producto vendido.
+         *
+         * @param productName El nombre del producto a modificar
+         */
+        public void setProductName(String productName) {
+            this.productName = productName;
+        }
+
+        /**
+         * Retorna el id del producto
+         *
+         * @return El id del producto
+         */
+        public Integer getProductId() {
+            return productId;
+        }
+
+        /**
+         * Configura el id del producto.
+         *
+         * @param productId El id del producto a configurar
+         */
+        public void setProductId(Integer productId) {
+            this.productId = productId;
+        }
+
+        /**
+         * Retorna el neto por la venta del producto.
+         *
+         * @return El neto por la venta de este producto es calculado mediante
+         * el numero de productos y el precio del producto
          */
         public Double getNeto() {
             return neto;
         }
 
         /**
-         * Configura el neto de los productos vendidos.
+         * Configura el neto por la venta del producto.
          *
-         * @param neto El neto del producto a modificar
+         * @param neto the neto to set
          */
         public void setNeto(Double neto) {
             this.neto = neto;

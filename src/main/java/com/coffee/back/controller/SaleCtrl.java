@@ -12,10 +12,10 @@ import com.coffee.back.controller.vo.SaleVO;
 public interface SaleCtrl {
 
     /**
-     * Finaliza una venta y registra una venta en el sistema
+     * Finaliza y registra una venta en el sistema
      *
      * @param sale Indica el objeto con los campos de una venta
-     * @return {@code Integer} indicando el numero de productos vendidos
+     * @return {@code Integer} Indica el id de la venta realizada.
      */
     int realizarVenta(SaleVO sale);
 }

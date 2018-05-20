@@ -27,9 +27,9 @@ public class SaleCtrlImpl implements SaleCtrl {
         // Se convierte el modelo al tipo de objeto de transporte a la capa DA
         SaleDTO saleDTO = SaleParser.parseToUserDTO(sale);
         // Se recupera el numero de productos vendidos
-        int totalOfProductsSold = this.saleService.realizarVenta(saleDTO);
+        int saleID = this.saleService.realizarVenta(saleDTO);
         logger.log(Level.INFO, "SaleCTRL: Finalizando método realizarVenta()");
-        return totalOfProductsSold;
+        return saleID;
     }
 
     @Inject

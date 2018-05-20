@@ -1,7 +1,9 @@
 package com.coffee.back;
 
 import com.coffee.back.dao.SaleDAO;
+import com.coffee.back.dao.UserDAO;
 import com.coffee.back.dao.impl.SaleDAOImpl;
+import com.coffee.back.dao.impl.UserDAOImpl;
 import com.coffee.back.service.SaleService;
 import com.coffee.back.service.impl.SaleServiceImpl;
 import com.google.inject.AbstractModule;
@@ -22,6 +24,7 @@ public class ConfigureSaleDI extends AbstractModule{
         // Sale
         bind(SaleService.class).to(SaleServiceImpl.class);
         bind(SaleDAO.class).to(SaleDAOImpl.class);
+        bind(UserDAO.class).to(UserDAOImpl.class);
     }
     
 }
