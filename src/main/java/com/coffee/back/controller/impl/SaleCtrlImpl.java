@@ -40,4 +40,9 @@ public class SaleCtrlImpl implements SaleCtrl {
         this.saleService = saleService;
     }
 
+    @Override
+    public int getSaleId() {
+        return this.saleService.getSaleId();
+    }
+
 }

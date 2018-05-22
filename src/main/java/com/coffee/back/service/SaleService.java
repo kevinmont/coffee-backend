@@ -21,4 +21,11 @@ public interface SaleService {
      * @return Id de la venta realizada.
      */
     int realizarVenta(SaleDTO sale);
+
+    /**
+     * Recupera el id de una venta.
+     *
+     * @return Id de la venta.
+     */
+    int getSaleId();
 }

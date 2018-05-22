@@ -18,4 +18,11 @@ public interface SaleCtrl {
      * @return {@code Integer} Indica el id de la venta realizada.
      */
     int realizarVenta(SaleVO sale);
+
+    /**
+     * Recupera el id de la venta.
+     *
+     * @return Id de la venta
+     */
+    int getSaleId();
 }

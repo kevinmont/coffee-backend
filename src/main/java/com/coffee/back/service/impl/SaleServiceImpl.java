@@ -27,17 +27,24 @@ public class SaleServiceImpl implements SaleService {
 
             if (sale.getCashierId() == null && !sale.getCashierNickName().isEmpty()) {
                 try {
+                    logger.log(Level.WARNING, "El id no fue proveido buscando usuario nickName");
                     sale.setCashierId(this.userDao.getUserByNickName(sale.getCashierNickName()).getWorkerId());
+                    int rowsAffected = this.saleDAO.createAndUpdateCatalog(sale);
+                    logger.log(Level.INFO, "Se han actualizado {0} productos", rowsAffected);
+                    logger.log(Level.WARNING, "El catalogo de productos es actualizado mediante un trigger");
                 } catch (BadRequestException ex) {
                     logger.log(Level.WARNING, "No existe un cajero para asignarle a esta venta");
                 }
             }
-            int rowsAffected = this.saleDAO.createAndUpdateCatalog(sale);
-            logger.log(Level.INFO, "Se han actualizado {0} productos", rowsAffected);
-            logger.log(Level.WARNING, "El catalogo de productos es actualizado mediante un trigger");
         }
         logger.log(Level.INFO, "SaleServiceImpl: Finalizando método realizarVenta()");
         return sale.getSaleId();
+    }
+    
+    
+    @Override
+    public int getSaleId() {
+        return saleDAO.getLastSale();
     }
 
     @Override
